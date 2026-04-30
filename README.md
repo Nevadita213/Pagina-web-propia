@@ -62,8 +62,8 @@ Para añadir un servicio o producto, duplica un objeto dentro de `techServices` 
 
 ## Modo oscuro y claro
 
-La web usa modo oscuro por defecto como experiencia principal. El tema se aplica antes de que cargue React desde `src/app/layout.tsx`, evitando flashes blancos al abrir la pagina.
+La web usa modo oscuro por defecto como experiencia principal. El tema se aplica antes de que cargue React desde `src/app/layout.tsx`, evitando flashes blancos al abrir la página.
 
-El boton de tema esta en el header. Guarda la preferencia en `localStorage` con la clave `theme`. Si no hay preferencia guardada, respeta `prefers-color-scheme` del sistema.
+El botón de tema está en el header. Guarda la preferencia en `localStorage` con la clave `theme`. Si no hay preferencia guardada, respeta `prefers-color-scheme` del sistema.
 
-Los colores de ambos modos se editan en `src/app/globals.css`, dentro de las variables `--color-*`. Tailwind las consume desde `tailwind.config.ts` con nombres semanticos como `page`, `surface`, `panel`, `elevated`, `text`, `muted` y `line`.
+Los colores de ambos modos se editan en `src/app/globals.css`, dentro de las variables `--color-*`. Tailwind las consume desde `tailwind.config.ts` con nombres semánticos como `page`, `surface`, `panel`, `elevated`, `text`, `muted` y `line`.

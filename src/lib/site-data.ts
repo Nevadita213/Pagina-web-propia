@@ -15,6 +15,7 @@ export const siteConfig = {
 };
 
 export const navLinks = [
+  { label: "Para quién", href: "#para-quien" },
   { label: "Servicios", href: "#servicios" },
   { label: "Productos", href: "#productos" },
   { label: "Proceso", href: "#proceso" },
@@ -25,7 +26,7 @@ export const heroContent = {
   eyebrow: "Digital, creativo y a medida",
   title: "Soluciones digitales y productos personalizados",
   subtitle:
-    "Creamos soluciones digitales y productos personalizados para que tu idea se vea mejor, funcione mejor y venda mejor.",
+    "Creamos webs, automatizaciones y productos personalizados para que tu negocio se presente mejor, responda más rápido y deje una imagen más cuidada.",
   primaryCta: "Pedir presupuesto",
   secondaryCta: "Ver servicios",
   highlights: ["Webs claras", "Automatizaciones útiles", "Productos con identidad"],
@@ -35,16 +36,16 @@ export const whatWeDo = [
   {
     title: "Soluciones digitales",
     description:
-      "Diseñamos webs, formularios, sistemas simples y automatizaciones para que tu negocio comunique mejor y ahorre tiempo.",
+      "Diseñamos webs, formularios, sistemas simples y automatizaciones para que tu negocio comunique mejor, reciba solicitudes y ahorre tiempo.",
     icon: "MonitorSmartphone",
     href: "#servicios",
     accent: "aqua",
-    items: ["Páginas web", "Automatizaciones", "Formularios/contacto", "Sistemas simples"],
+    items: ["Páginas web", "Automatizaciones", "Formularios y contacto", "Sistemas simples"],
   },
   {
     title: "Productos personalizados",
     description:
-      "Creamos camisetas, llaveros, diseños y packs para eventos, regalos, negocios o marca personal.",
+      "Preparamos camisetas, llaveros, diseños y packs para eventos, regalos, negocios o marca personal con una imagen coherente.",
     icon: "Sparkles",
     href: "#productos",
     accent: "coral",
@@ -52,12 +53,43 @@ export const whatWeDo = [
   },
 ];
 
+export const audiences = [
+  {
+    title: "Negocios locales",
+    icon: "Store",
+    description:
+      "Webs, menús digitales, formularios y sistemas simples para que tus clientes entiendan qué ofreces y contacten rápido.",
+  },
+  {
+    title: "Eventos y grupos",
+    icon: "UsersRound",
+    description:
+      "Camisetas, llaveros y packs personalizados para celebraciones, equipos, promociones o regalos.",
+  },
+  {
+    title: "Marcas pequeñas",
+    icon: "BadgeCheck",
+    description:
+      "Diseño, presencia online y productos físicos con una imagen coherente desde el primer contacto.",
+  },
+];
+
+export const requestItems = [
+  "Una web sencilla para presentar tu negocio.",
+  "Un menú digital con QR.",
+  "Un formulario de reservas, pedidos o contacto.",
+  "Una automatización básica para ordenar solicitudes.",
+  "Camisetas personalizadas para eventos, grupos o negocios.",
+  "Llaveros personalizados para regalo, promoción o marca.",
+  "Un pack combinado: web + diseño + producto físico.",
+];
+
 export const techServices = [
   {
     title: "Webs para negocios",
     icon: "Globe2",
     what: "Páginas claras, rápidas y preparadas para convertir visitas en contactos.",
-    forWho: "Negocios locales, profesionales y marcas que necesitan presencia online.",
+    forWho: "Negocios locales, profesionales y marcas que necesitan una presencia online útil.",
     benefit:
       "Tus clientes entienden qué ofreces y pueden pedir información sin complicaciones.",
   },
@@ -65,7 +97,7 @@ export const techServices = [
     title: "Automatizaciones para ahorrar tiempo",
     icon: "Workflow",
     what: "Flujos simples para reducir tareas repetitivas y ordenar información.",
-    forWho: "Pequeños negocios que reciben pedidos, consultas o datos a diario.",
+    forWho: "Negocios que reciben pedidos, consultas o datos y quieren gestionarlos mejor.",
     benefit:
       "Menos trabajo manual, respuestas más rápidas y procesos más fáciles de seguir.",
   },
@@ -100,7 +132,7 @@ export const customProducts = [
     icon: "KeyRound",
     description:
       "Pequeños detalles con identidad para promociones, regalos, marcas o celebraciones.",
-    useCases: ["Regalos", "Marcas", "Promos"],
+    useCases: ["Regalos", "Marcas", "Promociones"],
   },
   {
     title: "Packs personalizados",
@@ -119,23 +151,29 @@ export const customProducts = [
 ];
 
 export const benefits = [
-  { title: "Trato directo", description: "Hablamos contigo sin vueltas y aterrizamos la idea." },
   {
-    title: "Soluciones adaptadas",
-    description: "Proponemos lo que necesitas ahora, sin inflar el proyecto.",
+    title: "Hablamos claro desde el primer mensaje",
+    description: "Te ayudamos a aterrizar la idea, definir prioridades y saber por dónde empezar.",
   },
   {
-    title: "Diseño cuidado",
-    description: "Damos forma visual a cada detalle para que se vea profesional.",
-  },
-  { title: "Rapidez", description: "Trabajamos con procesos simples y entregas claras." },
-  {
-    title: "Ideas prácticas",
-    description: "Buscamos que lo bonito también sea útil para vender, organizar o comunicar.",
+    title: "No te vendemos más de lo que necesitas",
+    description: "Proponemos una solución proporcional al momento real de tu proyecto.",
   },
   {
-    title: "Digital + personalizado",
-    description: "Podemos combinar una web con productos físicos para una experiencia completa.",
+    title: "Cuidamos que se vea bien en móvil, redes y contacto",
+    description: "Pensamos el diseño para los puntos donde tus clientes van a verte primero.",
+  },
+  {
+    title: "Entregas simples y revisiones concretas",
+    description: "Avanzamos con pasos claros para que puedas revisar sin perder tiempo.",
+  },
+  {
+    title: "Diseño bonito, pero pensado para vender o captar contactos",
+    description: "Priorizamos claridad, confianza y llamadas a la acción fáciles de entender.",
+  },
+  {
+    title: "Puedes combinar web, diseño y producto físico en un mismo pack",
+    description: "Unificamos la imagen digital y física para que todo se sienta coherente.",
   },
 ];
 
@@ -162,21 +200,21 @@ export const projectExamples = [
   {
     title: "Web para barbería",
     type: "Digital",
-    description: "Landing con servicios, horarios, galería y botón de reserva.",
+    description: "Página con servicios, horarios, ubicación y botón directo de reserva.",
   },
   {
     title: "Menú digital para bar",
     type: "Digital",
-    description: "Carta online editable, rápida y pensada para móvil.",
+    description: "Carta online con QR, categorías claras y consulta rápida desde el móvil.",
   },
   {
     title: "Camisetas para evento",
     type: "Producto",
-    description: "Diseño de camiseta para equipo, celebración o grupo.",
+    description: "Diseño coordinado para equipo, celebración, promoción o grupo.",
   },
   {
     title: "Llaveros personalizados",
     type: "Producto",
-    description: "Detalle promocional con nombre, marca o diseño a medida.",
+    description: "Detalle físico para regalo, promoción o recuerdo de marca.",
   },
 ];

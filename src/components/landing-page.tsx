@@ -2,6 +2,7 @@
 
 import {
   ArrowRight,
+  BadgeCheck,
   Blocks,
   ChartNoAxesCombined,
   Check,
@@ -19,7 +20,9 @@ import {
   Send,
   Shirt,
   Sparkles,
+  Store,
   Sun,
+  UsersRound,
   Workflow,
   X,
   type LucideIcon,
@@ -28,11 +31,13 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
   benefits,
+  audiences,
   customProducts,
   heroContent,
   navLinks,
   processSteps,
   projectExamples,
+  requestItems,
   siteConfig,
   techServices,
   whatWeDo,
@@ -40,6 +45,7 @@ import {
 
 const icons: Record<string, LucideIcon> = {
   Blocks,
+  BadgeCheck,
   ChartNoAxesCombined,
   Globe2,
   KeyRound,
@@ -49,6 +55,8 @@ const icons: Record<string, LucideIcon> = {
   PenTool,
   Shirt,
   Sparkles,
+  Store,
+  UsersRound,
   Workflow,
 };
 
@@ -105,7 +113,7 @@ function SectionHeading({
         {eyebrow}
       </p>
       <h2
-        className={`text-balance text-3xl font-semibold sm:text-4xl lg:text-5xl ${
+        className={`text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.75rem] lg:leading-tight ${
           tone === "dark" ? "text-paper" : "text-text"
         }`}
       >
@@ -114,7 +122,7 @@ function SectionHeading({
       {description ? (
         <p
           className={`mt-5 text-base leading-8 sm:text-lg ${
-            tone === "dark" ? "text-paper/68" : "text-muted"
+            tone === "dark" ? "text-paper/78" : "text-muted"
           }`}
         >
           {description}
@@ -214,7 +222,7 @@ function Header() {
           <span className="truncate text-sm font-semibold sm:text-base">{siteConfig.brandName}</span>
         </a>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegacion principal">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -242,7 +250,7 @@ function Header() {
             type="button"
             onClick={() => setOpen((value) => !value)}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-elevated text-text transition hover:bg-line/10"
-            aria-label={open ? "Cerrar menu" : "Abrir menu"}
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -308,8 +316,8 @@ function HeroVisual() {
       <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 rounded-[1.5rem] border border-white/18 bg-ink/72 p-5 text-paper shadow-lift backdrop-blur-xl sm:inset-x-10 sm:p-7">
         <div className="mb-5 flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-paper/54">Sistema visual</p>
-            <h3 className="mt-2 text-xl font-semibold">Web + producto + proceso</h3>
+            <p className="text-xs uppercase tracking-[0.18em] text-paper/70">Tu idea organizada</p>
+            <h3 className="mt-2 text-xl font-semibold">Web, diseño y producto</h3>
           </div>
           <span className="grid h-11 w-11 place-items-center rounded-full bg-aqua text-ink">
             <Sparkles className="h-5 w-5" />
@@ -336,13 +344,13 @@ function HeroVisual() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-ink px-4 pb-14 pt-28 text-paper sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-ink px-4 pb-12 pt-24 text-paper sm:px-6 lg:px-8">
       <div className="noise-overlay" />
       <div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-aqua/18 to-transparent" />
       <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-coral/18 blur-3xl" />
       <div className="absolute right-0 top-24 h-80 w-80 rounded-full bg-lime/12 blur-3xl" />
 
-      <div className="relative mx-auto grid min-h-[86svh] max-w-7xl items-center gap-12 py-10 lg:grid-cols-[1.02fr_0.98fr]">
+      <div className="relative mx-auto grid min-h-[80svh] max-w-7xl items-center gap-10 py-6 lg:grid-cols-[1.02fr_0.98fr] lg:py-8">
         <motion.div
           initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
@@ -354,7 +362,7 @@ function Hero() {
           <h1 className="text-balance text-5xl font-semibold leading-[1.02] sm:text-6xl lg:text-7xl">
             {heroContent.title}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-paper/72 sm:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-paper/82 sm:text-xl">
             {heroContent.subtitle}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -367,7 +375,7 @@ function Hero() {
             {heroContent.highlights.map((item) => (
               <span
                 key={item}
-                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/7 px-4 py-2 text-sm text-paper/76"
+                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/7 px-4 py-2 text-sm text-paper/82"
               >
                 <Check className="h-4 w-4 text-lime" />
                 {item}
@@ -393,9 +401,9 @@ function WhatWeDo() {
     <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="Que hacemos"
+          eyebrow="Qué hacemos"
           title="Dos mundos conectados: presencia digital y productos con identidad."
-          description="Separamos bien cada linea para que sea facil elegir, pero tambien podemos combinarlas cuando la idea lo pide."
+          description="Puedes elegir una línea concreta o combinarlas en un mismo proyecto: presencia digital, diseño y producto físico con una imagen coherente."
         />
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
           {whatWeDo.map((group) => (
@@ -423,10 +431,81 @@ function WhatWeDo() {
                       </span>
                     ))}
                   </div>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-text">
+                    Ver opciones
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </span>
                 </div>
               </div>
             </motion.a>
           ))}
+        </div>
+      </div>
+    </MotionSection>
+  );
+}
+
+function Audiences() {
+  return (
+    <MotionSection id="para-quien" className="bg-surface px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <SectionHeading
+            eyebrow="Para quién trabajamos"
+            title="Para proyectos que necesitan verse mejor y convertir el interés en contacto."
+            description="Ayudamos a negocios locales, pequeños proyectos, eventos y marcas personales que necesitan verse más profesionales, captar mejor la atención y facilitar el contacto."
+          />
+          <div className="grid gap-4">
+            {audiences.map((audience, index) => (
+              <motion.article
+                key={audience.title}
+                className="group relative overflow-hidden rounded-[24px] border border-line/10 bg-panel p-5 shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift sm:p-6"
+                variants={fadeUp}
+                transition={{ duration: 0.5, delay: index * 0.06 }}
+                whileHover={{ y: -5 }}
+              >
+                <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-aqua/10 blur-2xl transition group-hover:bg-coral/14" />
+                <div className="relative flex gap-4">
+                  <IconBadge icon={audience.icon} className="h-11 w-11 bg-elevated text-text" />
+                  <div>
+                    <h3 className="text-xl font-semibold text-text">{audience.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted">{audience.description}</p>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </MotionSection>
+  );
+}
+
+function RequestIdeas() {
+  return (
+    <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
+          <SectionHeading
+            eyebrow="Qué puedes pedirnos"
+            title="Ideas concretas para empezar sin perderte en opciones."
+            description="Si tienes una necesidad clara, la convertimos en una propuesta sencilla. Si solo tienes una idea, te ayudamos a darle forma."
+          />
+          <div className="grid gap-3 sm:grid-cols-2">
+            {requestItems.map((item, index) => (
+              <motion.div
+                key={item}
+                className="group flex min-h-20 items-start gap-3 rounded-[20px] border border-line/10 bg-panel p-4 shadow-sm transition hover:-translate-y-1 hover:border-aqua/35 hover:bg-elevated hover:shadow-lift"
+                variants={fadeUp}
+                transition={{ duration: 0.45, delay: index * 0.035 }}
+              >
+                <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-aqua/18 text-aqua transition group-hover:bg-aqua group-hover:text-ink">
+                  <Check className="h-4 w-4" />
+                </span>
+                <p className="text-sm leading-6 text-muted group-hover:text-text">{item}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </MotionSection>
@@ -438,9 +517,9 @@ function TechServices() {
     <MotionSection id="servicios" className="bg-surface px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="Servicios tecnologicos"
+          eyebrow="Servicios tecnológicos"
           title="Herramientas digitales pensadas para vender, organizar y ahorrar tiempo."
-          description="Cada servicio empieza con una pregunta simple: que necesita hacer mejor tu negocio desde hoy."
+          description="Cada servicio empieza con una pregunta simple: qué necesita hacer mejor tu negocio desde hoy."
         />
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {techServices.map((service, index) => (
@@ -460,11 +539,11 @@ function TechServices() {
               <h3 className="text-2xl font-semibold text-text">{service.title}</h3>
               <div className="mt-5 grid gap-4 text-sm leading-6 text-muted">
                 <p>
-                  <strong className="text-text">Que es: </strong>
+                  <strong className="text-text">Qué es: </strong>
                   {service.what}
                 </p>
                 <p>
-                  <strong className="text-text">Para quien: </strong>
+                  <strong className="text-text">Para quién: </strong>
                   {service.forWho}
                 </p>
                 <p>
@@ -487,7 +566,7 @@ function Products() {
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <SectionHeading
             eyebrow="Productos personalizados"
-            title="Piezas fisicas para regalar, vender, celebrar o reforzar tu marca."
+            title="Piezas físicas para regalar, vender, celebrar o reforzar tu marca."
             description="Trabajamos diseños a medida para que cada producto tenga una intención clara y un acabado coherente."
             tone="dark"
           />
@@ -540,7 +619,7 @@ function Benefits() {
     <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="Por que elegirnos"
+          eyebrow="Por qué elegirnos"
           title="Cuidamos la idea, el diseño y la utilidad sin complicarte el proceso."
           align="center"
         />
@@ -570,7 +649,7 @@ function Process() {
         <SectionHeading
           eyebrow="Proceso"
           title="De una idea suelta a una entrega clara en cuatro pasos."
-          description="Un flujo sencillo para que sepas que pasa en cada momento, tanto si necesitas una web como un producto personalizado."
+          description="Un flujo sencillo para que sepas qué pasa en cada momento, tanto si necesitas una web como un producto personalizado."
         />
         <div className="relative mt-12 grid gap-5 lg:grid-cols-4">
           <div className="absolute left-0 right-0 top-9 hidden h-px bg-gradient-to-r from-aqua via-lime to-coral lg:block" />
@@ -599,9 +678,9 @@ function Projects() {
     <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="Ejemplos preparados"
-          title="Una zona lista para convertir ideas en portfolio real."
-          description="Estos ejemplos son placeholders editables para mostrar futuros trabajos sin rehacer la estructura."
+          eyebrow="Ideas aplicadas"
+          title="Ejemplos de lo que podemos crear."
+          description="Algunas ideas que podemos preparar para negocios, eventos y marcas pequeñas."
         />
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {projectExamples.map((project, index) => (
@@ -640,22 +719,22 @@ function FinalCta() {
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-aqua">
               Hablemos
             </p>
-            <h2 className="text-balance text-3xl font-semibold sm:text-5xl">
-              Tienes una idea? La convertimos en algo visible, util y profesional.
+            <h2 className="text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+              Cuéntanos qué quieres crear y te proponemos la forma más simple de hacerlo realidad.
             </h2>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-paper/70">
-              Cuéntanos qué necesitas y te orientamos con una propuesta clara para web,
-              automatización, producto personalizado o una combinación de todo.
+            <p className="mt-5 max-w-2xl text-base leading-8 text-paper/80">
+              Puede ser una web, una automatización, un producto personalizado o un pack completo.
+              Te orientamos sin complicarte el proceso.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-            <PrimaryButton href={siteConfig.whatsappUrl}>WhatsApp</PrimaryButton>
+            <PrimaryButton href={siteConfig.whatsappUrl}>Hablar por WhatsApp</PrimaryButton>
             <a
               href={siteConfig.contactUrl}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/16 bg-white/8 px-5 text-sm font-semibold text-paper transition hover:-translate-y-1 hover:bg-white/14"
             >
               <Mail className="h-4 w-4" />
-              Formulario/contacto
+              Pedir presupuesto
             </a>
           </div>
         </div>
@@ -719,6 +798,8 @@ export function LandingPage() {
       <main>
         <Hero />
         <WhatWeDo />
+        <Audiences />
+        <RequestIdeas />
         <TechServices />
         <Products />
         <Benefits />
