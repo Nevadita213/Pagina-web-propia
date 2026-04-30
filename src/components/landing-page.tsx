@@ -274,12 +274,12 @@ export function Header() {
           <span className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[42%] border border-white/28 bg-ink shadow-glow ring-1 ring-aqua/20 sm:h-11 sm:w-11">
             <span className="absolute inset-0 bg-gradient-to-br from-aqua/20 via-violet/16 to-coral/20" />
             <Image
-              src="/jelly-logo.png"
+              src="/jelly-logo-icon.png"
               alt=""
               fill
               priority
               sizes="44px"
-              className="relative scale-[2.15] translate-y-[18%] object-cover"
+              className="relative object-cover"
               aria-hidden
             />
           </span>
