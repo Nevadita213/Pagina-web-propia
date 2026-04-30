@@ -5,6 +5,43 @@
 :root {
   --font-sans: "Inter", "Segoe UI", sans-serif;
   --section-pad: clamp(4rem, 8vw, 7rem);
+  color-scheme: dark;
+  --color-ink: 11 14 22;
+  --color-mist: 16 20 31;
+  --color-paper: 241 246 248;
+  --color-page: 8 11 18;
+  --color-surface: 11 15 25;
+  --color-panel: 16 21 34;
+  --color-elevated: 22 29 45;
+  --color-text: 241 246 248;
+  --color-muted: 164 176 190;
+  --color-line: 255 255 255;
+  --shadow-glow: 0 24px 90px rgba(21, 200, 200, 0.2);
+  --shadow-lift: 0 24px 70px rgba(0, 0, 0, 0.34);
+  --page-background:
+    radial-gradient(circle at 14% 8%, rgba(21, 200, 200, 0.2), transparent 30rem),
+    radial-gradient(circle at 86% 10%, rgba(119, 88, 209, 0.16), transparent 30rem),
+    linear-gradient(180deg, #070b12 0%, #101522 48%, #0b0f19 100%);
+}
+
+html.light {
+  color-scheme: light;
+  --color-ink: 18 22 31;
+  --color-mist: 230 236 239;
+  --color-paper: 250 247 241;
+  --color-page: 237 242 244;
+  --color-surface: 242 246 247;
+  --color-panel: 250 247 241;
+  --color-elevated: 255 252 246;
+  --color-text: 18 22 31;
+  --color-muted: 92 104 116;
+  --color-line: 18 22 31;
+  --shadow-glow: 0 24px 80px rgba(21, 200, 200, 0.16);
+  --shadow-lift: 0 24px 64px rgba(18, 22, 31, 0.12);
+  --page-background:
+    radial-gradient(circle at 10% 10%, rgba(21, 200, 200, 0.16), transparent 30rem),
+    radial-gradient(circle at 90% 6%, rgba(255, 107, 94, 0.12), transparent 28rem),
+    linear-gradient(180deg, #edf2f4 0%, #f8f3ea 52%, #e9f2f2 100%);
 }
 
 * {
@@ -13,16 +50,31 @@
 
 html {
   scroll-behavior: smooth;
+  background: rgb(var(--color-page));
 }
 
 body {
   margin: 0;
-  color: #111318;
-  background:
-    radial-gradient(circle at 10% 10%, rgba(21, 200, 200, 0.12), transparent 32rem),
-    radial-gradient(circle at 90% 5%, rgba(255, 107, 94, 0.12), transparent 28rem),
-    #f7f8fa;
+  color: rgb(var(--color-text));
+  background: var(--page-background);
   font-family: var(--font-sans);
+  transition:
+    background 500ms ease,
+    color 300ms ease;
+}
+
+body,
+section,
+header,
+footer,
+a,
+button,
+article,
+div,
+span {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 260ms;
+  transition-timing-function: ease;
 }
 
 a {
@@ -48,15 +100,15 @@ a {
   pointer-events: none;
   opacity: 0.34;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    linear-gradient(rgb(var(--color-line) / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--color-line) / 0.06) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: linear-gradient(to bottom, black, transparent);
 }
 
 .glass-panel {
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgb(var(--color-line) / 0.14);
+  background: rgb(var(--color-panel) / 0.68);
   backdrop-filter: blur(18px);
 }
 

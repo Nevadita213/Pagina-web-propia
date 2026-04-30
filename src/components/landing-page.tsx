@@ -11,6 +11,7 @@ import {
   KeyRound,
   Mail,
   Menu,
+  Moon,
   MessagesSquare,
   MonitorSmartphone,
   PackageCheck,
@@ -18,12 +19,13 @@ import {
   Send,
   Shirt,
   Sparkles,
+  Sun,
   Workflow,
   X,
   type LucideIcon,
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   benefits,
   customProducts,
@@ -104,7 +106,7 @@ function SectionHeading({
       </p>
       <h2
         className={`text-balance text-3xl font-semibold sm:text-4xl lg:text-5xl ${
-          tone === "dark" ? "text-paper" : "text-ink"
+          tone === "dark" ? "text-paper" : "text-text"
         }`}
       >
         {title}
@@ -112,7 +114,7 @@ function SectionHeading({
       {description ? (
         <p
           className={`mt-5 text-base leading-8 sm:text-lg ${
-            tone === "dark" ? "text-paper/68" : "text-ink/68"
+            tone === "dark" ? "text-paper/68" : "text-muted"
           }`}
         >
           {description}
@@ -130,6 +132,45 @@ function IconBadge({ icon, className = "" }: { icon: string; className?: string 
     >
       <Icon className="h-5 w-5" aria-hidden />
     </span>
+  );
+}
+
+type Theme = "light" | "dark";
+
+function ThemeToggle({ compact = false }: { compact?: boolean }) {
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  useEffect(() => {
+    const rootTheme = document.documentElement.dataset.theme;
+    if (rootTheme === "light" || rootTheme === "dark") {
+      setTheme(rootTheme);
+    }
+  }, []);
+
+  const nextTheme = theme === "dark" ? "light" : "dark";
+
+  function toggleTheme() {
+    const root = document.documentElement;
+    root.classList.remove("light", "dark");
+    root.classList.add(nextTheme);
+    root.dataset.theme = nextTheme;
+    localStorage.setItem("theme", nextTheme);
+    setTheme(nextTheme);
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className={`inline-flex h-10 items-center justify-center gap-2 rounded-full border border-line/12 bg-panel/78 text-sm font-semibold text-text shadow-lift backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-elevated ${
+        compact ? "w-10 px-0" : "px-3"
+      }`}
+      aria-label={`Cambiar a modo ${nextTheme === "dark" ? "oscuro" : "claro"}`}
+      title={`Cambiar a modo ${nextTheme === "dark" ? "oscuro" : "claro"}`}
+    >
+      {theme === "dark" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+      {compact ? null : <span>{theme === "dark" ? "Oscuro" : "Claro"}</span>}
+    </button>
   );
 }
 
@@ -165,7 +206,7 @@ function Header() {
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-4 py-4">
-      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/18 bg-ink/72 px-4 py-3 text-paper shadow-lift backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-line/12 bg-panel/82 px-4 py-3 text-text shadow-lift backdrop-blur-xl">
         <a href="#" className="flex min-w-0 items-center gap-3">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-aqua via-lime to-coral text-sm font-black text-ink">
             IF
@@ -178,43 +219,52 @@ function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="rounded-full px-4 py-2 text-sm text-paper/72 transition hover:bg-paper/10 hover:text-paper"
+              className="rounded-full px-4 py-2 text-sm text-muted transition hover:bg-elevated hover:text-text"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <a
-          href={siteConfig.whatsappUrl}
-          className="hidden rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink transition hover:bg-aqua lg:inline-flex"
-        >
-          Pedir presupuesto
-        </a>
+        <div className="hidden items-center gap-2 lg:flex">
+          <ThemeToggle />
+          <a
+            href={siteConfig.whatsappUrl}
+            className="rounded-full bg-aqua px-4 py-2 text-sm font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-lime"
+          >
+            Pedir presupuesto
+          </a>
+        </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((value) => !value)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-paper/10 text-paper transition hover:bg-paper/16 lg:hidden"
-          aria-label={open ? "Cerrar menu" : "Abrir menu"}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle compact />
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-elevated text-text transition hover:bg-line/10"
+            aria-label={open ? "Cerrar menu" : "Abrir menu"}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {open ? (
-        <div className="mx-auto mt-3 max-w-7xl rounded-[28px] border border-white/14 bg-ink/92 p-3 text-paper shadow-lift backdrop-blur-xl lg:hidden">
+        <div className="mx-auto mt-3 max-w-7xl rounded-[28px] border border-line/12 bg-panel/94 p-3 text-text shadow-lift backdrop-blur-xl lg:hidden">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-paper/78 transition hover:bg-paper/10 hover:text-paper"
+              className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-muted transition hover:bg-elevated hover:text-text"
             >
               {link.label}
               <ChevronRight className="h-4 w-4" />
             </a>
           ))}
+          <div className="mt-2 flex justify-center">
+            <ThemeToggle />
+          </div>
           <a
             href={siteConfig.whatsappUrl}
             className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-aqua px-4 py-3 text-sm font-semibold text-ink"
@@ -352,7 +402,7 @@ function WhatWeDo() {
             <motion.a
               key={group.title}
               href={group.href}
-              className={`group relative overflow-hidden rounded-[28px] border bg-gradient-to-br p-6 shadow-lift transition hover:-translate-y-1 sm:p-8 ${
+              className={`group relative overflow-hidden rounded-[28px] border bg-panel bg-gradient-to-br p-6 shadow-lift transition hover:-translate-y-1 hover:bg-elevated sm:p-8 ${
                 accentClasses[group.accent as keyof typeof accentClasses]
               }`}
               whileHover={{ y: -6 }}
@@ -361,13 +411,13 @@ function WhatWeDo() {
               <div className="relative flex flex-col gap-7 sm:flex-row sm:items-start">
                 <IconBadge icon={group.icon} />
                 <div>
-                  <h3 className="text-2xl font-semibold text-ink">{group.title}</h3>
-                  <p className="mt-3 text-base leading-7 text-ink/68">{group.description}</p>
+                  <h3 className="text-2xl font-semibold text-text">{group.title}</h3>
+                  <p className="mt-3 text-base leading-7 text-muted">{group.description}</p>
                   <div className="mt-6 flex flex-wrap gap-2">
                     {group.items.map((item) => (
                       <span
                         key={item}
-                        className="rounded-full border border-ink/10 bg-paper/72 px-3 py-1 text-sm text-ink/72"
+                        className="rounded-full border border-line/10 bg-elevated/72 px-3 py-1 text-sm text-muted"
                       >
                         {item}
                       </span>
@@ -385,7 +435,7 @@ function WhatWeDo() {
 
 function TechServices() {
   return (
-    <MotionSection id="servicios" className="bg-paper px-4 sm:px-6 lg:px-8">
+    <MotionSection id="servicios" className="bg-surface px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Servicios tecnologicos"
@@ -396,29 +446,29 @@ function TechServices() {
           {techServices.map((service, index) => (
             <motion.article
               key={service.title}
-              className="group rounded-[28px] border border-ink/8 bg-mist p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lift sm:p-7"
+              className="group rounded-[28px] border border-line/10 bg-panel p-6 shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift sm:p-7"
               variants={fadeUp}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               whileHover={{ y: -6 }}
             >
               <div className="mb-6 flex items-center justify-between gap-4">
-                <IconBadge icon={service.icon} className="bg-paper text-ink" />
-                <span className="rounded-full bg-aqua/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-ink/62">
+                <IconBadge icon={service.icon} className="bg-elevated text-text" />
+                <span className="rounded-full bg-aqua/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                   Digital
                 </span>
               </div>
-              <h3 className="text-2xl font-semibold text-ink">{service.title}</h3>
-              <div className="mt-5 grid gap-4 text-sm leading-6 text-ink/70">
+              <h3 className="text-2xl font-semibold text-text">{service.title}</h3>
+              <div className="mt-5 grid gap-4 text-sm leading-6 text-muted">
                 <p>
-                  <strong className="text-ink">Que es: </strong>
+                  <strong className="text-text">Que es: </strong>
                   {service.what}
                 </p>
                 <p>
-                  <strong className="text-ink">Para quien: </strong>
+                  <strong className="text-text">Para quien: </strong>
                   {service.forWho}
                 </p>
                 <p>
-                  <strong className="text-ink">Beneficio: </strong>
+                  <strong className="text-text">Beneficio: </strong>
                   {service.benefit}
                 </p>
               </div>
@@ -455,7 +505,7 @@ function Products() {
           {customProducts.map((product, index) => (
             <motion.article
               key={product.title}
-              className="group overflow-hidden rounded-[28px] border border-white/12 bg-paper text-ink shadow-lift transition hover:-translate-y-1"
+              className="group overflow-hidden rounded-[28px] border border-line/12 bg-panel text-text shadow-lift transition hover:-translate-y-1 hover:bg-elevated"
               variants={fadeUp}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               whileHover={{ y: -6 }}
@@ -465,12 +515,12 @@ function Products() {
               </div>
               <div className="p-5">
                 <h3 className="text-xl font-semibold">{product.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-ink/66">{product.description}</p>
+                <p className="mt-3 text-sm leading-6 text-muted">{product.description}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {product.useCases.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full bg-ink/6 px-3 py-1 text-xs font-medium text-ink/64"
+                      className="rounded-full bg-elevated px-3 py-1 text-xs font-medium text-muted"
                     >
                       {item}
                     </span>
@@ -498,13 +548,13 @@ function Benefits() {
           {benefits.map((benefit) => (
             <article
               key={benefit.title}
-              className="rounded-[24px] border border-ink/8 bg-paper p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lift"
+              className="rounded-[24px] border border-line/10 bg-panel p-6 shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
             >
-              <div className="mb-5 grid h-10 w-10 place-items-center rounded-full bg-lime/30 text-ink">
+              <div className="mb-5 grid h-10 w-10 place-items-center rounded-full bg-lime/25 text-text">
                 <Check className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-semibold text-ink">{benefit.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-ink/66">{benefit.description}</p>
+              <h3 className="text-lg font-semibold text-text">{benefit.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted">{benefit.description}</p>
             </article>
           ))}
         </div>
@@ -515,7 +565,7 @@ function Benefits() {
 
 function Process() {
   return (
-    <MotionSection id="proceso" className="bg-paper px-4 sm:px-6 lg:px-8">
+    <MotionSection id="proceso" className="bg-surface px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Proceso"
@@ -527,15 +577,15 @@ function Process() {
           {processSteps.map((step, index) => (
             <motion.article
               key={step.title}
-              className="relative rounded-[24px] border border-ink/8 bg-mist p-6 shadow-sm"
+              className="relative rounded-[24px] border border-line/10 bg-panel p-6 shadow-sm"
               variants={fadeUp}
               transition={{ duration: 0.5, delay: index * 0.08 }}
             >
-              <span className="mb-6 grid h-12 w-12 place-items-center rounded-full bg-ink text-sm font-bold text-paper shadow-lift">
+              <span className="mb-6 grid h-12 w-12 place-items-center rounded-full bg-aqua text-sm font-bold text-ink shadow-lift">
                 {index + 1}
               </span>
-              <h3 className="text-lg font-semibold text-ink">{step.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-ink/66">{step.description}</p>
+              <h3 className="text-lg font-semibold text-text">{step.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted">{step.description}</p>
             </motion.article>
           ))}
         </div>
@@ -557,7 +607,7 @@ function Projects() {
           {projectExamples.map((project, index) => (
             <article
               key={project.title}
-              className="group min-h-[260px] overflow-hidden rounded-[28px] border border-ink/8 bg-paper shadow-sm transition hover:-translate-y-1 hover:shadow-lift"
+              className="group min-h-[260px] overflow-hidden rounded-[28px] border border-line/10 bg-panel shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
             >
               <div
                 className={`h-28 ${
@@ -567,11 +617,11 @@ function Projects() {
                 }`}
               />
               <div className="p-5">
-                <span className="rounded-full bg-ink/6 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-ink/58">
+                <span className="rounded-full bg-elevated px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted">
                   {project.type}
                 </span>
-                <h3 className="mt-5 text-xl font-semibold text-ink">{project.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-ink/66">{project.description}</p>
+                <h3 className="mt-5 text-xl font-semibold text-text">{project.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted">{project.description}</p>
               </div>
             </article>
           ))}
@@ -583,7 +633,7 @@ function Projects() {
 
 function FinalCta() {
   return (
-    <section id="contacto" className="bg-paper px-4 py-20 sm:px-6 lg:px-8">
+    <section id="contacto" className="bg-surface px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-ink p-7 text-paper shadow-glow sm:p-10 lg:p-14">
         <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>

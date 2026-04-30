@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["class", '[data-theme="dark"]'],
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,9 +10,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#111318",
-        mist: "#F7F8FA",
-        paper: "#FFFFFF",
+        ink: "rgb(var(--color-ink) / <alpha-value>)",
+        mist: "rgb(var(--color-mist) / <alpha-value>)",
+        paper: "rgb(var(--color-paper) / <alpha-value>)",
+        page: "rgb(var(--color-page) / <alpha-value>)",
+        surface: "rgb(var(--color-surface) / <alpha-value>)",
+        panel: "rgb(var(--color-panel) / <alpha-value>)",
+        elevated: "rgb(var(--color-elevated) / <alpha-value>)",
+        text: "rgb(var(--color-text) / <alpha-value>)",
+        muted: "rgb(var(--color-muted) / <alpha-value>)",
+        line: "rgb(var(--color-line) / <alpha-value>)",
         aqua: "#15C8C8",
         coral: "#FF6B5E",
         lime: "#B8E986",
@@ -19,8 +27,8 @@ const config: Config = {
         gold: "#F4C95D",
       },
       boxShadow: {
-        glow: "0 24px 80px rgba(21, 200, 200, 0.22)",
-        lift: "0 24px 60px rgba(17, 19, 24, 0.12)",
+        glow: "var(--shadow-glow)",
+        lift: "var(--shadow-lift)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],
