@@ -29,6 +29,7 @@ const config: Config = {
       boxShadow: {
         glow: "var(--shadow-glow)",
         lift: "var(--shadow-lift)",
+        card: "var(--shadow-card)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],

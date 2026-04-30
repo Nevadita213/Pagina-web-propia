@@ -1,5 +1,6 @@
 node_modules/
 .next/
+.next-dev-*/
 out/
 
 .env
@@ -12,4 +13,6 @@ pnpm-debug.log*
 
 .next-dev.log
 .next-dev.err.log
+.next-dev-*.log
+.next-dev-*.err.log
 tsconfig.tsbuildinfo

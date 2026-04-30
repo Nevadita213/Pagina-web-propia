@@ -14,11 +14,12 @@ import {
   IconBadge,
   MotionSection,
   PrimaryButton,
+  ProductIconVisual,
   SectionHeading,
 } from "@/components/landing-page";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 1, y: 18 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -52,14 +53,14 @@ function PageHero({
       <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-coral/14 blur-3xl" />
       <div className="relative mx-auto grid max-w-7xl gap-10 py-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 1, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: "easeOut" }}
         >
-          <p className="mb-5 inline-flex rounded-full border border-white/14 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-aqua">
+          <p className="mb-5 inline-flex rounded-full border border-white/20 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-aqua">
             {eyebrow}
           </p>
-          <h1 className="text-balance text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+          <h1 className="text-balance text-[clamp(2.15rem,8.5vw,3rem)] font-semibold leading-[1.08] sm:text-[clamp(2.7rem,5.5vw,3.8rem)] lg:text-[clamp(3.25rem,4.2vw,4.4rem)]">
             {title}
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-paper/82">{description}</p>
@@ -72,8 +73,8 @@ function PageHero({
         </motion.div>
 
         <motion.div
-          className="rounded-[30px] border border-white/12 bg-white/8 p-5 shadow-glow backdrop-blur"
-          initial={{ opacity: 0, scale: 0.97 }}
+          className="rounded-[30px] border border-white/18 bg-white/8 p-5 shadow-glow backdrop-blur"
+          initial={{ opacity: 1, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
         >
@@ -81,7 +82,7 @@ function PageHero({
             {["Idea clara", "Diseño coherente", "Contacto fácil"].map((item, index) => (
               <div
                 key={item}
-                className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/8 p-3"
+                className="flex items-center gap-3 rounded-2xl border border-white/20 bg-white/8 p-3"
               >
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-paper text-xs font-bold text-ink">
                   0{index + 1}
@@ -97,8 +98,8 @@ function PageHero({
 }
 
 function CtaBand({
-  title = "Cuéntanos qué quieres crear y vemos la forma más simple de hacerlo.",
-  text = "Puede ser una web, una automatización, un producto personalizado, una colaboración o un pack completo.",
+  title = "Cuéntanos qué necesitas y te proponemos una solución simple, con precio cerrado y próximos pasos claros.",
+  text = "Puede ser una web, un menú QR, una automatización, un producto personalizado o un pack completo. Te orientamos sin complicarte el proceso.",
 }: {
   title?: string;
   text?: string;
@@ -118,7 +119,7 @@ function CtaBand({
             <PrimaryButton href={siteConfig.whatsappUrl}>Hablar por WhatsApp</PrimaryButton>
             <a
               href={siteConfig.contactUrl}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/16 bg-white/8 px-5 text-sm font-semibold text-paper transition hover:-translate-y-1 hover:bg-white/14"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/8 px-5 text-sm font-semibold text-paper transition hover:-translate-y-1 hover:bg-white/14"
             >
               <Mail className="h-4 w-4" />
               Pedir presupuesto
@@ -150,7 +151,7 @@ export function DigitalPage() {
             {techServices.map((service, index) => (
               <motion.article
                 key={service.title}
-                className="group rounded-[28px] border border-line/10 bg-panel p-6 shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+                className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
@@ -158,7 +159,7 @@ export function DigitalPage() {
                 transition={{ duration: 0.5, delay: index * 0.04 }}
               >
                 <div className="mb-6 flex items-center justify-between gap-4">
-                  <IconBadge icon={service.icon} className="bg-elevated text-text" />
+                  <IconBadge icon={service.icon} />
                   <span className="rounded-full bg-aqua/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                     Digital
                   </span>
@@ -207,13 +208,13 @@ export function ProductsPage() {
           <SectionHeading
             eyebrow="Línea física"
             title="Detalles visuales que ayudan a recordar tu marca, evento o idea."
-            description="Usamos bloques visuales editables hasta tener fotografías reales, manteniendo una presentación cuidada y coherente."
+            description="Presentamos cada producto con referencias visuales cuidadas para que se entienda el tipo de acabado, uso y cliente ideal."
           />
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {customProducts.map((product, index) => (
               <motion.article
                 key={product.title}
-                className="group overflow-hidden rounded-[28px] border border-line/12 bg-panel text-text shadow-lift transition hover:-translate-y-1 hover:bg-elevated"
+                className="group overflow-hidden rounded-[28px] border border-line/18 bg-panel text-text shadow-lift transition hover:-translate-y-1 hover:bg-elevated"
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
@@ -227,7 +228,7 @@ export function ProductsPage() {
                       : "bg-[radial-gradient(circle_at_18%_18%,rgba(255,107,94,0.52),transparent_34%),radial-gradient(circle_at_82%_0%,rgba(119,88,209,0.52),transparent_34%),linear-gradient(135deg,#111318,#2A2037)]"
                   }`}
                 >
-                  <IconBadge icon={product.icon} className="bg-paper text-ink" />
+                  <ProductIconVisual icon={product.icon} />
                 </div>
                 <div className="p-5">
                   <h2 className="text-xl font-semibold">{product.title}</h2>
@@ -279,7 +280,7 @@ export function CollaboratePage() {
             {collaborationOptions.map((option, index) => (
               <motion.article
                 key={option.title}
-                className="group relative overflow-hidden rounded-[28px] border border-line/10 bg-panel p-6 shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+                className="group relative overflow-hidden rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
@@ -288,7 +289,7 @@ export function CollaboratePage() {
               >
                 <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-coral/10 blur-2xl transition group-hover:bg-aqua/12" />
                 <div className="relative">
-                  <IconBadge icon={option.icon} className="bg-elevated text-text" />
+                  <IconBadge icon={option.icon} />
                   <h2 className="mt-6 text-xl font-semibold text-text">{option.title}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted">{option.description}</p>
                 </div>
@@ -299,7 +300,7 @@ export function CollaboratePage() {
       </MotionSection>
 
       <section className="bg-mist px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl rounded-[32px] border border-line/10 bg-panel p-7 shadow-lift sm:p-10">
+        <div className="mx-auto max-w-7xl rounded-[32px] border border-line/16 bg-panel p-7 shadow-lift sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-coral">
@@ -318,14 +319,14 @@ export function CollaboratePage() {
               </PrimaryButton>
               <a
                 href={siteConfig.contactUrl}
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-line/12 bg-elevated px-5 text-sm font-semibold text-text transition hover:-translate-y-1 hover:bg-aqua hover:text-ink"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-line/18 bg-elevated px-5 text-sm font-semibold text-text transition hover:-translate-y-1 hover:bg-aqua hover:text-ink"
               >
                 <Send className="h-4 w-4" />
                 Enviar propuesta
               </a>
               <a
                 href={siteConfig.contactUrl}
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-line/12 bg-elevated px-5 text-sm font-semibold text-text transition hover:-translate-y-1 hover:bg-coral hover:text-paper"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-line/18 bg-elevated px-5 text-sm font-semibold text-text transition hover:-translate-y-1 hover:bg-coral hover:text-paper"
               >
                 Contarnos tu idea
               </a>
@@ -350,9 +351,9 @@ export function ContactPage() {
         <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
           <a
             href={siteConfig.whatsappUrl}
-            className="group rounded-[28px] border border-line/10 bg-panel p-6 shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+            className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
           >
-            <IconBadge icon="MessagesSquare" className="bg-elevated text-text" />
+            <IconBadge icon="MessagesSquare" />
             <h2 className="mt-6 text-xl font-semibold text-text">WhatsApp</h2>
             <p className="mt-3 text-sm leading-6 text-muted">
               La forma más directa para pedir información, presupuesto o contar una idea rápida.
@@ -360,16 +361,16 @@ export function ContactPage() {
           </a>
           <a
             href={siteConfig.contactUrl}
-            className="group rounded-[28px] border border-line/10 bg-panel p-6 shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+            className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
           >
-            <IconBadge icon="Mail" className="bg-elevated text-text" />
+            <IconBadge icon="Mail" />
             <h2 className="mt-6 text-xl font-semibold text-text">Formulario/contacto</h2>
             <p className="mt-3 text-sm leading-6 text-muted">
               Para propuestas, colaboraciones o proyectos que necesitan algo más de detalle.
             </p>
           </a>
-          <div className="rounded-[28px] border border-line/10 bg-panel p-6 shadow-sm">
-            <IconBadge icon="Sparkles" className="bg-elevated text-text" />
+          <div className="rounded-[28px] border border-line/16 bg-panel p-6 shadow-card">
+            <IconBadge icon="Sparkles" />
             <h2 className="mt-6 text-xl font-semibold text-text">Redes</h2>
             <div className="mt-3 grid gap-2 text-sm text-muted">
               {siteConfig.socialLinks.map((link) => (
@@ -384,3 +385,5 @@ export function ContactPage() {
     </PageShell>
   );
 }
+
+

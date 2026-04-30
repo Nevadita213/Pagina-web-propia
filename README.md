@@ -1,4 +1,4 @@
-# IdeaForma Studio Landing
+# JellySolutions Landing
 
 Landing profesional creada con Next.js, TypeScript, Tailwind CSS y Framer Motion para una marca joven que ofrece servicios digitales y productos personalizados.
 

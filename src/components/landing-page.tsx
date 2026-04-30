@@ -33,6 +33,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   benefits,
@@ -41,6 +42,7 @@ import {
   heroContent,
   homeLines,
   navLinks,
+  packages,
   processSteps,
   projectExamples,
   requestItems,
@@ -79,7 +81,7 @@ const accentClasses = {
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 1, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -149,9 +151,49 @@ export function IconBadge({ icon, className = "" }: { icon: string; className?: 
   const Icon = icons[icon] ?? Sparkles;
   return (
     <span
-      className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ink text-paper shadow-lift ${className}`}
+      className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line/18 bg-ink text-paper shadow-lift dark:border-white/12 dark:bg-elevated dark:text-paper ${className}`}
     >
       <Icon className="h-5 w-5" aria-hidden />
+    </span>
+  );
+}
+
+export function ProductIconVisual({
+  icon,
+  className = "",
+}: {
+  icon: string;
+  className?: string;
+}) {
+  if (icon === "PackageCheck") {
+    const miniIcons = [Shirt, KeyRound, PenTool];
+
+    return (
+      <div
+        className={`inline-flex h-14 items-center gap-1 rounded-full border border-white/18 bg-paper/94 px-3 text-ink shadow-lift ${className}`}
+        aria-hidden
+      >
+        {miniIcons.map((MiniIcon, index) => (
+          <span key={index} className="inline-flex items-center gap-1">
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-ink text-paper">
+              <MiniIcon className="h-4 w-4" />
+            </span>
+            {index < miniIcons.length - 1 ? (
+              <span className="text-sm font-black text-coral">+</span>
+            ) : null}
+          </span>
+        ))}
+      </div>
+    );
+  }
+
+  const Icon = icons[icon] ?? Sparkles;
+  return (
+    <span
+      className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/24 bg-paper text-ink shadow-lift ${className}`}
+      aria-hidden
+    >
+      <Icon className="h-5 w-5" />
     </span>
   );
 }
@@ -183,7 +225,7 @@ function ThemeToggle({ compact = false }: { compact?: boolean }) {
     <button
       type="button"
       onClick={toggleTheme}
-      className={`inline-flex h-10 items-center justify-center gap-2 rounded-full border border-line/12 bg-panel/78 text-sm font-semibold text-text shadow-lift backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-elevated ${
+      className={`inline-flex h-10 items-center justify-center gap-2 rounded-full border border-line/20 bg-paper text-sm font-semibold text-ink shadow-lift backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-elevated dark:border-white/18 dark:bg-elevated dark:text-paper ${
         compact ? "w-10 px-0" : "px-3"
       }`}
       aria-label={`Cambiar a modo ${nextTheme === "dark" ? "oscuro" : "claro"}`}
@@ -227,12 +269,23 @@ export function Header() {
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-4 py-4">
-      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-line/12 bg-panel/82 px-4 py-3 text-text shadow-lift backdrop-blur-xl">
-        <a href="/" className="flex min-w-0 items-center gap-3">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-aqua via-lime to-coral text-sm font-black text-ink">
-            IF
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 rounded-full border border-line/16 bg-panel/86 px-3 py-3 text-text shadow-lift backdrop-blur-xl sm:px-4">
+        <a href="/" className="group flex min-w-fit shrink-0 items-center gap-2 sm:gap-3">
+          <span className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[42%] border border-white/28 bg-ink shadow-glow ring-1 ring-aqua/20 sm:h-11 sm:w-11">
+            <span className="absolute inset-0 bg-gradient-to-br from-aqua/20 via-violet/16 to-coral/20" />
+            <Image
+              src="/jelly-logo.png"
+              alt=""
+              fill
+              priority
+              sizes="44px"
+              className="relative scale-[2.15] translate-y-[18%] object-cover"
+              aria-hidden
+            />
           </span>
-          <span className="truncate text-sm font-semibold sm:text-base">{siteConfig.brandName}</span>
+          <span className="whitespace-nowrap bg-gradient-to-r from-text via-aqua to-coral bg-clip-text text-[clamp(0.78rem,3.2vw,1.125rem)] font-black tracking-normal text-transparent drop-shadow-sm">
+            {siteConfig.brandName}
+          </span>
         </a>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
@@ -262,7 +315,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-elevated text-text transition hover:bg-line/10"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-paper text-ink transition hover:bg-elevated dark:bg-elevated dark:text-paper dark:hover:bg-line/10"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -271,7 +324,7 @@ export function Header() {
       </div>
 
       {open ? (
-        <div className="mx-auto mt-3 max-w-7xl rounded-[28px] border border-line/12 bg-panel/94 p-3 text-text shadow-lift backdrop-blur-xl lg:hidden">
+        <div className="mx-auto mt-3 max-w-7xl rounded-[28px] border border-line/18 bg-panel/94 p-3 text-text shadow-lift backdrop-blur-xl lg:hidden">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -303,7 +356,7 @@ function HeroVisual() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <div className="relative min-h-[440px] overflow-hidden rounded-[2rem] border border-white/14 bg-white/8 p-5 shadow-glow backdrop-blur-md sm:min-h-[520px]">
+    <div className="relative min-h-[440px] overflow-hidden rounded-[2rem] border border-white/20 bg-white/8 p-5 shadow-glow backdrop-blur-md sm:min-h-[520px]">
       <div className="noise-overlay" />
       <motion.div
         className="absolute left-[8%] top-[10%] h-28 w-28 rounded-[2rem] bg-aqua/80 blur-[1px]"
@@ -340,7 +393,7 @@ function HeroVisual() {
           {["Idea", "Diseño", "Entrega"].map((item, index) => (
             <div
               key={item}
-              className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/8 p-3"
+              className="flex items-center gap-3 rounded-2xl border border-white/20 bg-white/8 p-3"
             >
               <span className="grid h-8 w-8 place-items-center rounded-full bg-paper text-xs font-bold text-ink">
                 0{index + 1}
@@ -365,14 +418,14 @@ function Hero() {
 
       <div className="relative mx-auto grid min-h-[80svh] max-w-7xl items-center gap-10 py-6 lg:grid-cols-[1.02fr_0.98fr] lg:py-8">
         <motion.div
-          initial={{ opacity: 0, y: 26 }}
+          initial={{ opacity: 1, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <p className="mb-5 inline-flex rounded-full border border-white/14 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-aqua">
+          <p className="mb-5 inline-flex rounded-full border border-white/20 bg-white/8 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-aqua sm:text-xs">
             {heroContent.eyebrow}
           </p>
-          <h1 className="text-balance text-5xl font-semibold leading-[1.02] sm:text-6xl lg:text-7xl">
+          <h1 className="text-balance text-[clamp(1.9rem,8vw,2.75rem)] font-semibold leading-[1.08] sm:text-[clamp(2.55rem,5vw,3.3rem)] lg:text-[clamp(3rem,3.55vw,4rem)]">
             {heroContent.title}
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-paper/82 sm:text-xl">
@@ -380,7 +433,7 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <PrimaryButton href={siteConfig.whatsappUrl}>{heroContent.primaryCta}</PrimaryButton>
-            <PrimaryButton href="#servicios" variant="secondary">
+            <PrimaryButton href="#ejemplos" variant="secondary">
               {heroContent.secondaryCta}
             </PrimaryButton>
           </div>
@@ -389,7 +442,7 @@ function Hero() {
               <a
                 key={line.href}
                 href={line.href}
-                className="group inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/7 px-3 py-2 text-sm font-semibold text-paper/78 transition hover:-translate-y-0.5 hover:bg-white/12 hover:text-paper"
+                className="group inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/7 px-3 py-2 text-sm font-semibold text-paper/78 transition hover:-translate-y-0.5 hover:bg-white/12 hover:text-paper"
               >
                 {line.title}
                 <ChevronRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
@@ -400,7 +453,7 @@ function Hero() {
             {heroContent.highlights.map((item) => (
               <span
                 key={item}
-                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/7 px-4 py-2 text-sm text-paper/82"
+                className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/7 px-4 py-2 text-sm text-paper/82"
               >
                 <Check className="h-4 w-4 text-lime" />
                 {item}
@@ -410,7 +463,7 @@ function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 1, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.12, ease: "easeOut" }}
         >
@@ -427,10 +480,10 @@ function WhatWeDo() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Qué hacemos"
-          title="Dos mundos conectados: presencia digital y productos con identidad."
-          description="Puedes elegir una línea concreta o combinarlas en un mismo proyecto: presencia digital, diseño y producto físico con una imagen coherente."
+          title="Tres bloques para entender rápido qué puedes pedir."
+          description="Agrupamos la oferta para que no tengas que descifrar una lista de servicios. Primero presencia digital, después automatización simple y, como complemento, productos personalizados."
         />
-        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
           {whatWeDo.map((group) => (
             <motion.a
               key={group.title}
@@ -450,7 +503,7 @@ function WhatWeDo() {
                     {group.items.map((item) => (
                       <span
                         key={item}
-                        className="rounded-full border border-line/10 bg-elevated/72 px-3 py-1 text-sm text-muted"
+                        className="rounded-full border border-line/16 bg-elevated/72 px-3 py-1 text-sm text-muted"
                       >
                         {item}
                       </span>
@@ -478,11 +531,11 @@ function HomeLines() {
           <SectionHeading
             eyebrow="Tres formas de trabajar con nosotros"
             title="Elige por dónde empezar."
-            description="IdeaForma Studio se divide en tres líneas claras: soluciones digitales, productos físicos personalizados y colaboraciones para crear o vender juntos."
+            description="La línea digital es el punto principal: webs, menús QR y sistemas de contacto. Los productos físicos completan la marca cuando necesitas algo para eventos, regalos o promociones."
           />
           <p className="max-w-2xl text-sm leading-7 text-muted lg:justify-self-end">
-            Puedes entrar por una línea concreta o combinar varias en un mismo proyecto.
-            La idea es que la web crezca contigo sin perder claridad.
+            Puedes entrar por una línea concreta o combinar varias cuando tenga sentido. La idea
+            es empezar por lo útil y dejar claro el siguiente paso.
           </p>
         </div>
 
@@ -499,11 +552,11 @@ function HomeLines() {
               whileHover={{ y: -7 }}
             >
               <div className="absolute -right-12 -top-12 h-44 w-44 rounded-full bg-current opacity-[0.12] blur-3xl transition group-hover:opacity-20" />
-              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white/6 to-transparent opacity-60" />
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white/[0.06] to-transparent opacity-60" />
               <div className="relative flex h-full flex-col">
                 <div className="flex items-center justify-between gap-4">
-                  <IconBadge icon={line.icon} className="bg-elevated text-text" />
-                  <span className="rounded-full border border-line/10 bg-elevated/72 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+                  <IconBadge icon={line.icon} />
+                  <span className="rounded-full border border-line/16 bg-elevated/72 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                     {line.eyebrow}
                   </span>
                 </div>
@@ -538,14 +591,14 @@ function Audiences() {
             {audiences.map((audience, index) => (
               <motion.article
                 key={audience.title}
-                className="group relative overflow-hidden rounded-[24px] border border-line/10 bg-panel p-5 shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift sm:p-6"
+                className="group relative overflow-hidden rounded-[24px] border border-line/16 bg-panel p-5 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift sm:p-6"
                 variants={fadeUp}
                 transition={{ duration: 0.5, delay: index * 0.06 }}
                 whileHover={{ y: -5 }}
               >
                 <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-aqua/10 blur-2xl transition group-hover:bg-coral/14" />
                 <div className="relative flex gap-4">
-                  <IconBadge icon={audience.icon} className="h-11 w-11 bg-elevated text-text" />
+                  <IconBadge icon={audience.icon} className="h-11 w-11" />
                   <div>
                     <h3 className="text-xl font-semibold text-text">{audience.title}</h3>
                     <p className="mt-2 text-sm leading-6 text-muted">{audience.description}</p>
@@ -574,7 +627,7 @@ function RequestIdeas() {
             {requestItems.map((item, index) => (
               <motion.div
                 key={item}
-                className="group flex min-h-20 items-start gap-3 rounded-[20px] border border-line/10 bg-panel p-4 shadow-sm transition hover:-translate-y-1 hover:border-aqua/35 hover:bg-elevated hover:shadow-lift"
+                className="group flex min-h-20 items-start gap-3 rounded-[20px] border border-line/16 bg-panel p-4 shadow-card transition hover:-translate-y-1 hover:border-aqua/35 hover:bg-elevated hover:shadow-lift"
                 variants={fadeUp}
                 transition={{ duration: 0.45, delay: index * 0.035 }}
               >
@@ -604,13 +657,13 @@ function TechServices() {
           {techServices.map((service, index) => (
             <motion.article
               key={service.title}
-              className="group rounded-[28px] border border-line/10 bg-panel p-6 shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift sm:p-7"
+              className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift sm:p-7"
               variants={fadeUp}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               whileHover={{ y: -6 }}
             >
               <div className="mb-6 flex items-center justify-between gap-4">
-                <IconBadge icon={service.icon} className="bg-elevated text-text" />
+                <IconBadge icon={service.icon} />
                 <span className="rounded-full bg-aqua/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                   Digital
                 </span>
@@ -638,6 +691,50 @@ function TechServices() {
   );
 }
 
+function Packages() {
+  return (
+    <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading
+          eyebrow="Paquetes orientativos"
+          title="Tres formas sencillas de pedir algo concreto."
+          description="No son precios cerrados universales: sirven para entender alcance, preparar una propuesta clara y evitar presupuestos ambiguos."
+        />
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          {packages.map((pack, index) => (
+            <motion.article
+              key={pack.title}
+              className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift sm:p-7"
+              variants={fadeUp}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+              whileHover={{ y: -6 }}
+            >
+              <div className="mb-6 flex items-center justify-between gap-4">
+                <IconBadge icon={pack.icon} />
+                <span className="rounded-full border border-line/16 bg-elevated/72 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+                  {pack.note}
+                </span>
+              </div>
+              <h3 className="text-2xl font-semibold text-text">{pack.title}</h3>
+              <p className="mt-4 text-sm leading-7 text-muted">{pack.description}</p>
+              <div className="mt-6 grid gap-3">
+                {pack.includes.map((item) => (
+                  <div key={item} className="flex items-start gap-3 text-sm leading-6 text-muted">
+                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-aqua/18 text-aqua">
+                      <Check className="h-3.5 w-3.5" />
+                    </span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </MotionSection>
+  );
+}
+
 function Products() {
   return (
     <MotionSection id="productos" className="bg-ink px-4 text-paper sm:px-6 lg:px-8">
@@ -649,7 +746,7 @@ function Products() {
             description="Trabajamos diseños a medida para que cada producto tenga una intención clara y un acabado coherente."
             tone="dark"
           />
-          <div className="rounded-[28px] border border-white/12 bg-white/8 p-5 backdrop-blur">
+          <div className="rounded-[28px] border border-white/18 bg-white/8 p-5 backdrop-blur">
             <div className="flex items-center gap-3">
               <Clock3 className="h-5 w-5 text-lime" />
               <p className="text-sm leading-6 text-paper/72">
@@ -663,22 +760,22 @@ function Products() {
           {customProducts.map((product, index) => (
             <motion.article
               key={product.title}
-              className="group overflow-hidden rounded-[28px] border border-line/12 bg-panel text-text shadow-lift transition hover:-translate-y-1 hover:bg-elevated"
+              className="group overflow-hidden rounded-[28px] border border-white/20 bg-white/8 text-paper shadow-lift backdrop-blur transition hover:-translate-y-1 hover:bg-white/12"
               variants={fadeUp}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               whileHover={{ y: -6 }}
             >
               <div className="h-36 bg-[radial-gradient(circle_at_20%_20%,rgba(21,200,200,0.55),transparent_34%),radial-gradient(circle_at_80%_0%,rgba(255,107,94,0.52),transparent_34%),linear-gradient(135deg,#111318,#7758D1)] p-5">
-                <IconBadge icon={product.icon} className="bg-paper text-ink" />
+                <ProductIconVisual icon={product.icon} />
               </div>
               <div className="p-5">
                 <h3 className="text-xl font-semibold">{product.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-muted">{product.description}</p>
+                <p className="mt-3 text-sm leading-6 text-paper/78">{product.description}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {product.useCases.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full bg-elevated px-3 py-1 text-xs font-medium text-muted"
+                      className="rounded-full border border-white/14 bg-white/10 px-3 py-1 text-xs font-medium text-paper/72"
                     >
                       {item}
                     </span>
@@ -706,7 +803,7 @@ function Benefits() {
           {benefits.map((benefit) => (
             <article
               key={benefit.title}
-              className="rounded-[24px] border border-line/10 bg-panel p-6 shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+              className="rounded-[24px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
             >
               <div className="mb-5 grid h-10 w-10 place-items-center rounded-full bg-lime/25 text-text">
                 <Check className="h-5 w-5" />
@@ -735,7 +832,7 @@ function Process() {
           {processSteps.map((step, index) => (
             <motion.article
               key={step.title}
-              className="relative rounded-[24px] border border-line/10 bg-panel p-6 shadow-sm"
+              className="relative rounded-[24px] border border-line/16 bg-panel p-6 shadow-card"
               variants={fadeUp}
               transition={{ duration: 0.5, delay: index * 0.08 }}
             >
@@ -754,7 +851,7 @@ function Process() {
 
 function Projects() {
   return (
-    <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
+    <MotionSection id="ejemplos" className="bg-mist px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Ideas aplicadas"
@@ -765,7 +862,7 @@ function Projects() {
           {projectExamples.map((project, index) => (
             <article
               key={project.title}
-              className="group min-h-[260px] overflow-hidden rounded-[28px] border border-line/10 bg-panel shadow-sm transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+              className="group min-h-[260px] overflow-hidden rounded-[28px] border border-line/16 bg-panel shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
             >
               <div
                 className={`h-28 ${
@@ -799,18 +896,18 @@ function FinalCta() {
               Hablemos
             </p>
             <h2 className="text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
-              Cuéntanos qué quieres crear y te proponemos la forma más simple de hacerlo realidad.
+              Cuéntanos qué necesitas y te proponemos una solución simple, con precio cerrado y próximos pasos claros.
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-8 text-paper/80">
-              Puede ser una web, una automatización, un producto personalizado o un pack completo.
-              Te orientamos sin complicarte el proceso.
+              Puede ser una web, un menú QR, una automatización, un producto personalizado o
+              un pack completo. Te orientamos sin complicarte el proceso.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <PrimaryButton href={siteConfig.whatsappUrl}>Hablar por WhatsApp</PrimaryButton>
             <a
               href={siteConfig.contactUrl}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/16 bg-white/8 px-5 text-sm font-semibold text-paper transition hover:-translate-y-1 hover:bg-white/14"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/8 px-5 text-sm font-semibold text-paper transition hover:-translate-y-1 hover:bg-white/14"
             >
               <Mail className="h-4 w-4" />
               Pedir presupuesto
@@ -825,7 +922,7 @@ function FinalCta() {
 export function Footer() {
   return (
     <footer className="bg-ink px-4 py-10 text-paper sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-8 border-t border-white/10 pt-8 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
+      <div className="mx-auto grid max-w-7xl gap-8 border-t border-white/20 pt-8 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
         <div>
           <h2 className="text-xl font-semibold">{siteConfig.brandName}</h2>
           <p className="mt-3 max-w-sm text-sm leading-6 text-paper/62">{siteConfig.tagline}</p>
@@ -859,7 +956,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="mx-auto mt-8 flex max-w-7xl flex-col gap-3 border-t border-white/10 pt-6 text-xs text-paper/44 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto mt-8 flex max-w-7xl flex-col gap-3 border-t border-white/20 pt-6 text-xs text-paper/44 sm:flex-row sm:items-center sm:justify-between">
         <p>© {new Date().getFullYear()} {siteConfig.brandName}. Todos los derechos reservados.</p>
         <div className="flex gap-4">
           <a href="#">Aviso legal</a>
@@ -881,6 +978,7 @@ export function LandingPage() {
         <Audiences />
         <RequestIdeas />
         <TechServices />
+        <Packages />
         <Products />
         <Benefits />
         <Process />
@@ -891,3 +989,5 @@ export function LandingPage() {
     </>
   );
 }
+
+

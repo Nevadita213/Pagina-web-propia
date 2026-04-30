@@ -3,9 +3,9 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site-data";
 
 export const metadata: Metadata = {
-  title: `${siteConfig.brandName} | Soluciones digitales y productos personalizados`,
+  title: `${siteConfig.brandName} | Webs, menús QR y productos personalizados`,
   description:
-    "Web corporativa para presentar servicios digitales, automatizaciones y productos personalizados.",
+    "Webs, formularios, menús QR, automatizaciones simples y productos personalizados para negocios, eventos y marcas pequeñas.",
 };
 
 export default function RootLayout({

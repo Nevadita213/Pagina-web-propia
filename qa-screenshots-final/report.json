@@ -1,0 +1,1232 @@
+[
+  {
+    "theme": "dark",
+    "viewport": "desktop",
+    "route": "/",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-desktop-home.png",
+    "consoleErrors": 1,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "h1": {
+      "text": "Webs, menús QR y productos personalizados para negocios que quieren verse mejor y captar más contactos.",
+      "rect": {
+        "x": 80,
+        "y": 182.33602905273438,
+        "width": 632.390625,
+        "height": 480.7030944824219,
+        "top": 182.33602905273438,
+        "right": 712.390625,
+        "bottom": 663.0391235351562,
+        "left": 80
+      },
+      "font": "64.8px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 97,
+        "y": 29,
+        "width": 179.65625,
+        "height": 44,
+        "top": 29,
+        "right": 276.65625,
+        "bottom": 73,
+        "left": 97
+      },
+      "scrollWidth": 180,
+      "clientWidth": 180
+    },
+    "invisibleIcons": 2
+  },
+  {
+    "theme": "dark",
+    "viewport": "desktop",
+    "route": "/digital",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-desktop-digital.png",
+    "consoleErrors": 1,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "h1": {
+      "text": "Herramientas simples para vender mejor, ordenar solicitudes y ahorrar tiempo.",
+      "rect": {
+        "x": 80,
+        "y": 206.34718322753906,
+        "width": 720.921875,
+        "height": 261.25,
+        "top": 206.34718322753906,
+        "right": 800.921875,
+        "bottom": 467.59718322753906,
+        "left": 80
+      },
+      "font": "60.48px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 97,
+        "y": 29,
+        "width": 179.65625,
+        "height": 44,
+        "top": 29,
+        "right": 276.65625,
+        "bottom": 73,
+        "left": 97
+      },
+      "scrollWidth": 180,
+      "clientWidth": 180
+    },
+    "invisibleIcons": 2
+  },
+  {
+    "theme": "dark",
+    "viewport": "desktop",
+    "route": "/productos",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-desktop-productos.png",
+    "consoleErrors": 1,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "h1": {
+      "text": "Productos personalizados con una imagen cuidada para marcas, eventos y regalos.",
+      "rect": {
+        "x": 80,
+        "y": 206.4941864013672,
+        "width": 720.921875,
+        "height": 261.25,
+        "top": 206.4941864013672,
+        "right": 800.921875,
+        "bottom": 467.7441864013672,
+        "left": 80
+      },
+      "font": "60.48px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 97,
+        "y": 29,
+        "width": 179.65625,
+        "height": 44,
+        "top": 29,
+        "right": 276.65625,
+        "bottom": 73,
+        "left": 97
+      },
+      "scrollWidth": 180,
+      "clientWidth": 180
+    },
+    "invisibleIcons": 2
+  },
+  {
+    "theme": "dark",
+    "viewport": "desktop",
+    "route": "/colabora",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-desktop-colabora.png",
+    "consoleErrors": 1,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "h1": {
+      "text": "Vende con nosotros, trae ideas o propón una colaboración.",
+      "rect": {
+        "x": 80,
+        "y": 206.4941864013672,
+        "width": 720.921875,
+        "height": 195.93748474121094,
+        "top": 206.4941864013672,
+        "right": 800.921875,
+        "bottom": 402.4316711425781,
+        "left": 80
+      },
+      "font": "60.48px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 97,
+        "y": 29,
+        "width": 179.65625,
+        "height": 44,
+        "top": 29,
+        "right": 276.65625,
+        "bottom": 73,
+        "left": 97
+      },
+      "scrollWidth": 180,
+      "clientWidth": 180
+    },
+    "invisibleIcons": 2
+  },
+  {
+    "theme": "dark",
+    "viewport": "desktop",
+    "route": "/contacto",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-desktop-contacto.png",
+    "consoleErrors": 1,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "h1": {
+      "text": "Hablemos de tu web, producto personalizado o colaboración.",
+      "rect": {
+        "x": 80,
+        "y": 206.45095825195312,
+        "width": 720.921875,
+        "height": 195.9375,
+        "top": 206.45095825195312,
+        "right": 800.921875,
+        "bottom": 402.3884582519531,
+        "left": 80
+      },
+      "font": "60.48px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 97,
+        "y": 29,
+        "width": 179.65625,
+        "height": 44,
+        "top": 29,
+        "right": 276.65625,
+        "bottom": 73,
+        "left": 97
+      },
+      "scrollWidth": 180,
+      "clientWidth": 180
+    },
+    "invisibleIcons": 2
+  },
+  {
+    "theme": "dark",
+    "viewport": "mobile",
+    "route": "/",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-mobile-home.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": {
+      "text": "Webs, menús QR y productos personalizados para negocios que quieren verse mejor y captar más contactos.",
+      "rect": {
+        "x": 16,
+        "y": 175.0653076171875,
+        "width": 358,
+        "height": 289.296875,
+        "top": 175.0653076171875,
+        "right": 374,
+        "bottom": 464.3621826171875,
+        "left": 16
+      },
+      "font": "39px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "dark",
+    "viewport": "mobile",
+    "route": "/digital",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-mobile-digital.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": {
+      "text": "Herramientas simples para vender mejor, ordenar solicitudes y ahorrar tiempo.",
+      "rect": {
+        "x": 16,
+        "y": 206.5670928955078,
+        "width": 358,
+        "height": 148.62498474121094,
+        "top": 206.5670928955078,
+        "right": 374,
+        "bottom": 355.19207763671875,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "dark",
+    "viewport": "mobile",
+    "route": "/productos",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-mobile-productos.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": {
+      "text": "Productos personalizados con una imagen cuidada para marcas, eventos y regalos.",
+      "rect": {
+        "x": 16,
+        "y": 206.6849365234375,
+        "width": 358,
+        "height": 185.78125,
+        "top": 206.6849365234375,
+        "right": 374,
+        "bottom": 392.4661865234375,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "dark",
+    "viewport": "mobile",
+    "route": "/colabora",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-mobile-colabora.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": {
+      "text": "Vende con nosotros, trae ideas o propón una colaboración.",
+      "rect": {
+        "x": 16,
+        "y": 206.6849365234375,
+        "width": 358,
+        "height": 111.46875,
+        "top": 206.6849365234375,
+        "right": 374,
+        "bottom": 318.1536865234375,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "dark",
+    "viewport": "mobile",
+    "route": "/contacto",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-mobile-contacto.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": {
+      "text": "Hablemos de tu web, producto personalizado o colaboración.",
+      "rect": {
+        "x": 16,
+        "y": 206.80715942382812,
+        "width": 358,
+        "height": 148.625,
+        "top": 206.80715942382812,
+        "right": 374,
+        "bottom": 355.4321594238281,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "dark",
+    "viewport": "narrow",
+    "route": "/",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-narrow-home.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 304,
+    "clientWidth": 304,
+    "h1": {
+      "text": "Webs, menús QR y productos personalizados para negocios que quieren verse mejor y captar más contactos.",
+      "rect": {
+        "x": 16,
+        "y": 191.2124481201172,
+        "width": 272,
+        "height": 305.25,
+        "top": 191.2124481201172,
+        "right": 288,
+        "bottom": 496.4624481201172,
+        "left": 16
+      },
+      "font": "36px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "dark",
+    "viewport": "narrow",
+    "route": "/digital",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-narrow-digital.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 304,
+    "clientWidth": 304,
+    "h1": {
+      "text": "Herramientas simples para vender mejor, ordenar solicitudes y ahorrar tiempo.",
+      "rect": {
+        "x": 16,
+        "y": 206.624755859375,
+        "width": 272,
+        "height": 222.9375,
+        "top": 206.624755859375,
+        "right": 288,
+        "bottom": 429.562255859375,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "dark",
+    "viewport": "narrow",
+    "route": "/productos",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-narrow-productos.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 304,
+    "clientWidth": 304,
+    "h1": {
+      "text": "Productos personalizados con una imagen cuidada para marcas, eventos y regalos.",
+      "rect": {
+        "x": 16,
+        "y": 206.6495361328125,
+        "width": 272,
+        "height": 222.9375,
+        "top": 206.6495361328125,
+        "right": 288,
+        "bottom": 429.5870361328125,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "dark",
+    "viewport": "narrow",
+    "route": "/colabora",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-narrow-colabora.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 304,
+    "clientWidth": 304,
+    "h1": {
+      "text": "Vende con nosotros, trae ideas o propón una colaboración.",
+      "rect": {
+        "x": 16,
+        "y": 206.74227905273438,
+        "width": 272,
+        "height": 185.78125,
+        "top": 206.74227905273438,
+        "right": 288,
+        "bottom": 392.5235290527344,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "dark",
+    "viewport": "narrow",
+    "route": "/contacto",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\dark-narrow-contacto.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 304,
+    "clientWidth": 304,
+    "h1": {
+      "text": "Hablemos de tu web, producto personalizado o colaboración.",
+      "rect": {
+        "x": 16,
+        "y": 206.8461151123047,
+        "width": 272,
+        "height": 148.62501525878906,
+        "top": 206.8461151123047,
+        "right": 288,
+        "bottom": 355.47113037109375,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "light",
+    "viewport": "desktop",
+    "route": "/",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-desktop-home.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "h1": {
+      "text": "Webs, menús QR y productos personalizados para negocios que quieren verse mejor y captar más contactos.",
+      "rect": {
+        "x": 80,
+        "y": 182.5438232421875,
+        "width": 632.390625,
+        "height": 480.703125,
+        "top": 182.5438232421875,
+        "right": 712.390625,
+        "bottom": 663.2469482421875,
+        "left": 80
+      },
+      "font": "64.8px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 97,
+        "y": 29,
+        "width": 179.65625,
+        "height": 44,
+        "top": 29,
+        "right": 276.65625,
+        "bottom": 73,
+        "left": 97
+      },
+      "scrollWidth": 180,
+      "clientWidth": 180
+    },
+    "invisibleIcons": 2
+  },
+  {
+    "theme": "light",
+    "viewport": "desktop",
+    "route": "/digital",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-desktop-digital.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "h1": {
+      "text": "Herramientas simples para vender mejor, ordenar solicitudes y ahorrar tiempo.",
+      "rect": {
+        "x": 80,
+        "y": 206.47235107421875,
+        "width": 720.921875,
+        "height": 261.25,
+        "top": 206.47235107421875,
+        "right": 800.921875,
+        "bottom": 467.72235107421875,
+        "left": 80
+      },
+      "font": "60.48px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 97,
+        "y": 29,
+        "width": 179.65625,
+        "height": 44,
+        "top": 29,
+        "right": 276.65625,
+        "bottom": 73,
+        "left": 97
+      },
+      "scrollWidth": 180,
+      "clientWidth": 180
+    },
+    "invisibleIcons": 2
+  },
+  {
+    "theme": "light",
+    "viewport": "desktop",
+    "route": "/productos",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-desktop-productos.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "h1": {
+      "text": "Productos personalizados con una imagen cuidada para marcas, eventos y regalos.",
+      "rect": {
+        "x": 80,
+        "y": 206.5577392578125,
+        "width": 720.921875,
+        "height": 261.25,
+        "top": 206.5577392578125,
+        "right": 800.921875,
+        "bottom": 467.8077392578125,
+        "left": 80
+      },
+      "font": "60.48px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 97,
+        "y": 29,
+        "width": 179.65625,
+        "height": 44,
+        "top": 29,
+        "right": 276.65625,
+        "bottom": 73,
+        "left": 97
+      },
+      "scrollWidth": 180,
+      "clientWidth": 180
+    },
+    "invisibleIcons": 2
+  },
+  {
+    "theme": "light",
+    "viewport": "desktop",
+    "route": "/colabora",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-desktop-colabora.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "h1": {
+      "text": "Vende con nosotros, trae ideas o propón una colaboración.",
+      "rect": {
+        "x": 80,
+        "y": 206.38560485839844,
+        "width": 720.921875,
+        "height": 195.93751525878906,
+        "top": 206.38560485839844,
+        "right": 800.921875,
+        "bottom": 402.3231201171875,
+        "left": 80
+      },
+      "font": "60.48px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 97,
+        "y": 29,
+        "width": 179.65625,
+        "height": 44,
+        "top": 29,
+        "right": 276.65625,
+        "bottom": 73,
+        "left": 97
+      },
+      "scrollWidth": 180,
+      "clientWidth": 180
+    },
+    "invisibleIcons": 2
+  },
+  {
+    "theme": "light",
+    "viewport": "desktop",
+    "route": "/contacto",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-desktop-contacto.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "h1": {
+      "text": "Hablemos de tu web, producto personalizado o colaboración.",
+      "rect": {
+        "x": 80,
+        "y": 206.4136199951172,
+        "width": 720.921875,
+        "height": 195.93748474121094,
+        "top": 206.4136199951172,
+        "right": 800.921875,
+        "bottom": 402.3511047363281,
+        "left": 80
+      },
+      "font": "60.48px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 97,
+        "y": 29,
+        "width": 179.65625,
+        "height": 44,
+        "top": 29,
+        "right": 276.65625,
+        "bottom": 73,
+        "left": 97
+      },
+      "scrollWidth": 180,
+      "clientWidth": 180
+    },
+    "invisibleIcons": 2
+  },
+  {
+    "theme": "light",
+    "viewport": "mobile",
+    "route": "/",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-mobile-home.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": {
+      "text": "Webs, menús QR y productos personalizados para negocios que quieren verse mejor y captar más contactos.",
+      "rect": {
+        "x": 16,
+        "y": 175.1029052734375,
+        "width": 358,
+        "height": 289.296875,
+        "top": 175.1029052734375,
+        "right": 374,
+        "bottom": 464.3997802734375,
+        "left": 16
+      },
+      "font": "39px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "light",
+    "viewport": "mobile",
+    "route": "/digital",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-mobile-digital.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": {
+      "text": "Herramientas simples para vender mejor, ordenar solicitudes y ahorrar tiempo.",
+      "rect": {
+        "x": 16,
+        "y": 206.61497497558594,
+        "width": 358,
+        "height": 148.62501525878906,
+        "top": 206.61497497558594,
+        "right": 374,
+        "bottom": 355.239990234375,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "light",
+    "viewport": "mobile",
+    "route": "/productos",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-mobile-productos.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": {
+      "text": "Productos personalizados con una imagen cuidada para marcas, eventos y regalos.",
+      "rect": {
+        "x": 16,
+        "y": 206.7798309326172,
+        "width": 358,
+        "height": 185.78126525878906,
+        "top": 206.7798309326172,
+        "right": 374,
+        "bottom": 392.56109619140625,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "light",
+    "viewport": "mobile",
+    "route": "/colabora",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-mobile-colabora.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": {
+      "text": "Vende con nosotros, trae ideas o propón una colaboración.",
+      "rect": {
+        "x": 16,
+        "y": 206.74227905273438,
+        "width": 358,
+        "height": 111.46875,
+        "top": 206.74227905273438,
+        "right": 374,
+        "bottom": 318.2110290527344,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "light",
+    "viewport": "mobile",
+    "route": "/contacto",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-mobile-contacto.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "h1": {
+      "text": "Hablemos de tu web, producto personalizado o colaboración.",
+      "rect": {
+        "x": 16,
+        "y": 206.72119140625,
+        "width": 358,
+        "height": 148.625,
+        "top": 206.72119140625,
+        "right": 374,
+        "bottom": 355.34619140625,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "light",
+    "viewport": "narrow",
+    "route": "/",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-narrow-home.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 304,
+    "clientWidth": 304,
+    "h1": {
+      "text": "Webs, menús QR y productos personalizados para negocios que quieren verse mejor y captar más contactos.",
+      "rect": {
+        "x": 16,
+        "y": 191.2588348388672,
+        "width": 272,
+        "height": 305.25,
+        "top": 191.2588348388672,
+        "right": 288,
+        "bottom": 496.5088348388672,
+        "left": 16
+      },
+      "font": "36px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "light",
+    "viewport": "narrow",
+    "route": "/digital",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-narrow-digital.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 304,
+    "clientWidth": 304,
+    "h1": {
+      "text": "Herramientas simples para vender mejor, ordenar solicitudes y ahorrar tiempo.",
+      "rect": {
+        "x": 16,
+        "y": 206.6849365234375,
+        "width": 272,
+        "height": 222.9375,
+        "top": 206.6849365234375,
+        "right": 288,
+        "bottom": 429.6224365234375,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "light",
+    "viewport": "narrow",
+    "route": "/productos",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-narrow-productos.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 304,
+    "clientWidth": 304,
+    "h1": {
+      "text": "Productos personalizados con una imagen cuidada para marcas, eventos y regalos.",
+      "rect": {
+        "x": 16,
+        "y": 206.63461303710938,
+        "width": 272,
+        "height": 222.9375,
+        "top": 206.63461303710938,
+        "right": 288,
+        "bottom": 429.5721130371094,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "light",
+    "viewport": "narrow",
+    "route": "/colabora",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-narrow-colabora.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 304,
+    "clientWidth": 304,
+    "h1": {
+      "text": "Vende con nosotros, trae ideas o propón una colaboración.",
+      "rect": {
+        "x": 16,
+        "y": 206.624755859375,
+        "width": 272,
+        "height": 185.78125,
+        "top": 206.624755859375,
+        "right": 288,
+        "bottom": 392.406005859375,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  },
+  {
+    "theme": "light",
+    "viewport": "narrow",
+    "route": "/contacto",
+    "file": "C:\\Users\\xxgab\\OneDrive\\Documentos\\GitHub\\Pagina-web-propia\\qa-screenshots-final\\light-narrow-contacto.png",
+    "consoleErrors": 0,
+    "broken": false,
+    "overflow": false,
+    "scrollWidth": 304,
+    "clientWidth": 304,
+    "h1": {
+      "text": "Hablemos de tu web, producto personalizado o colaboración.",
+      "rect": {
+        "x": 16,
+        "y": 206.69520568847656,
+        "width": 272,
+        "height": 148.62498474121094,
+        "top": 206.69520568847656,
+        "right": 288,
+        "bottom": 355.3201904296875,
+        "left": 16
+      },
+      "font": "34.4px"
+    },
+    "brand": {
+      "text": "JS\nJellySolutions",
+      "rect": {
+        "x": 29,
+        "y": 29,
+        "width": 133.734375,
+        "height": 40,
+        "top": 29,
+        "right": 162.734375,
+        "bottom": 69,
+        "left": 29
+      },
+      "scrollWidth": 134,
+      "clientWidth": 134
+    },
+    "invisibleIcons": 1
+  }
+]

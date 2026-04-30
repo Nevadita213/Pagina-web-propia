@@ -2,11 +2,11 @@
 // Los componentes leen estos datos para mantener la landing fácil de modificar.
 
 export const siteConfig = {
-  brandName: "IdeaForma Studio",
-  tagline: "Soluciones digitales y productos personalizados",
+  brandName: "JellySolutions",
+  tagline: "Webs, menús QR y productos personalizados para negocios",
   whatsappUrl:
     "https://wa.me/34000000000?text=Hola,%20quiero%20pedir%20informaci%C3%B3n%20sobre%20un%20proyecto",
-  contactUrl: "mailto:hola@ideaforma.studio",
+  contactUrl: "mailto:hola@jellysolutions.es",
   socialLinks: [
     { label: "Instagram", href: "#" },
     { label: "TikTok", href: "#" },
@@ -23,13 +23,13 @@ export const navLinks = [
 ];
 
 export const heroContent = {
-  eyebrow: "Digital, creativo y a medida",
-  title: "Soluciones digitales y productos personalizados",
+  eyebrow: "Web, contacto y marca a medida",
+  title: "Webs, menús QR y productos personalizados para negocios que quieren verse mejor y captar más contactos.",
   subtitle:
-    "Creamos webs, automatizaciones y productos personalizados para que tu negocio se presente mejor, responda más rápido y deje una imagen más cuidada.",
+    "Creamos páginas claras, formularios, automatizaciones simples y productos con identidad para negocios, eventos y marcas pequeñas.",
   primaryCta: "Pedir presupuesto",
-  secondaryCta: "Ver servicios",
-  highlights: ["Webs claras", "Automatizaciones útiles", "Productos con identidad"],
+  secondaryCta: "Ver ejemplos",
+  highlights: ["Webs y menús QR", "Formularios y automatización", "Productos personalizados"],
 };
 
 export const homeLines = [
@@ -38,7 +38,7 @@ export const homeLines = [
     eyebrow: "Webs y sistemas",
     icon: "MonitorSmartphone",
     description:
-      "Webs, automatizaciones, formularios, menús QR y sistemas simples para negocios que quieren organizarse y vender mejor.",
+      "Webs, menús QR, formularios y sistemas simples para presentar tu negocio y recibir más contactos.",
     cta: "Ver soluciones digitales",
     href: "/digital",
     accent: "aqua",
@@ -48,7 +48,7 @@ export const homeLines = [
     eyebrow: "Personalización",
     icon: "Shirt",
     description:
-      "Camisetas, llaveros, packs, diseños y productos personalizados para eventos, negocios, grupos o marca personal.",
+      "Camisetas, llaveros y packs para eventos, promociones, regalos o negocios que cuidan su marca.",
     cta: "Ver productos físicos",
     href: "/productos",
     accent: "coral",
@@ -67,22 +67,31 @@ export const homeLines = [
 
 export const whatWeDo = [
   {
-    title: "Soluciones digitales",
+    title: "Presencia digital",
     description:
-      "Diseñamos webs, formularios, sistemas simples y automatizaciones para que tu negocio comunique mejor, reciba solicitudes y ahorre tiempo.",
+      "Webs para negocios, menús QR y formularios de contacto, reservas o pedidos.",
     icon: "MonitorSmartphone",
     href: "/digital",
     accent: "aqua",
-    items: ["Páginas web", "Automatizaciones", "Formularios y contacto", "Sistemas simples"],
+    items: ["Webs para negocios", "Menús QR", "Formularios", "Reservas o pedidos"],
+  },
+  {
+    title: "Automatización simple",
+    description:
+      "Guardamos solicitudes, enviamos avisos al dueño y organizamos pedidos, reservas o contactos.",
+    icon: "Workflow",
+    href: "/digital",
+    accent: "lime",
+    items: ["Avisos", "Hojas o sistemas", "Dashboards básicos", "Pedidos ordenados"],
   },
   {
     title: "Productos personalizados",
     description:
-      "Preparamos camisetas, llaveros, diseños y packs para eventos, regalos, negocios o marca personal con una imagen coherente.",
+      "Camisetas, llaveros, packs para eventos, diseños personalizados y productos para marca.",
     icon: "Sparkles",
     href: "/productos",
     accent: "coral",
-    items: ["Camisetas", "Llaveros", "Diseños personalizados", "Packs para eventos"],
+    items: ["Camisetas", "Llaveros", "Packs", "Diseños a medida"],
   },
 ];
 
@@ -121,54 +130,92 @@ export const techServices = [
   {
     title: "Webs para negocios",
     icon: "Globe2",
-    what: "Páginas claras, rápidas y preparadas para convertir visitas en contactos.",
-    forWho: "Negocios locales, profesionales y marcas que necesitan una presencia online útil.",
-    benefit:
-      "Tus clientes entienden qué ofreces y pueden pedir información sin complicaciones.",
-    example: "Una web para una barbería, clínica, tienda o profesional con servicios, ubicación y WhatsApp.",
+    what: "Página sencilla para presentar servicios, horarios, ubicación y contacto.",
+    forWho: "Negocios locales, profesionales y marcas pequeñas.",
+    benefit: "Tus clientes entienden rápido qué ofreces y cómo contactar.",
+    example: "Una barbería o clínica con servicios, ubicación y botón de WhatsApp.",
   },
   {
     title: "Automatizaciones para ahorrar tiempo",
     icon: "Workflow",
-    what: "Flujos simples para reducir tareas repetitivas y ordenar información.",
-    forWho: "Negocios que reciben pedidos, consultas o datos y quieren gestionarlos mejor.",
-    benefit:
-      "Menos trabajo manual, respuestas más rápidas y procesos más fáciles de seguir.",
-    example: "Un formulario que guarda solicitudes y avisa por email o WhatsApp cuando entra una nueva consulta.",
+    what: "Flujos básicos para guardar solicitudes y enviar avisos.",
+    forWho: "Negocios que reciben consultas, reservas o pedidos.",
+    benefit: "Menos trabajo manual y más control de cada solicitud.",
+    example: "Un formulario que guarda datos en una hoja y avisa al dueño.",
   },
   {
     title: "Contacto, reservas o pedidos",
     icon: "MessagesSquare",
-    what: "Sistemas ligeros para captar solicitudes, reservas, presupuestos o pedidos.",
-    forWho: "Bares, centros, comercios y servicios que necesitan organizar solicitudes.",
-    benefit:
-      "El usuario sabe qué hacer y tú recibes la información de forma ordenada.",
-    example: "Un sistema de reserva sencilla para citas, encargos, pedidos o presupuestos.",
+    what: "Formulario claro para recibir información útil desde la web.",
+    forWho: "Servicios, comercios, centros y proyectos con atención directa.",
+    benefit: "Recibes datos ordenados y reduces mensajes incompletos.",
+    example: "Reserva de cita, pedido simple o solicitud de presupuesto.",
   },
   {
     title: "Dashboards y gestión simple",
     icon: "ChartNoAxesCombined",
-    what: "Paneles sencillos para consultar datos, estados, clientes o tareas importantes.",
-    forWho: "Equipos pequeños que necesitan ver información clave sin herramientas complejas.",
-    benefit:
-      "Mejor control del negocio con una vista práctica, visual y fácil de usar.",
-    example: "Un panel para revisar pedidos, contactos recibidos, estados de encargos o tareas pendientes.",
+    what: "Vista básica para consultar pedidos, contactos o tareas.",
+    forWho: "Equipos pequeños que necesitan ver información clave.",
+    benefit: "Sabes qué está pendiente sin revisar mensajes uno a uno.",
+    example: "Panel de pedidos recibidos y estado de cada encargo.",
   },
   {
     title: "Menús QR",
     icon: "QrCode",
-    what: "Cartas digitales pensadas para consultarse rápido desde el móvil.",
-    forWho: "Bares, cafeterías, restaurantes, food trucks o eventos con carta variable.",
-    benefit: "Tus clientes acceden al menú sin descargar nada y puedes ordenar mejor la información.",
-    example: "Un QR en mesa que abre bebidas, tapas, menús, alérgenos y promociones.",
+    what: "Carta digital rápida para consultar desde el móvil.",
+    forWho: "Bares, cafeterías, restaurantes, food trucks o eventos.",
+    benefit: "El cliente accede por QR sin descargar nada.",
+    example: "Bebidas, tapas, menús, alérgenos y promociones.",
   },
   {
     title: "Sistemas simples personalizados",
     icon: "Settings2",
-    what: "Pequeñas herramientas adaptadas a una necesidad concreta del negocio.",
-    forWho: "Proyectos que no necesitan una app grande, sino algo directo y mantenible.",
-    benefit: "Resuelves un proceso específico sin pagar por una herramienta sobredimensionada.",
-    example: "Un mini sistema para registrar clientes, encargos, entregas o solicitudes internas.",
+    what: "Herramienta pequeña para resolver un proceso concreto.",
+    forWho: "Negocios que no necesitan una app grande.",
+    benefit: "Tienes una solución directa y fácil de mantener.",
+    example: "Registro de clientes, encargos, entregas o solicitudes.",
+  },
+];
+
+export const packages = [
+  {
+    title: "Web básica",
+    icon: "Globe2",
+    description:
+      "Página clara para presentar tu negocio, servicios, horarios, ubicación y contacto.",
+    includes: [
+      "Diseño responsive",
+      "Secciones principales",
+      "Botón de WhatsApp o contacto",
+      "Preparada para verse bien en móvil",
+    ],
+    note: "Precio según alcance",
+  },
+  {
+    title: "Menú QR / formulario",
+    icon: "QrCode",
+    description:
+      "Sistema sencillo para que tus clientes consulten información, pidan presupuesto, reserven o contacten.",
+    includes: [
+      "Menú digital o formulario",
+      "Categorías claras",
+      "Enlace directo por QR",
+      "Información organizada",
+    ],
+    note: "Desde presupuesto cerrado",
+  },
+  {
+    title: "Pack completo",
+    icon: "PackageCheck",
+    description:
+      "Web + formulario o menú QR + producto personalizado para mantener una imagen cuidada.",
+    includes: [
+      "Presencia digital",
+      "Sistema de contacto o pedidos",
+      "Diseño adaptado a la marca",
+      "Opción de añadir camisetas, llaveros o packs físicos",
+    ],
+    note: "Precio según alcance",
   },
 ];
 
@@ -193,7 +240,7 @@ export const customProducts = [
     title: "Packs personalizados",
     icon: "PackageCheck",
     description:
-      "Combinaciones de productos y diseño para eventos, lanzamientos o detalles de empresa.",
+      "Combina camisetas, llaveros, diseños y otros detalles para crear un pack a medida para eventos, negocios o regalos.",
     useCases: ["Eventos", "Empresas", "Celebraciones"],
     clientType: "Empresas, asociaciones, eventos y marcas personales.",
   },
