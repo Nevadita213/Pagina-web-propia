@@ -10,10 +10,14 @@ import {
 } from "@/lib/site-data";
 import {
   Footer,
+  FounderPriceBlock,
+  FounderPricingNotice,
   Header,
   IconBadge,
   MotionSection,
   PrimaryButton,
+  ProductPriceBlock,
+  ProductPricingNotice,
   ProductIconVisual,
   SectionHeading,
 } from "@/components/landing-page";
@@ -147,6 +151,7 @@ export function DigitalPage() {
             title="Digital útil, fácil de entender y preparado para crecer."
             description="Cada bloque se puede pedir por separado o combinar dentro de un mismo sistema."
           />
+          <FounderPricingNotice />
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {techServices.map((service, index) => (
               <motion.article
@@ -183,6 +188,7 @@ export function DigitalPage() {
                     {service.example}
                   </p>
                 </div>
+                <FounderPriceBlock price={service.price} />
               </motion.article>
             ))}
           </div>
@@ -210,6 +216,7 @@ export function ProductsPage() {
             title="Detalles visuales que ayudan a recordar tu marca, evento o idea."
             description="Presentamos cada producto con referencias visuales cuidadas para que se entienda el tipo de acabado, uso y cliente ideal."
           />
+          <ProductPricingNotice />
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {customProducts.map((product, index) => (
               <motion.article
@@ -247,6 +254,7 @@ export function ProductsPage() {
                     <strong className="text-text">Tipo de cliente: </strong>
                     {product.clientType}
                   </p>
+                  <ProductPriceBlock price={product.price} />
                 </div>
               </motion.article>
             ))}

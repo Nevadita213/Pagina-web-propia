@@ -3,12 +3,14 @@
 import {
   ArrowRight,
   BadgeCheck,
+  Badge,
   Blocks,
   CalendarDays,
   ChartNoAxesCombined,
   Check,
   ChevronRight,
   Clock3,
+  Coffee,
   Globe2,
   Handshake,
   KeyRound,
@@ -24,7 +26,9 @@ import {
   Send,
   Settings2,
   Shirt,
+  ShoppingBag,
   Sparkles,
+  Sticker,
   Store,
   Sun,
   UsersRound,
@@ -53,9 +57,11 @@ import {
 
 const icons: Record<string, LucideIcon> = {
   Blocks,
+  Badge,
   BadgeCheck,
   CalendarDays,
   ChartNoAxesCombined,
+  Coffee,
   Globe2,
   Handshake,
   KeyRound,
@@ -68,7 +74,9 @@ const icons: Record<string, LucideIcon> = {
   QrCode,
   Settings2,
   Shirt,
+  ShoppingBag,
   Sparkles,
+  Sticker,
   Store,
   UsersRound,
   Workflow,
@@ -195,6 +203,100 @@ export function ProductIconVisual({
     >
       <Icon className="h-5 w-5" />
     </span>
+  );
+}
+
+type FounderPrice = {
+  standard: string;
+  founder: string;
+  discount: string;
+};
+
+export function FounderPriceBlock({ price }: { price: FounderPrice }) {
+  return (
+    <div className="mt-6 rounded-[22px] border border-aqua/24 bg-aqua/[0.07] p-4 shadow-sm transition group-hover:border-aqua/35 group-hover:bg-aqua/[0.1]">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="rounded-full border border-aqua/24 bg-aqua/12 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-aqua">
+          Primeros 2 clientes
+        </span>
+        <span className="text-xs font-semibold text-muted">Precio limitado de lanzamiento</span>
+      </div>
+      <div className="mt-4 flex flex-wrap items-end gap-x-4 gap-y-2">
+        <p className="text-xs font-medium uppercase tracking-[0.12em] text-muted">
+          Precio estándar{" "}
+          <span className="text-sm normal-case tracking-normal text-muted line-through decoration-coral/70">
+            {price.standard}
+          </span>
+        </p>
+        <p className="text-sm font-semibold text-text">
+          Precio fundador{" "}
+          <span className="text-2xl font-black text-aqua sm:text-[1.7rem]">
+            {price.founder}
+          </span>
+        </p>
+      </div>
+      <p className="mt-2 text-xs leading-5 text-muted">Ahorro aproximado del {price.discount}.</p>
+    </div>
+  );
+}
+
+export function FounderPricingNotice() {
+  return (
+    <div className="mt-8 rounded-[26px] border border-aqua/22 bg-aqua/[0.07] p-5 text-sm leading-7 text-muted shadow-card sm:p-6">
+      <div className="mb-3 inline-flex rounded-full border border-aqua/24 bg-aqua/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-aqua">
+        Oferta fundador
+      </div>
+      <p>
+        Precios de lanzamiento para los primeros 2 clientes. A cambio del descuento,
+        buscamos proyectos reales para portfolio, feedback y mejora del servicio.
+        Después, los precios volverán progresivamente a tarifa estándar.
+      </p>
+    </div>
+  );
+}
+
+type ProductPrice = {
+  label: string;
+  note: string;
+};
+
+export function ProductPriceBlock({
+  price,
+  tone = "panel",
+}: {
+  price: ProductPrice;
+  tone?: "panel" | "dark";
+}) {
+  const textClass = tone === "dark" ? "text-paper" : "text-text";
+  const mutedClass = tone === "dark" ? "text-paper/72" : "text-muted";
+
+  return (
+    <div className="mt-5 rounded-[20px] border border-coral/24 bg-coral/[0.08] p-4 transition group-hover:border-coral/38 group-hover:bg-coral/[0.11]">
+      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-coral">
+        Precio
+      </p>
+      <p className={`mt-2 text-2xl font-black ${textClass}`}>{price.label}</p>
+      <p className={`mt-1 text-xs leading-5 ${mutedClass}`}>{price.note}</p>
+    </div>
+  );
+}
+
+export function ProductPricingNotice({ tone = "panel" }: { tone?: "panel" | "dark" }) {
+  const textClass = tone === "dark" ? "text-paper/74" : "text-muted";
+
+  return (
+    <div
+      className={`mt-8 rounded-[26px] border border-coral/22 bg-coral/[0.07] p-5 text-sm leading-7 shadow-card sm:p-6 ${textClass}`}
+    >
+      <div className="mb-3 inline-flex rounded-full border border-coral/24 bg-coral/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-coral">
+        Precios desde
+      </div>
+      <p>
+        Precios desde para personalizaciones sencillas. Personalización simple incluida.
+        El precio final puede variar según producto, cantidad, diseño y disponibilidad.
+        Envío no incluido.
+      </p>
+    </div>
   );
 }
 
@@ -653,6 +755,7 @@ function TechServices() {
           title="Herramientas digitales pensadas para vender, organizar y ahorrar tiempo."
           description="Cada servicio empieza con una pregunta simple: qué necesita hacer mejor tu negocio desde hoy."
         />
+        <FounderPricingNotice />
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {techServices.map((service, index) => (
             <motion.article
@@ -683,6 +786,7 @@ function TechServices() {
                   {service.benefit}
                 </p>
               </div>
+              <FounderPriceBlock price={service.price} />
             </motion.article>
           ))}
         </div>
@@ -736,6 +840,8 @@ function Packages() {
 }
 
 function Products() {
+  const featuredProducts = customProducts.slice(0, 6);
+
   return (
     <MotionSection id="productos" className="bg-ink px-4 text-paper sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
@@ -756,8 +862,9 @@ function Products() {
           </div>
         </div>
 
+        <ProductPricingNotice tone="dark" />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {customProducts.map((product, index) => (
+          {featuredProducts.map((product, index) => (
             <motion.article
               key={product.title}
               className="group overflow-hidden rounded-[28px] border border-white/20 bg-white/8 text-paper shadow-lift backdrop-blur transition hover:-translate-y-1 hover:bg-white/12"
@@ -781,10 +888,14 @@ function Products() {
                     </span>
                   ))}
                 </div>
+                <ProductPriceBlock price={product.price} tone="dark" />
               </div>
             </motion.article>
           ))}
         </div>
+        <p className="mt-6 rounded-[22px] border border-white/14 bg-white/8 p-4 text-sm leading-7 text-paper/74">
+          También podemos preparar: tazas, tote bags, pegatinas y detalles para eventos o marca.
+        </p>
       </div>
     </MotionSection>
   );

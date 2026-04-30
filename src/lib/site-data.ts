@@ -134,6 +134,11 @@ export const techServices = [
     forWho: "Negocios locales, profesionales y marcas pequeñas.",
     benefit: "Tus clientes entienden rápido qué ofreces y cómo contactar.",
     example: "Una barbería o clínica con servicios, ubicación y botón de WhatsApp.",
+    price: {
+      standard: "399€",
+      founder: "150€",
+      discount: "62%",
+    },
   },
   {
     title: "Automatizaciones para ahorrar tiempo",
@@ -142,6 +147,11 @@ export const techServices = [
     forWho: "Negocios que reciben consultas, reservas o pedidos.",
     benefit: "Menos trabajo manual y más control de cada solicitud.",
     example: "Un formulario que guarda datos en una hoja y avisa al dueño.",
+    price: {
+      standard: "349€",
+      founder: "desde 120€",
+      discount: "66%",
+    },
   },
   {
     title: "Contacto, reservas o pedidos",
@@ -150,6 +160,11 @@ export const techServices = [
     forWho: "Servicios, comercios, centros y proyectos con atención directa.",
     benefit: "Recibes datos ordenados y reduces mensajes incompletos.",
     example: "Reserva de cita, pedido simple o solicitud de presupuesto.",
+    price: {
+      standard: "299€",
+      founder: "desde 80€",
+      discount: "73%",
+    },
   },
   {
     title: "Dashboards y gestión simple",
@@ -158,6 +173,11 @@ export const techServices = [
     forWho: "Equipos pequeños que necesitan ver información clave.",
     benefit: "Sabes qué está pendiente sin revisar mensajes uno a uno.",
     example: "Panel de pedidos recibidos y estado de cada encargo.",
+    price: {
+      standard: "699€",
+      founder: "desde 220€",
+      discount: "69%",
+    },
   },
   {
     title: "Menús QR",
@@ -166,6 +186,11 @@ export const techServices = [
     forWho: "Bares, cafeterías, restaurantes, food trucks o eventos.",
     benefit: "El cliente accede por QR sin descargar nada.",
     example: "Bebidas, tapas, menús, alérgenos y promociones.",
+    price: {
+      standard: "149€",
+      founder: "desde 70€",
+      discount: "53%",
+    },
   },
   {
     title: "Sistemas simples personalizados",
@@ -174,6 +199,11 @@ export const techServices = [
     forWho: "Negocios que no necesitan una app grande.",
     benefit: "Tienes una solución directa y fácil de mantener.",
     example: "Registro de clientes, encargos, entregas o solicitudes.",
+    price: {
+      standard: "899€",
+      founder: "desde 300€",
+      discount: "67%",
+    },
   },
 ];
 
@@ -227,6 +257,34 @@ export const customProducts = [
       "Diseños para grupos, eventos, equipos, negocios o regalos con una estética cuidada.",
     useCases: ["Eventos", "Negocios", "Grupos"],
     clientType: "Grupos, marcas pequeñas, equipos y celebraciones.",
+    price: {
+      label: "Desde 12€",
+      note: "Personalización simple incluida.",
+    },
+  },
+  {
+    title: "Sudaderas personalizadas",
+    icon: "Shirt",
+    description:
+      "Sudaderas personalizadas para grupos, eventos, equipos, negocios o regalos.",
+    useCases: ["Grupos", "Eventos", "Regalos"],
+    clientType: "Grupos, equipos, negocios y celebraciones.",
+    price: {
+      label: "Desde 25€",
+      note: "Según diseño y cantidad.",
+    },
+  },
+  {
+    title: "Gorras personalizadas",
+    icon: "Badge",
+    description:
+      "Gorras personalizadas para eventos, marcas, equipos o detalles promocionales.",
+    useCases: ["Eventos", "Marca", "Equipos"],
+    clientType: "Negocios, grupos, eventos y pequeñas marcas.",
+    price: {
+      label: "Desde 8€",
+      note: "Según diseño y cantidad.",
+    },
   },
   {
     title: "Llaveros personalizados",
@@ -235,6 +293,10 @@ export const customProducts = [
       "Pequeños detalles con identidad para promociones, regalos, marcas o celebraciones.",
     useCases: ["Regalos", "Marcas", "Promociones"],
     clientType: "Negocios, eventos, regalos y detalles promocionales.",
+    price: {
+      label: "Desde 8€",
+      note: "Según diseño y cantidad.",
+    },
   },
   {
     title: "Packs personalizados",
@@ -243,6 +305,10 @@ export const customProducts = [
       "Combina camisetas, llaveros, diseños y otros detalles para crear un pack a medida para eventos, negocios o regalos.",
     useCases: ["Eventos", "Empresas", "Celebraciones"],
     clientType: "Empresas, asociaciones, eventos y marcas personales.",
+    price: {
+      label: "Presupuesto a medida",
+      note: "Según productos, cantidades y personalización.",
+    },
   },
   {
     title: "Diseños por encargo",
@@ -251,6 +317,46 @@ export const customProducts = [
       "Creamos piezas visuales adaptadas a tu idea para que el resultado se sienta propio.",
     useCases: ["Marca personal", "Regalos", "Campañas"],
     clientType: "Personas, negocios y proyectos que necesitan una pieza visual concreta.",
+    price: {
+      label: "Desde 15€",
+      note: "Según complejidad del diseño y número de piezas.",
+    },
+  },
+  {
+    title: "Tote bags personalizadas",
+    icon: "ShoppingBag",
+    description:
+      "Bolsas personalizadas para regalos, eventos, marcas o promociones.",
+    useCases: ["Regalos", "Eventos", "Marca"],
+    clientType: "Negocios, eventos, asociaciones y marcas pequeñas.",
+    price: {
+      label: "Desde 10€",
+      note: "Según diseño y cantidad.",
+    },
+  },
+  {
+    title: "Tazas personalizadas",
+    icon: "Coffee",
+    description:
+      "Tazas personalizadas para regalos, equipos, negocios o detalles de marca.",
+    useCases: ["Regalos", "Marca", "Equipos"],
+    clientType: "Personas, negocios, equipos y celebraciones.",
+    price: {
+      label: "Desde 9€",
+      note: "Según diseño y cantidad.",
+    },
+  },
+  {
+    title: "Pegatinas personalizadas",
+    icon: "Sticker",
+    description:
+      "Pegatinas personalizadas para marcas, eventos, packaging o promociones.",
+    useCases: ["Marca", "Packaging", "Promociones"],
+    clientType: "Negocios, creadores, eventos y marcas pequeñas.",
+    price: {
+      label: "Desde 4€",
+      note: "Según formato, cantidad y diseño.",
+    },
   },
   {
     title: "Productos para eventos",
@@ -259,6 +365,10 @@ export const customProducts = [
       "Piezas personalizadas para celebraciones, equipos, actividades, sorteos o promociones.",
     useCases: ["Celebraciones", "Equipos", "Promociones"],
     clientType: "Organizadores, grupos, asociaciones y eventos locales.",
+    price: {
+      label: "Desde 30€",
+      note: "Según cantidad, tipo de producto y personalización.",
+    },
   },
   {
     title: "Productos para negocios/marca",
@@ -267,6 +377,10 @@ export const customProducts = [
       "Detalles físicos con identidad para reforzar marca, fidelizar clientes o presentar un lanzamiento.",
     useCases: ["Marca", "Clientes", "Lanzamientos"],
     clientType: "Negocios locales, creadores y pequeñas marcas.",
+    price: {
+      label: "Desde 30€",
+      note: "Según producto, cantidad y nivel de personalización.",
+    },
   },
 ];
 
