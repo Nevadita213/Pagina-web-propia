@@ -49,8 +49,13 @@ Ahí puedes modificar:
 ```txt
 src/app/layout.tsx          Metadata y layout base
 src/app/page.tsx            Página principal
+src/app/digital/page.tsx    Página de productos y servicios digitales
+src/app/productos/page.tsx  Página de productos físicos personalizados
+src/app/colabora/page.tsx   Página para colaboraciones
+src/app/contacto/page.tsx   Página de contacto
 src/app/globals.css         Estilos globales y utilidades
 src/components/landing-page.tsx
+src/components/service-pages.tsx
 src/lib/site-data.ts
 ```
 

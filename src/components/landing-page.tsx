@@ -4,12 +4,15 @@ import {
   ArrowRight,
   BadgeCheck,
   Blocks,
+  CalendarDays,
   ChartNoAxesCombined,
   Check,
   ChevronRight,
   Clock3,
   Globe2,
+  Handshake,
   KeyRound,
+  Lightbulb,
   Mail,
   Menu,
   Moon,
@@ -17,7 +20,9 @@ import {
   MonitorSmartphone,
   PackageCheck,
   PenTool,
+  QrCode,
   Send,
+  Settings2,
   Shirt,
   Sparkles,
   Store,
@@ -34,6 +39,7 @@ import {
   audiences,
   customProducts,
   heroContent,
+  homeLines,
   navLinks,
   processSteps,
   projectExamples,
@@ -46,13 +52,19 @@ import {
 const icons: Record<string, LucideIcon> = {
   Blocks,
   BadgeCheck,
+  CalendarDays,
   ChartNoAxesCombined,
   Globe2,
+  Handshake,
   KeyRound,
+  Lightbulb,
+  Mail,
   MessagesSquare,
   MonitorSmartphone,
   PackageCheck,
   PenTool,
+  QrCode,
+  Settings2,
   Shirt,
   Sparkles,
   Store,
@@ -63,6 +75,7 @@ const icons: Record<string, LucideIcon> = {
 const accentClasses = {
   aqua: "from-aqua/18 via-aqua/8 to-transparent text-aqua border-aqua/30",
   coral: "from-coral/18 via-coral/8 to-transparent text-coral border-coral/30",
+  lime: "from-lime/16 via-lime/7 to-transparent text-lime border-lime/25",
 };
 
 const fadeUp = {
@@ -70,7 +83,7 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
-function MotionSection({
+export function MotionSection({
   id,
   className = "",
   children,
@@ -94,7 +107,7 @@ function MotionSection({
   );
 }
 
-function SectionHeading({
+export function SectionHeading({
   eyebrow,
   title,
   description,
@@ -132,7 +145,7 @@ function SectionHeading({
   );
 }
 
-function IconBadge({ icon, className = "" }: { icon: string; className?: string }) {
+export function IconBadge({ icon, className = "" }: { icon: string; className?: string }) {
   const Icon = icons[icon] ?? Sparkles;
   return (
     <span
@@ -182,7 +195,7 @@ function ThemeToggle({ compact = false }: { compact?: boolean }) {
   );
 }
 
-function PrimaryButton({
+export function PrimaryButton({
   href,
   children,
   variant = "primary",
@@ -209,13 +222,13 @@ function PrimaryButton({
   );
 }
 
-function Header() {
+export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-4 py-4">
       <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-line/12 bg-panel/82 px-4 py-3 text-text shadow-lift backdrop-blur-xl">
-        <a href="#" className="flex min-w-0 items-center gap-3">
+        <a href="/" className="flex min-w-0 items-center gap-3">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-aqua via-lime to-coral text-sm font-black text-ink">
             IF
           </span>
@@ -371,6 +384,18 @@ function Hero() {
               {heroContent.secondaryCta}
             </PrimaryButton>
           </div>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {homeLines.map((line) => (
+              <a
+                key={line.href}
+                href={line.href}
+                className="group inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/7 px-3 py-2 text-sm font-semibold text-paper/78 transition hover:-translate-y-0.5 hover:bg-white/12 hover:text-paper"
+              >
+                {line.title}
+                <ChevronRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              </a>
+            ))}
+          </div>
           <div className="mt-9 flex flex-wrap gap-3">
             {heroContent.highlights.map((item) => (
               <span
@@ -436,6 +461,60 @@ function WhatWeDo() {
                     <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </span>
                 </div>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+    </MotionSection>
+  );
+}
+
+function HomeLines() {
+  return (
+    <MotionSection className="bg-surface px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+          <SectionHeading
+            eyebrow="Tres formas de trabajar con nosotros"
+            title="Elige por dónde empezar."
+            description="IdeaForma Studio se divide en tres líneas claras: soluciones digitales, productos físicos personalizados y colaboraciones para crear o vender juntos."
+          />
+          <p className="max-w-2xl text-sm leading-7 text-muted lg:justify-self-end">
+            Puedes entrar por una línea concreta o combinar varias en un mismo proyecto.
+            La idea es que la web crezca contigo sin perder claridad.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          {homeLines.map((line, index) => (
+            <motion.a
+              key={line.href}
+              href={line.href}
+              className={`group relative min-h-[330px] overflow-hidden rounded-[30px] border bg-panel bg-gradient-to-br p-6 shadow-lift transition hover:-translate-y-1 hover:bg-elevated sm:p-7 ${
+                accentClasses[line.accent as keyof typeof accentClasses]
+              }`}
+              variants={fadeUp}
+              transition={{ duration: 0.55, delay: index * 0.06 }}
+              whileHover={{ y: -7 }}
+            >
+              <div className="absolute -right-12 -top-12 h-44 w-44 rounded-full bg-current opacity-[0.12] blur-3xl transition group-hover:opacity-20" />
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white/6 to-transparent opacity-60" />
+              <div className="relative flex h-full flex-col">
+                <div className="flex items-center justify-between gap-4">
+                  <IconBadge icon={line.icon} className="bg-elevated text-text" />
+                  <span className="rounded-full border border-line/10 bg-elevated/72 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+                    {line.eyebrow}
+                  </span>
+                </div>
+                <div className="mt-10">
+                  <h3 className="text-2xl font-semibold text-text">{line.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-muted">{line.description}</p>
+                </div>
+                <span className="mt-auto inline-flex items-center gap-2 pt-8 text-sm font-semibold text-text">
+                  {line.cta}
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                </span>
               </div>
             </motion.a>
           ))}
@@ -743,7 +822,7 @@ function FinalCta() {
   );
 }
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="bg-ink px-4 py-10 text-paper sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-8 border-t border-white/10 pt-8 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
@@ -754,24 +833,24 @@ function Footer() {
         <div>
           <h3 className="text-sm font-semibold text-paper">Servicios</h3>
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
-            <a href="#servicios">Páginas web</a>
-            <a href="#servicios">Automatizaciones</a>
-            <a href="#servicios">Sistemas simples</a>
+            <a href="/digital">Páginas web</a>
+            <a href="/digital">Automatizaciones</a>
+            <a href="/digital">Sistemas simples</a>
           </div>
         </div>
         <div>
           <h3 className="text-sm font-semibold text-paper">Productos</h3>
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
-            <a href="#productos">Camisetas</a>
-            <a href="#productos">Llaveros</a>
-            <a href="#productos">Packs personalizados</a>
+            <a href="/productos">Camisetas</a>
+            <a href="/productos">Llaveros</a>
+            <a href="/productos">Packs personalizados</a>
           </div>
         </div>
         <div>
           <h3 className="text-sm font-semibold text-paper">Contacto</h3>
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
             <a href={siteConfig.whatsappUrl}>WhatsApp</a>
-            <a href={siteConfig.contactUrl}>Email</a>
+            <a href="/contacto">Formulario/contacto</a>
             {siteConfig.socialLinks.map((link) => (
               <a key={link.label} href={link.href}>
                 {link.label}
@@ -797,6 +876,7 @@ export function LandingPage() {
       <Header />
       <main>
         <Hero />
+        <HomeLines />
         <WhatWeDo />
         <Audiences />
         <RequestIdeas />
