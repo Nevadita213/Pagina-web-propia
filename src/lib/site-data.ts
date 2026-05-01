@@ -24,9 +24,9 @@ export const navLinks = [
 
 export const heroContent = {
   eyebrow: "Web, contacto y marca a medida",
-  title: "Webs, menús QR y productos personalizados para negocios que quieren verse mejor y captar más contactos.",
+  title: "Webs, menús QR y productos personalizados para negocios que quieren verse mejor y recibir más contactos.",
   subtitle:
-    "Creamos páginas claras, formularios, automatizaciones simples y productos con identidad para negocios, eventos y marcas pequeñas.",
+    "Creamos soluciones simples para presentar tu negocio, ordenar solicitudes y reforzar tu marca sin complicarte el proceso.",
   primaryCta: "Pedir presupuesto",
   secondaryCta: "Ver ejemplos",
   highlights: ["Webs y menús QR", "Formularios y automatización", "Productos personalizados"],
@@ -38,7 +38,7 @@ export const homeLines = [
     eyebrow: "Webs y sistemas",
     icon: "MonitorSmartphone",
     description:
-      "Webs, menús QR, formularios y sistemas simples para presentar tu negocio y recibir más contactos.",
+      "Soluciones digitales sencillas para presentar tu negocio y facilitar el contacto.",
     cta: "Ver soluciones digitales",
     href: "/digital",
     accent: "aqua",
@@ -48,7 +48,7 @@ export const homeLines = [
     eyebrow: "Personalización",
     icon: "Shirt",
     description:
-      "Camisetas, llaveros y packs para eventos, promociones, regalos o negocios que cuidan su marca.",
+      "Productos personalizados para eventos, regalos o marca con una imagen cuidada.",
     cta: "Ver productos físicos",
     href: "/productos",
     accent: "coral",
@@ -58,40 +58,37 @@ export const homeLines = [
     eyebrow: "Vende con nosotros",
     icon: "Handshake",
     description:
-      "Si tienes una idea, contactos, diseños o quieres vender productos con nosotros, podemos hablar y ver cómo hacerlo.",
+      "Trae una idea, contactos o diseños y valoramos una forma simple de colaborar.",
     cta: "Vender o colaborar",
     href: "/colabora",
     accent: "lime",
   },
 ];
 
-export const whatWeDo = [
+export const homeOutcomes = [
   {
-    title: "Presencia digital",
-    description:
-      "Webs para negocios, menús QR y formularios de contacto, reservas o pedidos.",
-    icon: "MonitorSmartphone",
-    href: "/digital",
+    title: "Contacto claro",
+    description: "Tus clientes encuentran rápido qué ofreces, cómo escribirte y cuál es el siguiente paso.",
+    icon: "MessagesSquare",
     accent: "aqua",
-    items: ["Webs para negocios", "Menús QR", "Formularios", "Reservas o pedidos"],
   },
   {
-    title: "Automatización simple",
-    description:
-      "Guardamos solicitudes, enviamos avisos al dueño y organizamos pedidos, reservas o contactos.",
-    icon: "Workflow",
-    href: "/digital",
-    accent: "lime",
-    items: ["Avisos", "Hojas o sistemas", "Dashboards básicos", "Pedidos ordenados"],
-  },
-  {
-    title: "Productos personalizados",
-    description:
-      "Camisetas, llaveros, packs para eventos, diseños personalizados y productos para marca.",
-    icon: "Sparkles",
-    href: "/productos",
+    title: "Imagen profesional",
+    description: "Tu web, QR o producto físico se siente coherente con la marca y preparado para enseñar.",
+    icon: "BadgeCheck",
     accent: "coral",
-    items: ["Camisetas", "Llaveros", "Packs", "Diseños a medida"],
+  },
+  {
+    title: "Menos mensajes desordenados",
+    description: "Formularios y llamadas a la acción ayudan a recibir solicitudes completas desde el primer contacto.",
+    icon: "Workflow",
+    accent: "lime",
+  },
+  {
+    title: "Pedidos y reservas más simples",
+    description: "Convertimos ideas sueltas en flujos fáciles: pedir presupuesto, reservar, consultar o comprar.",
+    icon: "QrCode",
+    accent: "aqua",
   },
 ];
 
@@ -128,8 +125,11 @@ export const requestItems = [
 
 export const techServices = [
   {
+    id: "webs-negocios",
     title: "Webs para negocios",
     icon: "Globe2",
+    problem: "Tu negocio depende de redes o mensajes sueltos y cuesta entender qué ofreces.",
+    result: "Una página clara con servicios, ubicación y contacto directo.",
     what: "Página sencilla para presentar servicios, horarios, ubicación y contacto.",
     forWho: "Negocios locales, profesionales y marcas pequeñas.",
     benefit: "Tus clientes entienden rápido qué ofreces y cómo contactar.",
@@ -141,8 +141,11 @@ export const techServices = [
     },
   },
   {
+    id: "automatizaciones",
     title: "Automatizaciones para ahorrar tiempo",
     icon: "Workflow",
+    problem: "Pierdes tiempo copiando datos, avisando a mano o revisando conversaciones.",
+    result: "Solicitudes guardadas y avisos básicos para tener control sin perseguir mensajes.",
     what: "Flujos básicos para guardar solicitudes y enviar avisos.",
     forWho: "Negocios que reciben consultas, reservas o pedidos.",
     benefit: "Menos trabajo manual y más control de cada solicitud.",
@@ -154,8 +157,11 @@ export const techServices = [
     },
   },
   {
+    id: "contacto-reservas-pedidos",
     title: "Contacto, reservas o pedidos",
     icon: "MessagesSquare",
+    problem: "Los clientes escriben sin datos suficientes y cada conversación empieza desde cero.",
+    result: "Formularios preparados para recibir la información útil desde el primer envío.",
     what: "Formulario claro para recibir información útil desde la web.",
     forWho: "Servicios, comercios, centros y proyectos con atención directa.",
     benefit: "Recibes datos ordenados y reduces mensajes incompletos.",
@@ -167,8 +173,11 @@ export const techServices = [
     },
   },
   {
+    id: "dashboards-gestion",
     title: "Dashboards y gestión simple",
     icon: "ChartNoAxesCombined",
+    problem: "La información importante queda repartida entre chats, hojas y notas.",
+    result: "Una vista sencilla para consultar pedidos, contactos o tareas pendientes.",
     what: "Vista básica para consultar pedidos, contactos o tareas.",
     forWho: "Equipos pequeños que necesitan ver información clave.",
     benefit: "Sabes qué está pendiente sin revisar mensajes uno a uno.",
@@ -180,8 +189,11 @@ export const techServices = [
     },
   },
   {
+    id: "menus-qr",
     title: "Menús QR",
     icon: "QrCode",
+    problem: "La carta cambia, se imprime demasiado o no se consulta bien desde el móvil.",
+    result: "Un menú digital rápido, organizado por categorías y accesible por QR.",
     what: "Carta digital rápida para consultar desde el móvil.",
     forWho: "Bares, cafeterías, restaurantes, food trucks o eventos.",
     benefit: "El cliente accede por QR sin descargar nada.",
@@ -193,8 +205,11 @@ export const techServices = [
     },
   },
   {
+    id: "sistemas-simples",
     title: "Sistemas simples personalizados",
     icon: "Settings2",
+    problem: "Tienes un proceso concreto que no encaja bien en herramientas genéricas.",
+    result: "Una herramienta pequeña, directa y fácil de mantener para ese flujo.",
     what: "Herramienta pequeña para resolver un proceso concreto.",
     forWho: "Negocios que no necesitan una app grande.",
     benefit: "Tienes una solución directa y fácil de mantener.",
@@ -204,6 +219,39 @@ export const techServices = [
       founder: "desde 300€",
       discount: "67%",
     },
+  },
+];
+
+export const digitalServiceGroups = [
+  {
+    title: "Presencia y contacto",
+    description:
+      "Para negocios que necesitan verse mejor, explicar qué ofrecen y recibir contactos de forma clara.",
+    serviceIds: ["webs-negocios", "contacto-reservas-pedidos"],
+  },
+  {
+    title: "Menús, catálogos y consulta rápida",
+    description:
+      "Para bares, cafeterías, tiendas o proyectos que quieren mostrar información desde el móvil sin complicaciones.",
+    serviceIds: ["menus-qr"],
+  },
+  {
+    title: "Automatización y organización",
+    description:
+      "Para negocios que reciben mensajes, reservas, pedidos o solicitudes y quieren ordenar la información sin depender de conversaciones sueltas.",
+    serviceIds: ["automatizaciones"],
+  },
+  {
+    title: "Control y gestión",
+    description:
+      "Para negocios que necesitan ver pedidos, contactos o tareas pendientes sin revisar todo manualmente.",
+    serviceIds: ["dashboards-gestion"],
+  },
+  {
+    title: "Sistemas simples a medida",
+    description:
+      "Para procesos concretos que no necesitan una app grande, pero sí una herramienta clara y fácil de mantener.",
+    serviceIds: ["sistemas-simples"],
   },
 ];
 
@@ -384,12 +432,41 @@ export const customProducts = [
   },
 ];
 
+export const productGroups = [
+  {
+    title: "Para eventos",
+    description: "Piezas para celebraciones, equipos, actividades, promociones y recuerdos.",
+    products: [
+      "Camisetas personalizadas",
+      "Sudaderas personalizadas",
+      "Gorras personalizadas",
+      "Productos para eventos",
+    ],
+  },
+  {
+    title: "Para marca/negocio",
+    description: "Detalles físicos para reforzar imagen, packaging, regalos y lanzamientos.",
+    products: [
+      "Llaveros personalizados",
+      "Tote bags personalizadas",
+      "Tazas personalizadas",
+      "Pegatinas personalizadas",
+      "Productos para negocios/marca",
+    ],
+  },
+  {
+    title: "Diseños y packs personalizados",
+    description: "Combinaciones a medida cuando quieres una idea más cerrada o un conjunto completo.",
+    products: ["Packs personalizados", "Diseños por encargo"],
+  },
+];
+
 export const collaborationOptions = [
   {
-    title: "Tengo una idea de producto",
+    title: "Tengo una idea",
     icon: "Lightbulb",
     description:
-      "Cuéntanos qué producto tienes en mente y vemos si puede convertirse en algo vendible, regalable o útil para una comunidad.",
+      "Cuéntanos qué tienes en mente y vemos si puede convertirse en un producto, pack o proyecto simple.",
   },
   {
     title: "Quiero vender con vosotros",
@@ -409,12 +486,34 @@ export const collaborationOptions = [
     description:
       "Si tienes estilo visual, ideas o diseños propios, podemos hablar de cómo aplicarlos a productos físicos o packs.",
   },
+];
+
+export const collaborationSteps = [
   {
-    title: "Quiero pedir algo para mi negocio o evento",
-    icon: "PackageCheck",
-    description:
-      "Preparamos productos personalizados, diseños o combinaciones con web para una necesidad concreta.",
+    title: "Nos cuentas qué tienes",
+    description: "Idea, contactos, canal de venta, diseños o una oportunidad concreta.",
   },
+  {
+    title: "Valoramos si encaja",
+    description: "Miramos alcance, público, esfuerzo y una forma razonable de probarlo.",
+  },
+  {
+    title: "Definimos una colaboración simple",
+    description: "Dejamos claro qué aporta cada parte y cómo se gestionan pedidos o propuestas.",
+  },
+  {
+    title: "Probamos con algo pequeño",
+    description: "Empezamos con una acción acotada antes de prometer una colaboración grande.",
+  },
+];
+
+export const contactRequestTypes = [
+  "Web / presencia digital",
+  "Menú QR",
+  "Automatización / formulario",
+  "Producto personalizado",
+  "Colaboración",
+  "Otro",
 ];
 
 export const benefits = [
@@ -465,23 +564,23 @@ export const processSteps = [
 
 export const projectExamples = [
   {
-    title: "Web para barbería",
-    type: "Digital",
-    description: "Página con servicios, horarios, ubicación y botón directo de reserva.",
+    title: "Web para cualquier negocio",
+    type: "DIGITAL",
+    description: "Una página clara para enseñar servicios, horarios, ubicación, fotos y contacto directo.",
   },
   {
-    title: "Menú digital para bar",
-    type: "Digital",
-    description: "Carta online con QR, categorías claras y consulta rápida desde el móvil.",
+    title: "Menú o catálogo QR",
+    type: "DIGITAL",
+    description: "Ideal para bares, cafeterías, tiendas o negocios que quieren mostrar productos sin complicaciones.",
   },
   {
-    title: "Camisetas para evento",
-    type: "Producto",
-    description: "Diseño coordinado para equipo, celebración, promoción o grupo.",
+    title: "Productos para eventos",
+    type: "PRODUCTO",
+    description: "Camisetas, llaveros, packs o detalles personalizados para grupos, celebraciones o promociones.",
   },
   {
-    title: "Llaveros personalizados",
-    type: "Producto",
-    description: "Detalle físico para regalo, promoción o recuerdo de marca.",
+    title: "Producto exclusivo para tu negocio",
+    type: "COLABORA",
+    description: "Podemos valorar una idea contigo y crear un producto propio para vender, regalar o reforzar tu marca.",
   },
 ];

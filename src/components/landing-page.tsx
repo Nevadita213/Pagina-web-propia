@@ -9,7 +9,6 @@ import {
   ChartNoAxesCombined,
   Check,
   ChevronRight,
-  Clock3,
   Coffee,
   Globe2,
   Handshake,
@@ -40,19 +39,14 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
-  benefits,
-  audiences,
-  customProducts,
   heroContent,
   homeLines,
+  homeOutcomes,
   navLinks,
   packages,
   processSteps,
   projectExamples,
-  requestItems,
   siteConfig,
-  techServices,
-  whatWeDo,
 } from "@/lib/site-data";
 
 const icons: Record<string, LucideIcon> = {
@@ -581,43 +575,28 @@ function WhatWeDo() {
     <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="Qué hacemos"
-          title="Tres bloques para entender rápido qué puedes pedir."
-          description="Agrupamos la oferta para que no tengas que descifrar una lista de servicios. Primero presencia digital, después automatización simple y, como complemento, productos personalizados."
+          eyebrow="Qué conseguimos para ti"
+          title="Menos fricción entre tu idea y el cliente que quiere contactar."
+          description="Inicio resume el resultado, no el catálogo entero. Si necesitas el detalle, cada camino tiene su propia página."
         />
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {whatWeDo.map((group) => (
-            <motion.a
-              key={group.title}
-              href={group.href}
+        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {homeOutcomes.map((item, index) => (
+            <motion.article
+              key={item.title}
               className={`group relative overflow-hidden rounded-[28px] border bg-panel bg-gradient-to-br p-6 shadow-lift transition hover:-translate-y-1 hover:bg-elevated sm:p-8 ${
-                accentClasses[group.accent as keyof typeof accentClasses]
+                accentClasses[item.accent as keyof typeof accentClasses]
               }`}
+              variants={fadeUp}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
               whileHover={{ y: -6 }}
             >
               <div className="absolute right-0 top-0 h-44 w-44 rounded-full bg-current opacity-10 blur-3xl" />
-              <div className="relative flex flex-col gap-7 sm:flex-row sm:items-start">
-                <IconBadge icon={group.icon} />
-                <div>
-                  <h3 className="text-2xl font-semibold text-text">{group.title}</h3>
-                  <p className="mt-3 text-base leading-7 text-muted">{group.description}</p>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-line/16 bg-elevated/72 px-3 py-1 text-sm text-muted"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-text">
-                    Ver opciones
-                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                  </span>
-                </div>
+              <div className="relative">
+                <IconBadge icon={item.icon} />
+                <h3 className="mt-7 text-xl font-semibold text-text">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted">{item.description}</p>
               </div>
-            </motion.a>
+            </motion.article>
           ))}
         </div>
       </div>
@@ -679,122 +658,6 @@ function HomeLines() {
   );
 }
 
-function Audiences() {
-  return (
-    <MotionSection id="para-quien" className="bg-surface px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-          <SectionHeading
-            eyebrow="Para quién trabajamos"
-            title="Para proyectos que necesitan verse mejor y convertir el interés en contacto."
-            description="Ayudamos a negocios locales, pequeños proyectos, eventos y marcas personales que necesitan verse más profesionales, captar mejor la atención y facilitar el contacto."
-          />
-          <div className="grid gap-4">
-            {audiences.map((audience, index) => (
-              <motion.article
-                key={audience.title}
-                className="group relative overflow-hidden rounded-[24px] border border-line/16 bg-panel p-5 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift sm:p-6"
-                variants={fadeUp}
-                transition={{ duration: 0.5, delay: index * 0.06 }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-aqua/10 blur-2xl transition group-hover:bg-coral/14" />
-                <div className="relative flex gap-4">
-                  <IconBadge icon={audience.icon} className="h-11 w-11" />
-                  <div>
-                    <h3 className="text-xl font-semibold text-text">{audience.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted">{audience.description}</p>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </div>
-    </MotionSection>
-  );
-}
-
-function RequestIdeas() {
-  return (
-    <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
-          <SectionHeading
-            eyebrow="Qué puedes pedirnos"
-            title="Ideas concretas para empezar sin perderte en opciones."
-            description="Si tienes una necesidad clara, la convertimos en una propuesta sencilla. Si solo tienes una idea, te ayudamos a darle forma."
-          />
-          <div className="grid gap-3 sm:grid-cols-2">
-            {requestItems.map((item, index) => (
-              <motion.div
-                key={item}
-                className="group flex min-h-20 items-start gap-3 rounded-[20px] border border-line/16 bg-panel p-4 shadow-card transition hover:-translate-y-1 hover:border-aqua/35 hover:bg-elevated hover:shadow-lift"
-                variants={fadeUp}
-                transition={{ duration: 0.45, delay: index * 0.035 }}
-              >
-                <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-aqua/18 text-aqua transition group-hover:bg-aqua group-hover:text-ink">
-                  <Check className="h-4 w-4" />
-                </span>
-                <p className="text-sm leading-6 text-muted group-hover:text-text">{item}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </MotionSection>
-  );
-}
-
-function TechServices() {
-  return (
-    <MotionSection id="servicios" className="bg-surface px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          eyebrow="Servicios tecnológicos"
-          title="Herramientas digitales pensadas para vender, organizar y ahorrar tiempo."
-          description="Cada servicio empieza con una pregunta simple: qué necesita hacer mejor tu negocio desde hoy."
-        />
-        <FounderPricingNotice />
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
-          {techServices.map((service, index) => (
-            <motion.article
-              key={service.title}
-              className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift sm:p-7"
-              variants={fadeUp}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              whileHover={{ y: -6 }}
-            >
-              <div className="mb-6 flex items-center justify-between gap-4">
-                <IconBadge icon={service.icon} />
-                <span className="rounded-full bg-aqua/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-                  Digital
-                </span>
-              </div>
-              <h3 className="text-2xl font-semibold text-text">{service.title}</h3>
-              <div className="mt-5 grid gap-4 text-sm leading-6 text-muted">
-                <p>
-                  <strong className="text-text">Qué es: </strong>
-                  {service.what}
-                </p>
-                <p>
-                  <strong className="text-text">Para quién: </strong>
-                  {service.forWho}
-                </p>
-                <p>
-                  <strong className="text-text">Beneficio: </strong>
-                  {service.benefit}
-                </p>
-              </div>
-              <FounderPriceBlock price={service.price} />
-            </motion.article>
-          ))}
-        </div>
-      </div>
-    </MotionSection>
-  );
-}
-
 function Packages() {
   return (
     <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
@@ -839,96 +702,6 @@ function Packages() {
   );
 }
 
-function Products() {
-  const featuredProducts = customProducts.slice(0, 6);
-
-  return (
-    <MotionSection id="productos" className="bg-ink px-4 text-paper sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-          <SectionHeading
-            eyebrow="Productos personalizados"
-            title="Piezas físicas para regalar, vender, celebrar o reforzar tu marca."
-            description="Trabajamos diseños a medida para que cada producto tenga una intención clara y un acabado coherente."
-            tone="dark"
-          />
-          <div className="rounded-[28px] border border-white/18 bg-white/8 p-5 backdrop-blur">
-            <div className="flex items-center gap-3">
-              <Clock3 className="h-5 w-5 text-lime" />
-              <p className="text-sm leading-6 text-paper/72">
-                Ideales para eventos, negocios, grupos, promociones y detalles de marca personal.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <ProductPricingNotice tone="dark" />
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {featuredProducts.map((product, index) => (
-            <motion.article
-              key={product.title}
-              className="group overflow-hidden rounded-[28px] border border-white/20 bg-white/8 text-paper shadow-lift backdrop-blur transition hover:-translate-y-1 hover:bg-white/12"
-              variants={fadeUp}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              whileHover={{ y: -6 }}
-            >
-              <div className="h-36 bg-[radial-gradient(circle_at_20%_20%,rgba(21,200,200,0.55),transparent_34%),radial-gradient(circle_at_80%_0%,rgba(255,107,94,0.52),transparent_34%),linear-gradient(135deg,#111318,#7758D1)] p-5">
-                <ProductIconVisual icon={product.icon} />
-              </div>
-              <div className="p-5">
-                <h3 className="text-xl font-semibold">{product.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-paper/78">{product.description}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {product.useCases.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-white/14 bg-white/10 px-3 py-1 text-xs font-medium text-paper/72"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-                <ProductPriceBlock price={product.price} tone="dark" />
-              </div>
-            </motion.article>
-          ))}
-        </div>
-        <p className="mt-6 rounded-[22px] border border-white/14 bg-white/8 p-4 text-sm leading-7 text-paper/74">
-          También podemos preparar: tazas, tote bags, pegatinas y detalles para eventos o marca.
-        </p>
-      </div>
-    </MotionSection>
-  );
-}
-
-function Benefits() {
-  return (
-    <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          eyebrow="Por qué elegirnos"
-          title="Cuidamos la idea, el diseño y la utilidad sin complicarte el proceso."
-          align="center"
-        />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((benefit) => (
-            <article
-              key={benefit.title}
-              className="rounded-[24px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
-            >
-              <div className="mb-5 grid h-10 w-10 place-items-center rounded-full bg-lime/25 text-text">
-                <Check className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-text">{benefit.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-muted">{benefit.description}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </MotionSection>
-  );
-}
-
 function Process() {
   return (
     <MotionSection id="proceso" className="bg-surface px-4 sm:px-6 lg:px-8">
@@ -966,8 +739,8 @@ function Projects() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Ideas aplicadas"
-          title="Ejemplos de lo que podemos crear."
-          description="Algunas ideas que podemos preparar para negocios, eventos y marcas pequeñas."
+          title="Ejemplos rápidos de lo que podemos crear."
+          description="Algunas formas sencillas de empezar según lo que necesite tu negocio, evento o marca."
         />
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {projectExamples.map((project, index) => (
@@ -1033,7 +806,7 @@ function FinalCta() {
 export function Footer() {
   return (
     <footer className="bg-ink px-4 py-10 text-paper sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-8 border-t border-white/20 pt-8 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
+      <div className="mx-auto grid max-w-7xl gap-8 border-t border-white/20 pt-8 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_0.8fr]">
         <div>
           <h2 className="text-xl font-semibold">{siteConfig.brandName}</h2>
           <p className="mt-3 max-w-sm text-sm leading-6 text-paper/62">{siteConfig.tagline}</p>
@@ -1041,9 +814,10 @@ export function Footer() {
         <div>
           <h3 className="text-sm font-semibold text-paper">Servicios</h3>
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
-            <a href="/digital">Páginas web</a>
+            <a href="/digital">Digital</a>
+            <a href="/digital">Webs</a>
             <a href="/digital">Automatizaciones</a>
-            <a href="/digital">Sistemas simples</a>
+            <a href="/digital">Menús QR</a>
           </div>
         </div>
         <div>
@@ -1051,14 +825,20 @@ export function Footer() {
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
             <a href="/productos">Camisetas</a>
             <a href="/productos">Llaveros</a>
-            <a href="/productos">Packs personalizados</a>
+            <a href="/productos">Packs</a>
+            <a href="/productos">Productos para eventos</a>
           </div>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-paper">Contacto</h3>
+          <h3 className="text-sm font-semibold text-paper">Empresa</h3>
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
-            <a href={siteConfig.whatsappUrl}>WhatsApp</a>
-            <a href="/contacto">Formulario/contacto</a>
+            <a href="/colabora">Colabora</a>
+            <a href="/contacto">Contacto</a>
+          </div>
+        </div>
+        <div>
+          <h3 className="text-sm font-semibold text-paper">Redes</h3>
+          <div className="mt-3 grid gap-2 text-sm text-paper/60">
             {siteConfig.socialLinks.map((link) => (
               <a key={link.label} href={link.href}>
                 {link.label}
@@ -1086,13 +866,8 @@ export function LandingPage() {
         <Hero />
         <HomeLines />
         <WhatWeDo />
-        <Audiences />
-        <RequestIdeas />
-        <TechServices />
-        <Packages />
-        <Products />
-        <Benefits />
         <Process />
+        <Packages />
         <Projects />
         <FinalCta />
       </main>

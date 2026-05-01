@@ -3,8 +3,12 @@
 import { Mail, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import {
+  collaborationSteps,
   collaborationOptions,
+  contactRequestTypes,
   customProducts,
+  digitalServiceGroups,
+  productGroups,
   siteConfig,
   techServices,
 } from "@/lib/site-data";
@@ -136,6 +140,8 @@ function CtaBand({
 }
 
 export function DigitalPage() {
+  const servicesById = new Map(techServices.map((service) => [service.id, service]));
+
   return (
     <PageShell>
       <PageHero
@@ -149,48 +155,62 @@ export function DigitalPage() {
           <SectionHeading
             eyebrow="Qué podemos crear"
             title="Digital útil, fácil de entender y preparado para crecer."
-            description="Cada bloque se puede pedir por separado o combinar dentro de un mismo sistema."
+            description="No todos los proyectos digitales necesitan lo mismo. Puedes empezar por presencia online, contacto, QR, organización interna o una herramienta sencilla a medida."
           />
           <FounderPricingNotice />
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {techServices.map((service, index) => (
-              <motion.article
-                key={service.title}
-                className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: index * 0.04 }}
-              >
-                <div className="mb-6 flex items-center justify-between gap-4">
-                  <IconBadge icon={service.icon} />
-                  <span className="rounded-full bg-aqua/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-                    Digital
-                  </span>
-                </div>
-                <h2 className="text-xl font-semibold text-text">{service.title}</h2>
-                <div className="mt-5 grid gap-3 text-sm leading-6 text-muted">
-                  <p>
-                    <strong className="text-text">Qué es: </strong>
-                    {service.what}
-                  </p>
-                  <p>
-                    <strong className="text-text">Para quién: </strong>
-                    {service.forWho}
-                  </p>
-                  <p>
-                    <strong className="text-text">Beneficio: </strong>
-                    {service.benefit}
-                  </p>
-                  <p>
-                    <strong className="text-text">Ejemplo: </strong>
-                    {service.example}
-                  </p>
-                </div>
-                <FounderPriceBlock price={service.price} />
-              </motion.article>
-            ))}
+          <div className="mt-12 grid gap-10">
+            {digitalServiceGroups.map((group, groupIndex) => {
+              const services = group.serviceIds
+                .map((serviceId) => servicesById.get(serviceId))
+                .filter((service): service is (typeof techServices)[number] => Boolean(service));
+
+              return (
+                <section key={group.title} className="grid gap-5">
+                  <div className="max-w-3xl">
+                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-coral">
+                      {group.title}
+                    </p>
+                    <p className="mt-3 text-base leading-7 text-muted">{group.description}</p>
+                  </div>
+                  <div
+                    className={`grid gap-5 md:grid-cols-2 ${
+                      services.length === 1 ? "max-w-xl" : ""
+                    }`}
+                  >
+                    {services.map((service, index) => (
+                      <motion.article
+                        key={service.id}
+                        className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+                        variants={fadeUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.5, delay: (groupIndex + index) * 0.04 }}
+                      >
+                        <div className="mb-6 flex items-center justify-between gap-4">
+                          <IconBadge icon={service.icon} />
+                          <span className="rounded-full bg-aqua/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+                            Digital
+                          </span>
+                        </div>
+                        <h2 className="text-xl font-semibold text-text">{service.title}</h2>
+                        <div className="mt-5 grid gap-3 text-sm leading-6 text-muted">
+                          <p>
+                            <strong className="text-text">Problema: </strong>
+                            {service.problem}
+                          </p>
+                          <p>
+                            <strong className="text-text">Resultado: </strong>
+                            {service.result}
+                          </p>
+                        </div>
+                        <FounderPriceBlock price={service.price} />
+                      </motion.article>
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
           </div>
         </div>
       </MotionSection>
@@ -213,51 +233,66 @@ export function ProductsPage() {
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Línea física"
-            title="Detalles visuales que ayudan a recordar tu marca, evento o idea."
-            description="Presentamos cada producto con referencias visuales cuidadas para que se entienda el tipo de acabado, uso y cliente ideal."
+            title="Catálogo completo organizado por intención de uso."
+            description="Mantenemos todos los productos, pero agrupados para distinguir rápido si buscas algo para un evento, una marca o un pack a medida."
           />
           <ProductPricingNotice />
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {customProducts.map((product, index) => (
-              <motion.article
-                key={product.title}
-                className="group overflow-hidden rounded-[28px] border border-line/18 bg-panel text-text shadow-lift transition hover:-translate-y-1 hover:bg-elevated"
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: index * 0.04 }}
-              >
-                <div
-                  className={`h-40 p-5 ${
-                    index % 2 === 0
-                      ? "bg-[radial-gradient(circle_at_20%_20%,rgba(21,200,200,0.55),transparent_34%),radial-gradient(circle_at_82%_10%,rgba(244,201,93,0.42),transparent_34%),linear-gradient(135deg,#111318,#263547)]"
-                      : "bg-[radial-gradient(circle_at_18%_18%,rgba(255,107,94,0.52),transparent_34%),radial-gradient(circle_at_82%_0%,rgba(119,88,209,0.52),transparent_34%),linear-gradient(135deg,#111318,#2A2037)]"
-                  }`}
-                >
-                  <ProductIconVisual icon={product.icon} />
-                </div>
-                <div className="p-5">
-                  <h2 className="text-xl font-semibold">{product.title}</h2>
-                  <p className="mt-3 text-sm leading-6 text-muted">{product.description}</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {product.useCases.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full bg-elevated px-3 py-1 text-xs font-medium text-muted"
+          <div className="mt-12 grid gap-10">
+            {productGroups.map((group, groupIndex) => {
+              const products = customProducts.filter((product) =>
+                group.products.includes(product.title),
+              );
+
+              return (
+                <section key={group.title} className="grid gap-5">
+                  <div className="grid gap-3 md:grid-cols-[0.42fr_0.58fr] md:items-end">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-coral">
+                        {group.title}
+                      </p>
+                      <h2 className="mt-3 text-2xl font-semibold text-text">
+                        {group.description}
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    {products.map((product, index) => (
+                      <motion.article
+                        key={product.title}
+                        className="group overflow-hidden rounded-[28px] border border-line/18 bg-panel text-text shadow-lift transition hover:-translate-y-1 hover:bg-elevated"
+                        variants={fadeUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.5, delay: (groupIndex + index) * 0.035 }}
                       >
-                        {item}
-                      </span>
+                        <div
+                          className={`h-36 p-5 ${
+                            (groupIndex + index) % 2 === 0
+                              ? "bg-[radial-gradient(circle_at_20%_20%,rgba(21,200,200,0.55),transparent_34%),radial-gradient(circle_at_82%_10%,rgba(244,201,93,0.42),transparent_34%),linear-gradient(135deg,#111318,#263547)]"
+                              : "bg-[radial-gradient(circle_at_18%_18%,rgba(255,107,94,0.52),transparent_34%),radial-gradient(circle_at_82%_0%,rgba(119,88,209,0.52),transparent_34%),linear-gradient(135deg,#111318,#2A2037)]"
+                          }`}
+                        >
+                          <ProductIconVisual icon={product.icon} />
+                        </div>
+                        <div className="p-5">
+                          <h3 className="text-xl font-semibold">{product.title}</h3>
+                          <p className="mt-3 text-sm leading-6 text-muted">
+                            <strong className="text-text">Uso principal: </strong>
+                            {product.description}
+                          </p>
+                          <p className="mt-4 text-sm leading-6 text-muted">
+                            <strong className="text-text">Tipo de cliente: </strong>
+                            {product.clientType}
+                          </p>
+                          <ProductPriceBlock price={product.price} />
+                        </div>
+                      </motion.article>
                     ))}
                   </div>
-                  <p className="mt-5 text-sm leading-6 text-muted">
-                    <strong className="text-text">Tipo de cliente: </strong>
-                    {product.clientType}
-                  </p>
-                  <ProductPriceBlock price={product.price} />
-                </div>
-              </motion.article>
-            ))}
+                </section>
+              );
+            })}
           </div>
         </div>
       </MotionSection>
@@ -272,8 +307,8 @@ export function CollaboratePage() {
     <PageShell>
       <PageHero
         eyebrow="Colabora"
-        title="Vende con nosotros, trae ideas o propón una colaboración."
-        description="Si tienes una idea, contactos, diseños o quieres vender productos personalizados con nosotros, podemos hablar y ver cómo colaborar."
+        title="Trae una idea, vende con nosotros o propón una colaboración concreta."
+        description="En pocos segundos deberías saber si encajas: idea, venta, contactos o diseño. Lo valoramos sin prometer ingresos ni colaboraciones automáticas."
         secondaryLabel="Enviar propuesta"
       />
 
@@ -281,10 +316,10 @@ export function CollaboratePage() {
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Vías de colaboración"
-            title="Formas sencillas de empezar a hablar."
-            description="No hace falta traerlo todo cerrado. Con una idea clara, un contacto o una necesidad concreta ya podemos valorar el siguiente paso."
+            title="Cuatro formas claras de empezar."
+            description="No hace falta traerlo todo cerrado. Con una idea clara, contactos, capacidad de venta o diseños ya podemos valorar el siguiente paso."
           />
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {collaborationOptions.map((option, index) => (
               <motion.article
                 key={option.title}
@@ -301,6 +336,36 @@ export function CollaboratePage() {
                   <h2 className="mt-6 text-xl font-semibold text-text">{option.title}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted">{option.description}</p>
                 </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </MotionSection>
+
+      <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Cómo funciona"
+            title="Probamos de forma simple antes de hacer algo grande."
+            description="La colaboración tiene que ser clara para ambas partes. Por eso empezamos acotando alcance, expectativas y siguiente acción."
+          />
+          <div className="relative mt-12 grid gap-5 lg:grid-cols-4">
+            <div className="absolute left-0 right-0 top-9 hidden h-px bg-gradient-to-r from-aqua via-lime to-coral lg:block" />
+            {collaborationSteps.map((step, index) => (
+              <motion.article
+                key={step.title}
+                className="relative rounded-[24px] border border-line/16 bg-panel p-6 shadow-card"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: index * 0.06 }}
+              >
+                <span className="mb-6 grid h-12 w-12 place-items-center rounded-full bg-aqua text-sm font-bold text-ink shadow-lift">
+                  {index + 1}
+                </span>
+                <h3 className="text-lg font-semibold text-text">{step.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted">{step.description}</p>
               </motion.article>
             ))}
           </div>
@@ -351,43 +416,120 @@ export function ContactPage() {
     <PageShell>
       <PageHero
         eyebrow="Contacto"
-        title="Hablemos de tu web, producto personalizado o colaboración."
-        description="Puedes escribirnos por WhatsApp, enviar una propuesta por email o seguirnos en redes mientras preparamos los enlaces definitivos."
+        title="Hablemos de tu proyecto"
+        description="Cuéntanos si necesitas una web, un menú QR, productos personalizados o una colaboración. Te responderemos con el siguiente paso claro."
       />
 
       <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
-          <a
-            href={siteConfig.whatsappUrl}
-            className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1fr_0.42fr]">
+          <form
+            action={siteConfig.contactUrl}
+            method="post"
+            encType="text/plain"
+            className="rounded-[30px] border border-line/16 bg-panel p-6 shadow-lift sm:p-8"
           >
-            <IconBadge icon="MessagesSquare" />
-            <h2 className="mt-6 text-xl font-semibold text-text">WhatsApp</h2>
-            <p className="mt-3 text-sm leading-6 text-muted">
-              La forma más directa para pedir información, presupuesto o contar una idea rápida.
-            </p>
-          </a>
-          <a
-            href={siteConfig.contactUrl}
-            className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
-          >
-            <IconBadge icon="Mail" />
-            <h2 className="mt-6 text-xl font-semibold text-text">Formulario/contacto</h2>
-            <p className="mt-3 text-sm leading-6 text-muted">
-              Para propuestas, colaboraciones o proyectos que necesitan algo más de detalle.
-            </p>
-          </a>
-          <div className="rounded-[28px] border border-line/16 bg-panel p-6 shadow-card">
-            <IconBadge icon="Sparkles" />
-            <h2 className="mt-6 text-xl font-semibold text-text">Redes</h2>
-            <div className="mt-3 grid gap-2 text-sm text-muted">
-              {siteConfig.socialLinks.map((link) => (
-                <a key={link.label} href={link.href} className="transition hover:text-text">
-                  {link.label}
-                </a>
-              ))}
+            {/* TODO: conectar este formulario a una API route o server action cuando haya backend. */}
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-coral">
+                Enviar solicitud
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold text-text">Cuéntanos qué necesitas</h2>
+              <p className="mt-3 text-sm leading-7 text-muted">
+                De momento el formulario usa tu cliente de correo como fallback seguro. No mostramos confirmación falsa de envío.
+              </p>
             </div>
-          </div>
+
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
+              <label className="grid gap-2 text-sm font-semibold text-text">
+                Nombre
+                <input
+                  name="Nombre"
+                  required
+                  autoComplete="name"
+                  className="min-h-12 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                />
+              </label>
+              <label className="grid gap-2 text-sm font-semibold text-text">
+                Email o teléfono
+                <input
+                  name="Email o teléfono"
+                  required
+                  autoComplete="email"
+                  className="min-h-12 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                />
+              </label>
+              <label className="grid gap-2 text-sm font-semibold text-text sm:col-span-2">
+                Tipo de solicitud
+                <select
+                  name="Tipo de solicitud"
+                  required
+                  defaultValue=""
+                  className="min-h-12 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                >
+                  <option value="" disabled>
+                    Selecciona una opción
+                  </option>
+                  {contactRequestTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="grid gap-2 text-sm font-semibold text-text sm:col-span-2">
+                Mensaje
+                <textarea
+                  name="Mensaje"
+                  required
+                  minLength={10}
+                  rows={7}
+                  className="resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                />
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-aqua px-5 text-sm font-semibold text-ink shadow-lift transition hover:-translate-y-1 hover:bg-lime"
+            >
+              Enviar solicitud
+              <Send className="h-4 w-4" />
+            </button>
+          </form>
+
+          <aside className="grid gap-5">
+            <a
+              href={siteConfig.whatsappUrl}
+              className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+            >
+              <IconBadge icon="MessagesSquare" />
+              <h2 className="mt-6 text-xl font-semibold text-text">WhatsApp</h2>
+              <p className="mt-3 text-sm leading-6 text-muted">
+                La forma más directa para dudas rápidas, presupuestos o primeros detalles.
+              </p>
+            </a>
+            <a
+              href={siteConfig.contactUrl}
+              className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+            >
+              <IconBadge icon="Mail" />
+              <h2 className="mt-6 text-xl font-semibold text-text">Email</h2>
+              <p className="mt-3 text-sm leading-6 text-muted">
+                {siteConfig.contactUrl.replace("mailto:", "")}
+              </p>
+            </a>
+            <div className="rounded-[28px] border border-line/16 bg-panel p-6 shadow-card">
+              <IconBadge icon="Sparkles" />
+              <h2 className="mt-6 text-xl font-semibold text-text">Redes sociales</h2>
+              <div className="mt-3 grid gap-2 text-sm text-muted">
+                {siteConfig.socialLinks.map((link) => (
+                  <a key={link.label} href={link.href} className="transition hover:text-text">
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </aside>
         </div>
       </MotionSection>
     </PageShell>

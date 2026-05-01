@@ -37,12 +37,22 @@ Ahí puedes modificar:
 - Nombre de la marca, enlaces de WhatsApp, email y redes en `siteConfig`.
 - Enlaces de navegación en `navLinks`.
 - Textos principales del hero en `heroContent`.
-- Bloques de "Qué hacemos" en `whatWeDo`.
+- Caminos y resultados resumidos de Inicio en `homeLines` y `homeOutcomes`.
 - Servicios tecnológicos en `techServices`.
-- Productos personalizados en `customProducts`.
+- Productos personalizados en `customProducts` y su agrupación visual en `productGroups`.
+- Opciones y pasos de colaboración en `collaborationOptions` y `collaborationSteps`.
+- Tipos del formulario de contacto en `contactRequestTypes`.
 - Beneficios en `benefits`.
 - Pasos del proceso en `processSteps`.
 - Ejemplos o futuros proyectos en `projectExamples`.
+
+## Arquitectura de contenido
+
+- Inicio funciona como resumen corto: hero, tres caminos, resultados, proceso, paquetes, ejemplos breves y CTA.
+- Digital concentra el detalle de servicios digitales con problema, resultado y precio orientativo.
+- Productos contiene el catálogo completo agrupado por eventos, marca/negocio y diseños o packs.
+- Colabora explica vías de colaboración y un proceso simple de validación.
+- Contacto incluye formulario preparado con fallback `mailto:` hasta conectar una API route o server action.
 
 ## Estructura principal
 
