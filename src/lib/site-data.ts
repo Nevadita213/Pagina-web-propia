@@ -7,10 +7,11 @@ export const siteConfig = {
   whatsappUrl:
     "https://wa.me/34000000000?text=Hola,%20quiero%20pedir%20informaci%C3%B3n%20sobre%20un%20proyecto",
   contactUrl: "mailto:hola@jellysolutions.es",
+  // Cambia estos enlaces por los perfiles definitivos antes de publicar si son distintos.
   socialLinks: [
-    { label: "Instagram", href: "#" },
-    { label: "TikTok", href: "#" },
-    { label: "LinkedIn", href: "#" },
+    { label: "Instagram", href: "https://www.instagram.com/jellysolutions" },
+    { label: "TikTok", href: "https://www.tiktok.com/@jellysolutions" },
+    { label: "Facebook", href: "https://www.facebook.com/jellysolutions" },
   ],
 };
 
@@ -488,6 +489,15 @@ export const collaborationOptions = [
   },
 ];
 
+export const collaborationRequestTypes = [
+  "Tengo una idea de producto",
+  "Quiero vender productos personalizados",
+  "Tengo contactos o clientes",
+  "Quiero colaborar con diseños",
+  "Tengo un negocio/local y quiero hacer algo conjunto",
+  "Otra propuesta",
+];
+
 export const collaborationSteps = [
   {
     title: "Nos cuentas qué tienes",
@@ -508,12 +518,36 @@ export const collaborationSteps = [
 ];
 
 export const contactRequestTypes = [
-  "Web / presencia digital",
-  "Menú QR",
-  "Automatización / formulario",
+  "Web para negocio",
+  "Menú o catálogo QR",
+  "Automatización simple",
   "Producto personalizado",
+  "Pack para evento",
   "Colaboración",
-  "Otro",
+  "Mantenimiento o mejora de algo existente",
+  "Otra consulta",
+];
+
+export const contactBudgetOptions = [
+  "No lo tengo claro",
+  "Menos de 100 €",
+  "100 € - 300 €",
+  "300 € - 600 €",
+  "Más de 600 €",
+];
+
+export const contactTimelineOptions = [
+  "Sin prisa",
+  "Esta semana",
+  "Este mes",
+  "Lo antes posible",
+  "Fecha concreta",
+];
+
+export const contactReplyChannels = [
+  "WhatsApp",
+  "Email",
+  "Llamada",
 ];
 
 export const benefits = [

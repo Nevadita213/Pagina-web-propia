@@ -3,9 +3,13 @@
 import { Mail, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import {
+  collaborationRequestTypes,
   collaborationSteps,
   collaborationOptions,
+  contactBudgetOptions,
+  contactReplyChannels,
   contactRequestTypes,
+  contactTimelineOptions,
   customProducts,
   digitalServiceGroups,
   productGroups,
@@ -47,12 +51,14 @@ function PageHero({
   description,
   primaryLabel = "Hablar por WhatsApp",
   secondaryLabel = "Pedir presupuesto",
+  secondaryHref = siteConfig.contactUrl,
 }: {
   eyebrow: string;
   title: string;
   description: string;
   primaryLabel?: string;
   secondaryLabel?: string;
+  secondaryHref?: string;
 }) {
   return (
     <section className="relative overflow-hidden bg-ink px-4 pb-16 pt-28 text-paper sm:px-6 lg:px-8">
@@ -74,7 +80,7 @@ function PageHero({
           <p className="mt-6 max-w-3xl text-lg leading-8 text-paper/82">{description}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <PrimaryButton href={siteConfig.whatsappUrl}>{primaryLabel}</PrimaryButton>
-            <PrimaryButton href={siteConfig.contactUrl} variant="secondary">
+            <PrimaryButton href={secondaryHref} variant="secondary">
               {secondaryLabel}
             </PrimaryButton>
           </div>
@@ -302,6 +308,14 @@ export function ProductsPage() {
   );
 }
 
+const collaborationValues = [
+  "Ideas concretas, no frases vagas.",
+  "Que cada parte aporte algo claro.",
+  "Propuestas pequeñas para probar primero.",
+  "Diseños, contactos, negocios o productos con sentido comercial.",
+  "Colaboraciones realistas, no promesas de dinero rápido.",
+];
+
 export function CollaboratePage() {
   return (
     <PageShell>
@@ -310,6 +324,7 @@ export function CollaboratePage() {
         title="Trae una idea, vende con nosotros o propón una colaboración concreta."
         description="En pocos segundos deberías saber si encajas: idea, venta, contactos o diseño. Lo valoramos sin prometer ingresos ni colaboraciones automáticas."
         secondaryLabel="Enviar propuesta"
+        secondaryHref="#propuesta-colaboracion"
       />
 
       <MotionSection className="bg-surface px-4 sm:px-6 lg:px-8">
@@ -372,38 +387,151 @@ export function CollaboratePage() {
         </div>
       </MotionSection>
 
-      <section className="bg-mist px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl rounded-[32px] border border-line/16 bg-panel p-7 shadow-lift sm:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-coral">
-                Cuéntanos tu idea
+      <section id="propuesta-colaboracion" className="bg-mist px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 max-w-3xl">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-coral">
+              Propuesta de colaboración
+            </p>
+            <h2 className="text-balance text-3xl font-semibold text-text sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+              Cuéntanos tu propuesta de colaboración
+            </h2>
+            <p className="mt-5 text-base leading-8 text-muted sm:text-lg">
+              Cuéntanos qué quieres aportar y qué esperas conseguir. Valoramos ideas de producto,
+              diseños, contactos, negocios locales, eventos o propuestas de venta conjunta. No
+              prometemos colaboraciones automáticas: primero revisamos si tiene sentido, si es
+              viable y si ambas partes pueden ganar algo de forma clara.
+            </p>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-[1fr_0.38fr] lg:items-start">
+            <form
+              action={siteConfig.contactUrl}
+              method="post"
+              encType="text/plain"
+              className="min-w-0 rounded-[30px] border border-line/16 bg-panel p-6 shadow-lift sm:p-8"
+            >
+              {/* TODO: conectar este formulario a una API route o server action cuando haya backend. */}
+              <div className="grid min-w-0 gap-5 sm:grid-cols-2">
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
+                  Nombre
+                  <input
+                    name="Nombre"
+                    required
+                    autoComplete="name"
+                    className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  />
+                </label>
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
+                  Email o WhatsApp
+                  <input
+                    name="Email o WhatsApp"
+                    required
+                    autoComplete="email"
+                    className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  />
+                </label>
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
+                  Tipo de colaboración
+                  <select
+                    name="Tipo de colaboración"
+                    required
+                    defaultValue=""
+                    className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  >
+                    <option value="" disabled>
+                      Selecciona una opción
+                    </option>
+                    {collaborationRequestTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
+                  Qué puedes aportar
+                  <textarea
+                    name="Qué puedes aportar"
+                    required
+                    rows={4}
+                    placeholder="Ejemplo: diseños, contactos, clientes, una idea, un local, audiencia, capacidad de venta..."
+                    className="w-full min-w-0 resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  />
+                </label>
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
+                  Qué necesitas de JellySolutions
+                  <textarea
+                    name="Qué necesitas de JellySolutions"
+                    required
+                    rows={4}
+                    placeholder="Ejemplo: diseño, producción, web, automatización, producto físico, estructura de venta..."
+                    className="w-full min-w-0 resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  />
+                </label>
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
+                  Explica tu propuesta
+                  <textarea
+                    name="Explica tu propuesta"
+                    required
+                    minLength={20}
+                    rows={8}
+                    placeholder="Cuéntanos la idea con el mayor detalle posible: qué quieres hacer, para quién sería y cómo imaginas la colaboración."
+                    className="w-full min-w-0 resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  />
+                </label>
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
+                  <span>
+                    Enlaces o ejemplos <span className="font-medium text-muted">(opcional)</span>
+                  </span>
+                  <input
+                    name="Enlaces o ejemplos"
+                    placeholder="Instagram, portfolio, web, fotos, referencias o ejemplos."
+                    className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  />
+                </label>
+              </div>
+
+              <p className="mt-6 rounded-2xl border border-aqua/20 bg-aqua/[0.07] px-4 py-3 text-sm leading-6 text-muted">
+                Revisamos las propuestas con calma. Si vemos una opción realista, te contactaremos
+                para concretar el siguiente paso.
               </p>
-              <h2 className="text-balance text-3xl font-semibold text-text sm:text-4xl">
-                Podemos valorar productos, diseños, contactos o una forma de vender juntos.
-              </h2>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-muted">
-                Escríbenos con lo que tienes en mente y lo revisamos con calma, sin promesas raras ni procesos pesados.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <PrimaryButton href={siteConfig.whatsappUrl} variant="light">
-                Hablar por WhatsApp
-              </PrimaryButton>
-              <a
-                href={siteConfig.contactUrl}
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-line/18 bg-elevated px-5 text-sm font-semibold text-text transition hover:-translate-y-1 hover:bg-aqua hover:text-ink"
+
+              <button
+                type="submit"
+                className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-aqua px-5 text-sm font-semibold text-ink shadow-lift transition hover:-translate-y-1 hover:bg-lime sm:w-auto"
               >
+                Enviar propuesta de colaboración
                 <Send className="h-4 w-4" />
-                Enviar propuesta
-              </a>
+              </button>
+            </form>
+
+            <aside className="grid gap-5">
+              <div className="rounded-[28px] border border-line/16 bg-panel p-6 shadow-card">
+                <IconBadge icon="BadgeCheck" />
+                <h3 className="mt-6 text-xl font-semibold text-text">Qué valoramos</h3>
+                <ul className="mt-4 grid gap-3 text-sm leading-6 text-muted">
+                  {collaborationValues.map((value) => (
+                    <li key={value} className="flex gap-3">
+                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-aqua" />
+                      <span>{value}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               <a
-                href={siteConfig.contactUrl}
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-line/18 bg-elevated px-5 text-sm font-semibold text-text transition hover:-translate-y-1 hover:bg-coral hover:text-paper"
+                href={siteConfig.whatsappUrl}
+                className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
               >
-                Contarnos tu idea
+                <IconBadge icon="MessagesSquare" />
+                <h3 className="mt-6 text-xl font-semibold text-text">¿Prefieres hablar primero?</h3>
+                <p className="mt-3 text-sm leading-6 text-muted">
+                  Puedes escribir por WhatsApp si necesitas aclarar una idea antes de enviarla con
+                  detalle.
+                </p>
               </a>
-            </div>
+            </aside>
           </div>
         </div>
       </section>
@@ -411,13 +539,20 @@ export function CollaboratePage() {
   );
 }
 
+const contactResponseItems = [
+  "Si encaja con lo que hacemos.",
+  "Una idea de precio o rango.",
+  "El siguiente paso recomendado.",
+  "Si conviene empezar con algo pequeño.",
+];
+
 export function ContactPage() {
   return (
     <PageShell>
       <PageHero
         eyebrow="Contacto"
-        title="Hablemos de tu proyecto"
-        description="Cuéntanos si necesitas una web, un menú QR, productos personalizados o una colaboración. Te responderemos con el siguiente paso claro."
+        title="Hablemos de lo que necesitas crear."
+        description="Cuéntanos si buscas una web, un menú QR, productos personalizados, una automatización sencilla o una colaboración. Te responderemos con una propuesta clara, sin marearte con procesos complicados."
       />
 
       <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
@@ -426,45 +561,48 @@ export function ContactPage() {
             action={siteConfig.contactUrl}
             method="post"
             encType="text/plain"
-            className="rounded-[30px] border border-line/16 bg-panel p-6 shadow-lift sm:p-8"
+            className="min-w-0 rounded-[30px] border border-line/16 bg-panel p-6 shadow-lift sm:p-8"
           >
             {/* TODO: conectar este formulario a una API route o server action cuando haya backend. */}
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-coral">
                 Enviar solicitud
               </p>
-              <h2 className="mt-3 text-3xl font-semibold text-text">Cuéntanos qué necesitas</h2>
+              <h2 className="mt-3 text-3xl font-semibold text-text">
+                Envíanos los detalles básicos
+              </h2>
               <p className="mt-3 text-sm leading-7 text-muted">
-                De momento el formulario usa tu cliente de correo como fallback seguro. No mostramos confirmación falsa de envío.
+                Cuanto mejor expliques lo que necesitas, más fácil será darte una respuesta útil:
+                precio orientativo, siguiente paso o una forma simple de empezar.
               </p>
             </div>
 
-            <div className="mt-8 grid gap-5 sm:grid-cols-2">
-              <label className="grid gap-2 text-sm font-semibold text-text">
+            <div className="mt-8 grid min-w-0 gap-5 sm:grid-cols-2">
+              <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
                 Nombre
                 <input
                   name="Nombre"
                   required
                   autoComplete="name"
-                  className="min-h-12 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
                 />
               </label>
-              <label className="grid gap-2 text-sm font-semibold text-text">
+              <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
                 Email o teléfono
                 <input
                   name="Email o teléfono"
                   required
                   autoComplete="email"
-                  className="min-h-12 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
                 />
               </label>
-              <label className="grid gap-2 text-sm font-semibold text-text sm:col-span-2">
+              <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
                 Tipo de solicitud
                 <select
                   name="Tipo de solicitud"
                   required
                   defaultValue=""
-                  className="min-h-12 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
                 >
                   <option value="" disabled>
                     Selecciona una opción
@@ -476,28 +614,99 @@ export function ContactPage() {
                   ))}
                 </select>
               </label>
-              <label className="grid gap-2 text-sm font-semibold text-text sm:col-span-2">
+              <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
+                <span>
+                  Presupuesto aproximado{" "}
+                  <span className="font-medium text-muted">(opcional)</span>
+                </span>
+                <select
+                  name="Presupuesto aproximado"
+                  defaultValue=""
+                  className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                >
+                  <option value="">Selecciona una opción</option>
+                  {contactBudgetOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
+                <span>
+                  Plazo aproximado <span className="font-medium text-muted">(opcional)</span>
+                </span>
+                <select
+                  name="Plazo aproximado"
+                  defaultValue=""
+                  className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                >
+                  <option value="">Selecciona una opción</option>
+                  {contactTimelineOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
+                <span>
+                  Canal preferido de respuesta{" "}
+                  <span className="font-medium text-muted">(opcional)</span>
+                </span>
+                <select
+                  name="Canal preferido de respuesta"
+                  defaultValue=""
+                  className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                >
+                  <option value="">Selecciona una opción</option>
+                  {contactReplyChannels.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
                 Mensaje
                 <textarea
                   name="Mensaje"
                   required
                   minLength={10}
                   rows={7}
-                  className="resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  placeholder="Cuéntanos qué necesitas, para qué negocio o idea sería, si ya tienes fotos, textos o diseños, y qué resultado esperas conseguir."
+                  className="w-full min-w-0 resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
                 />
               </label>
             </div>
 
             <button
               type="submit"
-              className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-aqua px-5 text-sm font-semibold text-ink shadow-lift transition hover:-translate-y-1 hover:bg-lime"
+              className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-aqua px-5 text-sm font-semibold text-ink shadow-lift transition hover:-translate-y-1 hover:bg-lime sm:w-auto"
             >
               Enviar solicitud
               <Send className="h-4 w-4" />
             </button>
+
+            <p className="mt-4 text-xs leading-5 text-muted">
+              Nota: si el envío directo no está activo todavía, se abrirá tu aplicación de correo
+              para enviarnos la solicitud.
+            </p>
           </form>
 
           <aside className="grid gap-5">
+            <div className="rounded-[28px] border border-line/16 bg-panel p-6 shadow-card">
+              <IconBadge icon="BadgeCheck" />
+              <h2 className="mt-6 text-xl font-semibold text-text">Qué recibirás</h2>
+              <ul className="mt-4 grid gap-3 text-sm leading-6 text-muted">
+                {contactResponseItems.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-aqua" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <a
               href={siteConfig.whatsappUrl}
               className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
@@ -521,9 +730,18 @@ export function ContactPage() {
             <div className="rounded-[28px] border border-line/16 bg-panel p-6 shadow-card">
               <IconBadge icon="Sparkles" />
               <h2 className="mt-6 text-xl font-semibold text-text">Redes sociales</h2>
-              <div className="mt-3 grid gap-2 text-sm text-muted">
+              <p className="mt-3 text-sm leading-6 text-muted">
+                También puedes ver ejemplos, novedades y trabajos recientes en nuestras redes.
+              </p>
+              <div className="mt-4 grid gap-2 text-sm text-muted">
                 {siteConfig.socialLinks.map((link) => (
-                  <a key={link.label} href={link.href} className="transition hover:text-text">
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition hover:text-text"
+                  >
                     {link.label}
                   </a>
                 ))}

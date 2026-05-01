@@ -840,7 +840,7 @@ export function Footer() {
           <h3 className="text-sm font-semibold text-paper">Redes</h3>
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
             {siteConfig.socialLinks.map((link) => (
-              <a key={link.label} href={link.href}>
+              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
                 {link.label}
               </a>
             ))}
