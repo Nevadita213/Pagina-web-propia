@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site-data";
 export const metadata: Metadata = {
   title: `Contacto | ${siteConfig.brandName}`,
   description:
-    "Contacta con JellySolutions para pedir presupuesto, enviar una solicitud, hablar por WhatsApp o proponer una colaboración.",
+    "Contacta con JellySolutions para pedir información, enviar una consulta, solicitar presupuesto o proponer una colaboración.",
 };
 
 export default function Contacto() {

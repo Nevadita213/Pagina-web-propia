@@ -1,17 +1,39 @@
 // Edita este archivo para cambiar textos, enlaces, servicios, productos y futuros proyectos.
 // Los componentes leen estos datos para mantener la landing fácil de modificar.
 
+const contactEmail = "jellysolutions.es@gmail.com";
+const instagramUrl = "https://www.instagram.com/jellysolutions.esp/";
+const tiktokUrl =
+  "https://www.tiktok.com/@jellysolutions.esp?is_from_webapp=1&sender_device=pc";
+const facebookUrl = "https://www.facebook.com/share/1BLP9RZABJ/";
+
 export const siteConfig = {
   brandName: "JellySolutions",
   tagline: "Webs, menús QR y productos personalizados para negocios",
-  whatsappUrl:
-    "https://wa.me/34000000000?text=Hola,%20quiero%20pedir%20informaci%C3%B3n%20sobre%20un%20proyecto",
-  contactUrl: "mailto:hola@jellysolutions.es",
-  // Cambia estos enlaces por los perfiles definitivos antes de publicar si son distintos.
+  contactEmail,
+  contactUrl: `mailto:${contactEmail}`,
+  phone: "647900050",
+  primaryContactHref: "/contacto",
+  collaborationHref: "/colabora#propuesta-colaboracion",
+  whatsappUrl: "https://wa.me/34647900050",
+  instagramUrl,
+  tiktokUrl,
+  facebookUrl,
+  forms: {
+    // Pega aquí los endpoints reales de Formspree cuando estén creados.
+    contactFormEndpoint: "",
+    collaborationFormEndpoint: "",
+    recommendedProductionOption: "Formspree",
+  },
   socialLinks: [
-    { label: "Instagram", href: "https://www.instagram.com/jellysolutions" },
-    { label: "TikTok", href: "https://www.tiktok.com/@jellysolutions" },
-    { label: "Facebook", href: "https://www.facebook.com/jellysolutions" },
+    { label: "Instagram", href: instagramUrl },
+    { label: "TikTok", href: tiktokUrl },
+    { label: "Facebook", href: facebookUrl },
+  ],
+  // TODO antes de publicar: crea estas páginas o pega sus URLs reales.
+  legalLinks: [
+    { label: "Aviso legal", href: "" },
+    { label: "Privacidad", href: "" },
   ],
 };
 
@@ -56,11 +78,11 @@ export const homeLines = [
   },
   {
     title: "Colabora",
-    eyebrow: "Vende con nosotros",
+    eyebrow: "Ideas y alianzas",
     icon: "Handshake",
     description:
-      "Trae una idea, contactos o diseños y valoramos una forma simple de colaborar.",
-    cta: "Vender o colaborar",
+      "Trae una idea, negocio, producto o propuesta conjunta y vemos si encaja.",
+    cta: "Proponer colaboración",
     href: "/colabora",
     accent: "lime",
   },
@@ -134,7 +156,7 @@ export const techServices = [
     what: "Página sencilla para presentar servicios, horarios, ubicación y contacto.",
     forWho: "Negocios locales, profesionales y marcas pequeñas.",
     benefit: "Tus clientes entienden rápido qué ofreces y cómo contactar.",
-    example: "Una barbería o clínica con servicios, ubicación y botón de WhatsApp.",
+    example: "Una barbería o clínica con servicios, ubicación y botón de contacto.",
     price: {
       standard: "399€",
       founder: "150€",
@@ -265,7 +287,7 @@ export const packages = [
     includes: [
       "Diseño responsive",
       "Secciones principales",
-      "Botón de WhatsApp o contacto",
+      "Botón de contacto",
       "Preparada para verse bien en móvil",
     ],
     note: "Precio según alcance",
@@ -464,37 +486,51 @@ export const productGroups = [
 
 export const collaborationOptions = [
   {
-    title: "Tengo una idea",
+    title: "Idea de producto",
     icon: "Lightbulb",
     description:
-      "Cuéntanos qué tienes en mente y vemos si puede convertirse en un producto, pack o proyecto simple.",
+      "Cuéntanos qué tienes en mente y vemos si puede convertirse en un producto, pack o proyecto viable.",
   },
   {
-    title: "Quiero vender con vosotros",
+    title: "Negocio que digitalizar",
+    icon: "Store",
+    description:
+      "Si tienes un local, servicio o proyecto que necesita web, formularios, QR o una presencia más clara, lo valoramos contigo.",
+  },
+  {
+    title: "Producto físico",
+    icon: "PackageCheck",
+    description:
+      "Podemos estudiar camisetas, packs, detalles de marca, merchandising o productos personalizados con intención comercial.",
+  },
+  {
+    title: "Marca o proyecto",
+    icon: "BadgeCheck",
+    description:
+      "Si quieres lanzar una marca, validar una idea o preparar una imagen mínima para salir al mercado, podemos ayudarte a ordenar el primer paso.",
+  },
+  {
+    title: "Propuesta conjunta",
     icon: "Handshake",
     description:
-      "Si puedes mover productos personalizados, buscamos una forma clara de colaborar sin complicar el proceso.",
+      "Trae una colaboración concreta: qué aporta cada parte, para quién sería y cómo podríamos probarla sin sobredimensionarla.",
   },
   {
-    title: "Tengo contactos o clientes",
+    title: "Canales o clientes",
     icon: "UsersRound",
     description:
-      "Podemos preparar propuestas para negocios, eventos o grupos que ya conoces y necesitan productos o presencia digital.",
-  },
-  {
-    title: "Quiero colaborar en diseños",
-    icon: "PenTool",
-    description:
-      "Si tienes estilo visual, ideas o diseños propios, podemos hablar de cómo aplicarlos a productos físicos o packs.",
+      "Si tienes audiencia, contactos, clientes o capacidad comercial, podemos plantear una prueba clara y medible.",
   },
 ];
 
 export const collaborationRequestTypes = [
   "Tengo una idea de producto",
-  "Quiero vender productos personalizados",
-  "Tengo contactos o clientes",
-  "Quiero colaborar con diseños",
-  "Tengo un negocio/local y quiero hacer algo conjunto",
+  "Tengo una propuesta de colaboración",
+  "Quiero digitalizar un negocio",
+  "Quiero desarrollar un producto físico",
+  "Quiero lanzar una marca o proyecto",
+  "Quiero plantear una propuesta conjunta",
+  "Tengo contactos, audiencia o clientes",
   "Otra propuesta",
 ];
 
@@ -518,6 +554,7 @@ export const collaborationSteps = [
 ];
 
 export const contactRequestTypes = [
+  "Consulta general",
   "Web para negocio",
   "Menú o catálogo QR",
   "Automatización simple",
@@ -542,12 +579,6 @@ export const contactTimelineOptions = [
   "Este mes",
   "Lo antes posible",
   "Fecha concreta",
-];
-
-export const contactReplyChannels = [
-  "WhatsApp",
-  "Email",
-  "Llamada",
 ];
 
 export const benefits = [

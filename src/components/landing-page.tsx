@@ -399,7 +399,7 @@ export function Header() {
         <div className="hidden items-center gap-2 lg:flex">
           <ThemeToggle />
           <a
-            href={siteConfig.whatsappUrl}
+            href={siteConfig.primaryContactHref}
             className="rounded-full bg-aqua px-4 py-2 text-sm font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-lime"
           >
             Pedir presupuesto
@@ -436,7 +436,7 @@ export function Header() {
             <ThemeToggle />
           </div>
           <a
-            href={siteConfig.whatsappUrl}
+            href={siteConfig.primaryContactHref}
             className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-aqua px-4 py-3 text-sm font-semibold text-ink"
           >
             Pedir presupuesto
@@ -528,7 +528,7 @@ function Hero() {
             {heroContent.subtitle}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <PrimaryButton href={siteConfig.whatsappUrl}>{heroContent.primaryCta}</PrimaryButton>
+            <PrimaryButton href={siteConfig.primaryContactHref}>{heroContent.primaryCta}</PrimaryButton>
             <PrimaryButton href="#ejemplos" variant="secondary">
               {heroContent.secondaryCta}
             </PrimaryButton>
@@ -788,7 +788,7 @@ function FinalCta() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-            <PrimaryButton href={siteConfig.whatsappUrl}>Hablar por WhatsApp</PrimaryButton>
+            <PrimaryButton href={siteConfig.primaryContactHref}>Enviar consulta</PrimaryButton>
             <a
               href={siteConfig.contactUrl}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/8 px-5 text-sm font-semibold text-paper transition hover:-translate-y-1 hover:bg-white/14"
@@ -804,6 +804,9 @@ function FinalCta() {
 }
 
 export function Footer() {
+  const visibleSocialLinks = siteConfig.socialLinks.filter((link) => link.href);
+  const visibleLegalLinks = siteConfig.legalLinks.filter((link) => link.href);
+
   return (
     <footer className="bg-ink px-4 py-10 text-paper sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-8 border-t border-white/20 pt-8 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_0.8fr]">
@@ -837,9 +840,13 @@ export function Footer() {
           </div>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-paper">Redes</h3>
+          <h3 className="text-sm font-semibold text-paper">Contacto</h3>
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
-            {siteConfig.socialLinks.map((link) => (
+            <a href={siteConfig.contactUrl}>{siteConfig.contactEmail}</a>
+            <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              Escribir por WhatsApp
+            </a>
+            {visibleSocialLinks.map((link) => (
               <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
                 {link.label}
               </a>
@@ -849,10 +856,15 @@ export function Footer() {
       </div>
       <div className="mx-auto mt-8 flex max-w-7xl flex-col gap-3 border-t border-white/20 pt-6 text-xs text-paper/44 sm:flex-row sm:items-center sm:justify-between">
         <p>© {new Date().getFullYear()} {siteConfig.brandName}. Todos los derechos reservados.</p>
-        <div className="flex gap-4">
-          <a href="#">Aviso legal</a>
-          <a href="#">Privacidad</a>
-        </div>
+        {visibleLegalLinks.length > 0 ? (
+          <div className="flex gap-4">
+            {visibleLegalLinks.map((link) => (
+              <a key={link.label} href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        ) : null}
       </div>
     </footer>
   );

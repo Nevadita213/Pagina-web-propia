@@ -4,7 +4,7 @@ Landing profesional creada con Next.js, TypeScript, Tailwind CSS y Framer Motion
 
 ## Ejecutar el proyecto
 
-Instación de dependencias:
+Instalación de dependencias:
 
 ```bash
 npm install
@@ -34,7 +34,7 @@ src/lib/site-data.ts
 
 Ahí puedes modificar:
 
-- Nombre de la marca, enlaces de WhatsApp, email y redes en `siteConfig`.
+- Nombre de la marca, email, WhatsApp opcional, redes, enlaces legales y acciones de formulario en `siteConfig`.
 - Enlaces de navegación en `navLinks`.
 - Textos principales del hero en `heroContent`.
 - Caminos y resultados resumidos de Inicio en `homeLines` y `homeOutcomes`.
@@ -52,7 +52,7 @@ Ahí puedes modificar:
 - Digital concentra el detalle de servicios digitales con problema, resultado y precio orientativo.
 - Productos contiene el catálogo completo agrupado por eventos, marca/negocio y diseños o packs.
 - Colabora explica vías de colaboración y un proceso simple de validación.
-- Contacto incluye formulario preparado con fallback `mailto:` hasta conectar una API route o server action.
+- Contacto incluye formulario preparado con fallback `mailto:` hasta conectar Formspree, Tally o una API propia.
 
 ## Estructura principal
 
@@ -71,7 +71,16 @@ src/lib/site-data.ts
 
 ## Personalización rápida
 
-Para cambiar WhatsApp, sustituye el número de `siteConfig.whatsappUrl` por el número real con prefijo internacional.
+Antes de publicar, revisa los datos pendientes en `siteConfig`:
+
+- `contactEmail` y `contactUrl`: correo principal visible y enlace `mailto:`.
+- `socialLinks`: perfiles reales de TikTok, Instagram y Facebook.
+- `whatsappUrl`: enlace real de `wa.me` para WhatsApp.
+- `legalLinks`: añade URLs reales de aviso legal y privacidad cuando existan.
+- `forms.contactFormEndpoint`: endpoint de Formspree para el formulario de Contacto.
+- `forms.collaborationFormEndpoint`: endpoint de Formspree para el formulario de Colaborar.
+
+Si los endpoints de Formspree están vacíos, los formularios mantienen fallback por email. Cuando pegues los endpoints, el envío se hará con Formspree y mostrará estados de enviando, éxito o error.
 
 Para añadir un servicio o producto, duplica un objeto dentro de `techServices` o `customProducts`. Los iconos disponibles se gestionan en `src/components/landing-page.tsx`, dentro del objeto `icons`.
 

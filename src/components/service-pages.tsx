@@ -2,12 +2,12 @@
 
 import { Mail, Send } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState, type FormEvent } from "react";
 import {
   collaborationRequestTypes,
   collaborationSteps,
   collaborationOptions,
   contactBudgetOptions,
-  contactReplyChannels,
   contactRequestTypes,
   contactTimelineOptions,
   customProducts,
@@ -35,6 +35,81 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
+type MailtoFallback = {
+  subject: string;
+  intro: string;
+  fields: string[];
+};
+
+const formStatusMessages: Record<Exclude<FormStatus, "idle">, string> = {
+  submitting: "Enviando mensaje...",
+  success: "Mensaje enviado correctamente. Te responderemos lo antes posible.",
+  error:
+    "No se ha podido enviar el mensaje. Puedes escribir directamente a jellysolutions.es@gmail.com.",
+};
+
+function getFormValue(formData: FormData, field: string) {
+  const value = formData.get(field);
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function buildMailtoUrl(formData: FormData, fallback: MailtoFallback) {
+  const body = [
+    fallback.intro,
+    ...fallback.fields.flatMap((field) => [field + ":", getFormValue(formData, field)]),
+    "---",
+    "Enviado desde la web de JellySolutions",
+  ].join("\n\n");
+
+  return `mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(
+    fallback.subject,
+  )}&body=${encodeURIComponent(body)}`;
+}
+
+function useFormSubmission(endpoint: string, fallback: MailtoFallback) {
+  const [status, setStatus] = useState<FormStatus>("idle");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    if (!endpoint) {
+      window.location.href = buildMailtoUrl(formData, fallback);
+      return;
+    }
+
+    setStatus("submitting");
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      form.reset();
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  return {
+    handleSubmit,
+    isSubmitting: status === "submitting",
+    status,
+  };
+}
+
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -49,14 +124,16 @@ function PageHero({
   eyebrow,
   title,
   description,
-  primaryLabel = "Hablar por WhatsApp",
-  secondaryLabel = "Pedir presupuesto",
+  primaryLabel = "Enviar consulta",
+  primaryHref = siteConfig.primaryContactHref,
+  secondaryLabel = "Escribir por email",
   secondaryHref = siteConfig.contactUrl,
 }: {
   eyebrow: string;
   title: string;
   description: string;
   primaryLabel?: string;
+  primaryHref?: string;
   secondaryLabel?: string;
   secondaryHref?: string;
 }) {
@@ -79,7 +156,7 @@ function PageHero({
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-paper/82">{description}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <PrimaryButton href={siteConfig.whatsappUrl}>{primaryLabel}</PrimaryButton>
+            <PrimaryButton href={primaryHref}>{primaryLabel}</PrimaryButton>
             <PrimaryButton href={secondaryHref} variant="secondary">
               {secondaryLabel}
             </PrimaryButton>
@@ -130,13 +207,13 @@ function CtaBand({
             <p className="mt-5 max-w-2xl text-base leading-8 text-paper/80">{text}</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-            <PrimaryButton href={siteConfig.whatsappUrl}>Hablar por WhatsApp</PrimaryButton>
+            <PrimaryButton href={siteConfig.primaryContactHref}>Enviar consulta</PrimaryButton>
             <a
               href={siteConfig.contactUrl}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/8 px-5 text-sm font-semibold text-paper transition hover:-translate-y-1 hover:bg-white/14"
             >
               <Mail className="h-4 w-4" />
-              Pedir presupuesto
+              Escribir por email
             </a>
           </div>
         </div>
@@ -316,25 +393,47 @@ const collaborationValues = [
   "Colaboraciones realistas, no promesas de dinero rápido.",
 ];
 
+const collaborationMailtoFallback: MailtoFallback = {
+  subject: "Nueva propuesta de colaboración desde JellySolutions",
+  intro: "Nueva propuesta recibida desde el formulario de Colaborar - JellySolutions",
+  fields: [
+    "Nombre",
+    "Email o forma de contacto",
+    "Tipo de colaboración",
+    "Explicación de la idea",
+    "Presupuesto aproximado",
+    "Urgencia o plazo",
+    "Qué necesitarías de JellySolutions",
+    "Qué aportarías tú",
+    "Enlaces o ejemplos",
+  ],
+};
+
 export function CollaboratePage() {
+  const formEndpoint = siteConfig.forms.collaborationFormEndpoint;
+  const formAction = formEndpoint || siteConfig.contactUrl;
+  const form = useFormSubmission(formEndpoint, collaborationMailtoFallback);
+
   return (
     <PageShell>
       <PageHero
         eyebrow="Colabora"
-        title="Trae una idea, vende con nosotros o propón una colaboración concreta."
-        description="En pocos segundos deberías saber si encajas: idea, venta, contactos o diseño. Lo valoramos sin prometer ingresos ni colaboraciones automáticas."
-        secondaryLabel="Enviar propuesta"
-        secondaryHref="#propuesta-colaboracion"
+        title="Trae una idea, un negocio o una propuesta conjunta y vemos cómo aterrizarla."
+        description="Colaboramos con personas y negocios que quieren crear un producto, digitalizar una idea, lanzar una marca o probar una propuesta compartida. Lo valoramos con realismo, sin prometer resultados automáticos."
+        primaryLabel="Enviar propuesta"
+        primaryHref="#propuesta-colaboracion"
+        secondaryLabel="Contacto general"
+        secondaryHref="/contacto"
       />
 
       <MotionSection className="bg-surface px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Vías de colaboración"
-            title="Cuatro formas claras de empezar."
-            description="No hace falta traerlo todo cerrado. Con una idea clara, contactos, capacidad de venta o diseños ya podemos valorar el siguiente paso."
+            title="Formas claras de empezar una conversación útil."
+            description="No hace falta traerlo todo cerrado. Puede ser una idea de producto, un negocio que quiere digitalizarse, un producto físico, una marca en lanzamiento o una propuesta conjunta."
           />
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {collaborationOptions.map((option, index) => (
               <motion.article
                 key={option.title}
@@ -397,21 +496,35 @@ export function CollaboratePage() {
               Cuéntanos tu propuesta de colaboración
             </h2>
             <p className="mt-5 text-base leading-8 text-muted sm:text-lg">
-              Cuéntanos qué quieres aportar y qué esperas conseguir. Valoramos ideas de producto,
-              diseños, contactos, negocios locales, eventos o propuestas de venta conjunta. No
-              prometemos colaboraciones automáticas: primero revisamos si tiene sentido, si es
-              viable y si ambas partes pueden ganar algo de forma clara.
+              Cuéntanos qué quieres crear, qué punto de partida tienes y qué esperas de
+              JellySolutions. Valoramos ideas de producto, negocios que quieren digitalizarse,
+              productos físicos, marcas en lanzamiento y propuestas conjuntas. Primero revisamos si
+              tiene sentido, si es viable y cuál sería una prueba razonable.
             </p>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-[1fr_0.38fr] lg:items-start">
             <form
-              action={siteConfig.contactUrl}
+              action={formAction}
               method="post"
-              encType="text/plain"
+              encType={formEndpoint ? "multipart/form-data" : "text/plain"}
+              onSubmit={form.handleSubmit}
               className="min-w-0 rounded-[30px] border border-line/16 bg-panel p-6 shadow-lift sm:p-8"
             >
-              {/* TODO: conectar este formulario a una API route o server action cuando haya backend. */}
+              {formEndpoint ? (
+                <>
+                  <input
+                    type="hidden"
+                    name="Origen"
+                    value="Formulario de Colaborar - JellySolutions"
+                  />
+                  <input
+                    type="hidden"
+                    name="_subject"
+                    value="Nueva propuesta de colaboración desde JellySolutions"
+                  />
+                </>
+              ) : null}
               <div className="grid min-w-0 gap-5 sm:grid-cols-2">
                 <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
                   Nombre
@@ -423,9 +536,9 @@ export function CollaboratePage() {
                   />
                 </label>
                 <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
-                  Email o WhatsApp
+                  Email o forma de contacto
                   <input
-                    name="Email o WhatsApp"
+                    name="Email o forma de contacto"
                     required
                     autoComplete="email"
                     className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
@@ -450,33 +563,68 @@ export function CollaboratePage() {
                   </select>
                 </label>
                 <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
-                  Qué puedes aportar
+                  Explicación de la idea
                   <textarea
-                    name="Qué puedes aportar"
-                    required
-                    rows={4}
-                    placeholder="Ejemplo: diseños, contactos, clientes, una idea, un local, audiencia, capacidad de venta..."
-                    className="w-full min-w-0 resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
-                  />
-                </label>
-                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
-                  Qué necesitas de JellySolutions
-                  <textarea
-                    name="Qué necesitas de JellySolutions"
-                    required
-                    rows={4}
-                    placeholder="Ejemplo: diseño, producción, web, automatización, producto físico, estructura de venta..."
-                    className="w-full min-w-0 resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
-                  />
-                </label>
-                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
-                  Explica tu propuesta
-                  <textarea
-                    name="Explica tu propuesta"
+                    name="Explicación de la idea"
                     required
                     minLength={20}
-                    rows={8}
-                    placeholder="Cuéntanos la idea con el mayor detalle posible: qué quieres hacer, para quién sería y cómo imaginas la colaboración."
+                    rows={7}
+                    placeholder="Describe qué quieres crear, para quién sería, qué problema resuelve y qué parte está más clara ahora mismo."
+                    className="w-full min-w-0 resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  />
+                </label>
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
+                  <span>
+                    Presupuesto aproximado <span className="font-medium text-muted">(si aplica)</span>
+                  </span>
+                  <select
+                    name="Presupuesto aproximado"
+                    defaultValue=""
+                    className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  >
+                    <option value="">No lo tengo claro</option>
+                    {contactBudgetOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
+                  <span>
+                    Urgencia o plazo <span className="font-medium text-muted">(si aplica)</span>
+                  </span>
+                  <select
+                    name="Urgencia o plazo"
+                    defaultValue=""
+                    className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  >
+                    <option value="">Sin fecha definida</option>
+                    {contactTimelineOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
+                  <span>
+                    Qué necesitarías de JellySolutions{" "}
+                    <span className="font-medium text-muted">(opcional)</span>
+                  </span>
+                  <textarea
+                    name="Qué necesitarías de JellySolutions"
+                    rows={4}
+                    placeholder="Diseño, producción, web, automatización, estructura de venta, materiales, validación o acompañamiento."
+                    className="w-full min-w-0 resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                  />
+                </label>
+                <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
+                  Qué aportarías tú
+                  <textarea
+                    name="Qué aportarías tú"
+                    rows={4}
+                    placeholder="Idea, experiencia, producto, marca, contactos, audiencia, local, presupuesto, tiempo o capacidad de venta."
                     className="w-full min-w-0 resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
                   />
                 </label>
@@ -486,22 +634,26 @@ export function CollaboratePage() {
                   </span>
                   <input
                     name="Enlaces o ejemplos"
-                    placeholder="Instagram, portfolio, web, fotos, referencias o ejemplos."
+                    placeholder="Instagram, portfolio, web, fotos, referencias, moodboard o ejemplos."
                     className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
                   />
                 </label>
               </div>
 
               <p className="mt-6 rounded-2xl border border-aqua/20 bg-aqua/[0.07] px-4 py-3 text-sm leading-6 text-muted">
-                Revisamos las propuestas con calma. Si vemos una opción realista, te contactaremos
-                para concretar el siguiente paso.
+                {form.status === "idle"
+                  ? formEndpoint
+                    ? "El formulario está preparado para enviar la propuesta por Formspree."
+                    : "El formulario usa un fallback temporal por email hasta que pegues el endpoint de Formspree."
+                  : formStatusMessages[form.status]}
               </p>
 
               <button
                 type="submit"
+                disabled={form.isSubmitting}
                 className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-aqua px-5 text-sm font-semibold text-ink shadow-lift transition hover:-translate-y-1 hover:bg-lime sm:w-auto"
               >
-                Enviar propuesta de colaboración
+                {form.isSubmitting ? "Enviando mensaje..." : "Enviar propuesta de colaboración"}
                 <Send className="h-4 w-4" />
               </button>
             </form>
@@ -521,14 +673,14 @@ export function CollaboratePage() {
               </div>
 
               <a
-                href={siteConfig.whatsappUrl}
+                href={siteConfig.contactUrl}
                 className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
               >
                 <IconBadge icon="MessagesSquare" />
-                <h3 className="mt-6 text-xl font-semibold text-text">¿Prefieres hablar primero?</h3>
+                <h3 className="mt-6 text-xl font-semibold text-text">¿Prefieres escribir primero?</h3>
                 <p className="mt-3 text-sm leading-6 text-muted">
-                  Puedes escribir por WhatsApp si necesitas aclarar una idea antes de enviarla con
-                  detalle.
+                  Puedes enviar un email si necesitas aclarar una idea antes de preparar una
+                  propuesta completa.
                 </p>
               </a>
             </aside>
@@ -546,34 +698,55 @@ const contactResponseItems = [
   "Si conviene empezar con algo pequeño.",
 ];
 
+const contactMailtoFallback: MailtoFallback = {
+  subject: "Nuevo contacto desde JellySolutions",
+  intro: "Nuevo mensaje recibido desde el formulario de Contacto - JellySolutions",
+  fields: ["Nombre", "Email", "Tipo de consulta", "Asunto", "Mensaje"],
+};
+
 export function ContactPage() {
+  const visibleSocialLinks = siteConfig.socialLinks.filter((link) => link.href);
+  const formEndpoint = siteConfig.forms.contactFormEndpoint;
+  const formAction = formEndpoint || siteConfig.contactUrl;
+  const form = useFormSubmission(formEndpoint, contactMailtoFallback);
+
   return (
     <PageShell>
       <PageHero
         eyebrow="Contacto"
         title="Hablemos de lo que necesitas crear."
-        description="Cuéntanos si buscas una web, un menú QR, productos personalizados, una automatización sencilla o una colaboración. Te responderemos con una propuesta clara, sin marearte con procesos complicados."
+        description="Escríbenos para pedir información, resolver una duda, valorar una web, consultar productos personalizados o explicar una idea que quieras poner en marcha."
       />
 
       <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1fr_0.42fr]">
           <form
-            action={siteConfig.contactUrl}
+            action={formAction}
             method="post"
-            encType="text/plain"
+            encType={formEndpoint ? "multipart/form-data" : "text/plain"}
+            onSubmit={form.handleSubmit}
             className="min-w-0 rounded-[30px] border border-line/16 bg-panel p-6 shadow-lift sm:p-8"
           >
-            {/* TODO: conectar este formulario a una API route o server action cuando haya backend. */}
+            {formEndpoint ? (
+              <>
+                <input
+                  type="hidden"
+                  name="Origen"
+                  value="Formulario de Contacto - JellySolutions"
+                />
+                <input type="hidden" name="_subject" value="Nuevo contacto desde JellySolutions" />
+              </>
+            ) : null}
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-coral">
-                Enviar solicitud
+                Contacto general
               </p>
               <h2 className="mt-3 text-3xl font-semibold text-text">
-                Envíanos los detalles básicos
+                Envíanos tu mensaje
               </h2>
               <p className="mt-3 text-sm leading-7 text-muted">
-                Cuanto mejor expliques lo que necesitas, más fácil será darte una respuesta útil:
-                precio orientativo, siguiente paso o una forma simple de empezar.
+                Cuéntanos el contexto, qué necesitas y cómo prefieres que te respondamos. Si la
+                consulta requiere presupuesto, te pediremos los detalles concretos después.
               </p>
             </div>
 
@@ -588,18 +761,19 @@ export function ContactPage() {
                 />
               </label>
               <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
-                Email o teléfono
+                Email
                 <input
-                  name="Email o teléfono"
+                  name="Email"
+                  type="email"
                   required
                   autoComplete="email"
                   className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
                 />
               </label>
               <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
-                Tipo de solicitud
+                Tipo de consulta
                 <select
-                  name="Tipo de solicitud"
+                  name="Tipo de consulta"
                   required
                   defaultValue=""
                   className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
@@ -614,58 +788,14 @@ export function ContactPage() {
                   ))}
                 </select>
               </label>
-              <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
-                <span>
-                  Presupuesto aproximado{" "}
-                  <span className="font-medium text-muted">(opcional)</span>
-                </span>
-                <select
-                  name="Presupuesto aproximado"
-                  defaultValue=""
-                  className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
-                >
-                  <option value="">Selecciona una opción</option>
-                  {contactBudgetOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="grid min-w-0 gap-2 text-sm font-semibold text-text">
-                <span>
-                  Plazo aproximado <span className="font-medium text-muted">(opcional)</span>
-                </span>
-                <select
-                  name="Plazo aproximado"
-                  defaultValue=""
-                  className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
-                >
-                  <option value="">Selecciona una opción</option>
-                  {contactTimelineOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </label>
               <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
-                <span>
-                  Canal preferido de respuesta{" "}
-                  <span className="font-medium text-muted">(opcional)</span>
-                </span>
-                <select
-                  name="Canal preferido de respuesta"
-                  defaultValue=""
-                  className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition focus:border-aqua focus:ring-2 focus:ring-aqua/20"
-                >
-                  <option value="">Selecciona una opción</option>
-                  {contactReplyChannels.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                Asunto
+                <input
+                  name="Asunto"
+                  required
+                  placeholder="Ejemplo: web para mi negocio, productos para un evento, duda general..."
+                  className="min-h-12 w-full min-w-0 rounded-2xl border border-line/16 bg-elevated px-4 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+                />
               </label>
               <label className="grid min-w-0 gap-2 text-sm font-semibold text-text sm:col-span-2">
                 Mensaje
@@ -674,7 +804,7 @@ export function ContactPage() {
                   required
                   minLength={10}
                   rows={7}
-                  placeholder="Cuéntanos qué necesitas, para qué negocio o idea sería, si ya tienes fotos, textos o diseños, y qué resultado esperas conseguir."
+                  placeholder="Cuéntanos qué necesitas, para qué negocio, marca o idea sería y qué respuesta esperas recibir."
                   className="w-full min-w-0 resize-y rounded-2xl border border-line/16 bg-elevated px-4 py-3 text-sm font-medium text-text outline-none transition placeholder:text-muted/70 focus:border-aqua focus:ring-2 focus:ring-aqua/20"
                 />
               </label>
@@ -682,15 +812,19 @@ export function ContactPage() {
 
             <button
               type="submit"
+              disabled={form.isSubmitting}
               className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-aqua px-5 text-sm font-semibold text-ink shadow-lift transition hover:-translate-y-1 hover:bg-lime sm:w-auto"
             >
-              Enviar solicitud
+              {form.isSubmitting ? "Enviando mensaje..." : "Enviar solicitud"}
               <Send className="h-4 w-4" />
             </button>
 
             <p className="mt-4 text-xs leading-5 text-muted">
-              Nota: si el envío directo no está activo todavía, se abrirá tu aplicación de correo
-              para enviarnos la solicitud.
+              {form.status === "idle"
+                ? formEndpoint
+                  ? "El formulario está preparado para enviar el mensaje por Formspree."
+                  : "El envío usa un fallback temporal por email hasta que pegues el endpoint de Formspree."
+                : formStatusMessages[form.status]}
             </p>
           </form>
 
@@ -707,46 +841,40 @@ export function ContactPage() {
                 ))}
               </ul>
             </div>
-            <a
-              href={siteConfig.whatsappUrl}
-              className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
-            >
-              <IconBadge icon="MessagesSquare" />
-              <h2 className="mt-6 text-xl font-semibold text-text">WhatsApp</h2>
-              <p className="mt-3 text-sm leading-6 text-muted">
-                La forma más directa para dudas rápidas, presupuestos o primeros detalles.
-              </p>
-            </a>
-            <a
-              href={siteConfig.contactUrl}
-              className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
-            >
+            <div className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift">
               <IconBadge icon="Mail" />
               <h2 className="mt-6 text-xl font-semibold text-text">Email</h2>
               <p className="mt-3 text-sm leading-6 text-muted">
-                {siteConfig.contactUrl.replace("mailto:", "")}
+                <a href={siteConfig.contactUrl}>{siteConfig.contactEmail}</a>
               </p>
-            </a>
-            <div className="rounded-[28px] border border-line/16 bg-panel p-6 shadow-card">
-              <IconBadge icon="Sparkles" />
-              <h2 className="mt-6 text-xl font-semibold text-text">Redes sociales</h2>
               <p className="mt-3 text-sm leading-6 text-muted">
-                También puedes ver ejemplos, novedades y trabajos recientes en nuestras redes.
+                <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                  Escribir por WhatsApp
+                </a>
               </p>
-              <div className="mt-4 grid gap-2 text-sm text-muted">
-                {siteConfig.socialLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition hover:text-text"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
             </div>
+            {visibleSocialLinks.length > 0 ? (
+              <div className="rounded-[28px] border border-line/16 bg-panel p-6 shadow-card">
+                <IconBadge icon="Sparkles" />
+                <h2 className="mt-6 text-xl font-semibold text-text">Redes sociales</h2>
+                <p className="mt-3 text-sm leading-6 text-muted">
+                  También puedes ver ejemplos, novedades y trabajos recientes en nuestras redes.
+                </p>
+                <div className="mt-4 grid gap-2 text-sm text-muted">
+                  {visibleSocialLinks.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition hover:text-text"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </aside>
         </div>
       </MotionSection>
