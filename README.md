@@ -52,7 +52,7 @@ Ahí puedes modificar:
 - Digital concentra el detalle de servicios digitales con problema, resultado y precio orientativo.
 - Productos contiene el catálogo completo agrupado por eventos, marca/negocio y diseños o packs.
 - Colabora explica vías de colaboración y un proceso simple de validación.
-- Contacto incluye formulario preparado con fallback `mailto:` hasta conectar Formspree, Tally o una API propia.
+- Contacto incluye formulario conectado a rutas API propias para enviar a Web3Forms sin exponer la clave en frontend, con fallback `mailto:` solo si se desactiva el endpoint.
 
 ## Estructura principal
 
@@ -77,10 +77,12 @@ Antes de publicar, revisa los datos pendientes en `siteConfig`:
 - `socialLinks`: perfiles reales de TikTok, Instagram y Facebook.
 - `whatsappUrl`: enlace real de `wa.me` para WhatsApp.
 - `legalLinks`: añade URLs reales de aviso legal y privacidad cuando existan.
-- `forms.contactFormEndpoint`: endpoint de Formspree para el formulario de Contacto.
-- `forms.collaborationFormEndpoint`: endpoint de Formspree para el formulario de Colaborar.
+- `forms.contactFormEndpoint`: ruta interna para el formulario de Contacto, actualmente `/api/contact`.
+- `forms.collaborationFormEndpoint`: ruta interna para el formulario de Colaborar, actualmente `/api/collaboration`.
 
-Si los endpoints de Formspree están vacíos, los formularios mantienen fallback por email. Cuando pegues los endpoints, el envío se hará con Formspree y mostrará estados de enviando, éxito o error.
+Para enviar con Web3Forms, crea un archivo `.env.local` en la raíz del proyecto y define `WEB3FORMS_ACCESS_KEY=MI_CLAVE_REAL`. No pongas esa clave en `site-data.ts`, componentes React, HTML ni archivos públicos.
+
+Si las rutas internas se dejan vacías en `siteConfig.forms`, los formularios mantienen fallback por email. Con las rutas activas, el envío se hace por POST a la API de Next.js, la API añade la clave en servidor y reenvía la solicitud a Web3Forms.
 
 Para añadir un servicio o producto, duplica un objeto dentro de `techServices` o `customProducts`. Los iconos disponibles se gestionan en `src/components/landing-page.tsx`, dentro del objeto `icons`.
 

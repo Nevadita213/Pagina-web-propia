@@ -20,10 +20,11 @@ export const siteConfig = {
   tiktokUrl,
   facebookUrl,
   forms: {
-    // Pega aquí los endpoints reales de Formspree cuando estén creados.
-    contactFormEndpoint: "",
-    collaborationFormEndpoint: "",
-    recommendedProductionOption: "Formspree",
+    // Los formularios envían a rutas API propias para no exponer WEB3FORMS_ACCESS_KEY en cliente.
+    // Define WEB3FORMS_ACCESS_KEY en .env.local y en Vercel Project Settings > Environment Variables.
+    contactFormEndpoint: "/api/contact",
+    collaborationFormEndpoint: "/api/collaboration",
+    recommendedProductionOption: "Web3Forms mediante rutas API de Next.js",
   },
   socialLinks: [
     { label: "Instagram", href: instagramUrl },
@@ -39,53 +40,74 @@ export const siteConfig = {
 
 export const navLinks = [
   { label: "Inicio", href: "/" },
-  { label: "Digital", href: "/digital" },
-  { label: "Productos físicos", href: "/productos" },
-  { label: "Colabora", href: "/colabora" },
-  { label: "Contacto", href: "/contacto" },
+  { label: "Soluciones digitales", href: "/digital" },
+  { label: "Productos personalizados", href: "/productos" },
+  { label: "Colaborar", href: "/colabora" },
+  { label: "Hablemos", href: "/contacto" },
 ];
 
 export const heroContent = {
-  eyebrow: "Web, contacto y marca a medida",
-  title: "Webs, menús QR y productos personalizados para negocios que quieren verse mejor y recibir más contactos.",
+  eyebrow: "JellySolutions",
+  title: "Soluciones digitales y productos personalizados para negocios, eventos e ideas con marca.",
   subtitle:
-    "Creamos soluciones simples para presentar tu negocio, ordenar solicitudes y reforzar tu marca sin complicarte el proceso.",
-  primaryCta: "Pedir presupuesto",
-  secondaryCta: "Ver ejemplos",
-  highlights: ["Webs y menús QR", "Formularios y automatización", "Productos personalizados"],
+    "Creamos webs, menús QR, formularios, automatizaciones sencillas y productos físicos personalizados para ayudarte a presentar mejor lo que haces y recibir contactos de forma más clara.",
+  primaryCta: "Ver servicios digitales",
+  secondaryCta: "Ver productos personalizados",
+  highlights: ["Para negocios locales", "Para eventos", "Para marcas pequeñas"],
 };
 
 export const homeLines = [
   {
     title: "Digital",
-    eyebrow: "Webs y sistemas",
+    eyebrow: "Servicios digitales",
     icon: "MonitorSmartphone",
     description:
-      "Soluciones digitales sencillas para presentar tu negocio y facilitar el contacto.",
+      "Webs, menús QR, formularios, automatizaciones, dashboards y sistemas simples para presentar mejor tu negocio y ordenar contactos.",
     cta: "Ver soluciones digitales",
     href: "/digital",
     accent: "aqua",
   },
   {
     title: "Productos físicos",
-    eyebrow: "Personalización",
+    eyebrow: "Personalizados",
     icon: "Shirt",
     description:
-      "Productos personalizados para eventos, regalos o marca con una imagen cuidada.",
+      "Camisetas, llaveros, packs y detalles personalizados para eventos, negocios, marca, regalos o promociones.",
     cta: "Ver productos físicos",
     href: "/productos",
     accent: "coral",
   },
   {
-    title: "Colabora",
-    eyebrow: "Ideas y alianzas",
+    title: "Colaboraciones",
+    eyebrow: "Ideas conjuntas",
     icon: "Handshake",
     description:
-      "Trae una idea, negocio, producto o propuesta conjunta y vemos si encaja.",
+      "Recogemos propuestas concretas de colaboración, ideas conjuntas, contactos, productos o proyectos que puedan tener sentido.",
     cta: "Proponer colaboración",
     href: "/colabora",
     accent: "lime",
   },
+];
+
+export const homeAudienceExamples = [
+  "Negocios locales",
+  "Bares",
+  "Cafeterías",
+  "Barberías",
+  "Peluquerías",
+  "Tiendas",
+  "Eventos",
+  "Creadores",
+  "Marcas pequeñas",
+  "Personas con ideas",
+];
+
+export const homeProblems = [
+  "No tienes una web clara.",
+  "Tus clientes no encuentran bien tus servicios, precios o contacto.",
+  "Quieres un menú QR o catálogo más profesional.",
+  "Quieres productos personalizados para marca, evento o promoción.",
+  "Tienes una idea pero necesitas convertirla en algo presentable.",
 ];
 
 export const homeOutcomes = [
@@ -157,6 +179,13 @@ export const techServices = [
     forWho: "Negocios locales, profesionales y marcas pequeñas.",
     benefit: "Tus clientes entienden rápido qué ofreces y cómo contactar.",
     example: "Una barbería o clínica con servicios, ubicación y botón de contacto.",
+    includes: [
+      "Página sencilla adaptada a móvil",
+      "Servicios, ubicación y contacto",
+      "Botón de WhatsApp o llamada",
+      "Diseño coherente con la marca",
+      "1 ronda de ajustes",
+    ],
     price: {
       standard: "399€",
       founder: "150€",
@@ -173,6 +202,13 @@ export const techServices = [
     forWho: "Negocios que reciben consultas, reservas o pedidos.",
     benefit: "Menos trabajo manual y más control de cada solicitud.",
     example: "Un formulario que guarda datos en una hoja y avisa al dueño.",
+    includes: [
+      "Formulario o flujo de entrada",
+      "Registro ordenado de solicitudes",
+      "Aviso básico por email o similar",
+      "Campos adaptados a tu proceso",
+      "Prueba de funcionamiento",
+    ],
     price: {
       standard: "349€",
       founder: "desde 120€",
@@ -189,6 +225,13 @@ export const techServices = [
     forWho: "Servicios, comercios, centros y proyectos con atención directa.",
     benefit: "Recibes datos ordenados y reduces mensajes incompletos.",
     example: "Reserva de cita, pedido simple o solicitud de presupuesto.",
+    includes: [
+      "Formulario adaptado a la consulta",
+      "Campos para datos clave",
+      "Mensaje de confirmación",
+      "Enlace desde web o redes",
+      "1 ronda de ajustes",
+    ],
     price: {
       standard: "299€",
       founder: "desde 80€",
@@ -205,6 +248,13 @@ export const techServices = [
     forWho: "Equipos pequeños que necesitan ver información clave.",
     benefit: "Sabes qué está pendiente sin revisar mensajes uno a uno.",
     example: "Panel de pedidos recibidos y estado de cada encargo.",
+    includes: [
+      "Vista simple de pedidos o contactos",
+      "Estados básicos de seguimiento",
+      "Filtros o columnas principales",
+      "Acceso preparado para consulta",
+      "Ajuste inicial de campos",
+    ],
     price: {
       standard: "699€",
       founder: "desde 220€",
@@ -221,10 +271,40 @@ export const techServices = [
     forWho: "Bares, cafeterías, restaurantes, food trucks o eventos.",
     benefit: "El cliente accede por QR sin descargar nada.",
     example: "Bebidas, tapas, menús, alérgenos y promociones.",
+    includes: [
+      "Menú adaptado a móvil",
+      "Categorías y precios ordenados",
+      "QR listo para imprimir",
+      "Diseño visual sencillo",
+      "1 ronda de ajustes",
+    ],
     price: {
       standard: "149€",
       founder: "desde 70€",
       discount: "53%",
+    },
+  },
+  {
+    id: "catalogos-digitales",
+    title: "Catálogos digitales",
+    icon: "ShoppingBag",
+    problem: "Tienes productos o servicios repartidos en fotos, mensajes o documentos difíciles de consultar.",
+    result: "Un catálogo online claro para enseñar opciones, precios orientativos y formas de pedir información.",
+    what: "Catálogo digital sencillo para mostrar productos, servicios, packs o ideas.",
+    forWho: "Tiendas, marcas pequeñas, creadores y negocios con productos variables.",
+    benefit: "Tus clientes consultan lo importante desde el móvil antes de escribirte.",
+    example: "Catálogo de productos personalizados, servicios, packs o promociones.",
+    includes: [
+      "Estructura por categorías",
+      "Fichas básicas de producto o servicio",
+      "Precios o rangos orientativos",
+      "Botón de consulta o WhatsApp",
+      "Diseño adaptado a móvil",
+    ],
+    price: {
+      standard: "249€",
+      founder: "desde 90€",
+      discount: "64%",
     },
   },
   {
@@ -237,6 +317,13 @@ export const techServices = [
     forWho: "Negocios que no necesitan una app grande.",
     benefit: "Tienes una solución directa y fácil de mantener.",
     example: "Registro de clientes, encargos, entregas o solicitudes.",
+    includes: [
+      "Estructura del flujo principal",
+      "Pantallas o vistas básicas",
+      "Campos adaptados al proceso",
+      "Prueba con datos de ejemplo",
+      "Guía simple de uso",
+    ],
     price: {
       standard: "899€",
       founder: "desde 300€",
@@ -253,28 +340,16 @@ export const digitalServiceGroups = [
     serviceIds: ["webs-negocios", "contacto-reservas-pedidos"],
   },
   {
-    title: "Menús, catálogos y consulta rápida",
+    title: "Información rápida",
     description:
-      "Para bares, cafeterías, tiendas o proyectos que quieren mostrar información desde el móvil sin complicaciones.",
-    serviceIds: ["menus-qr"],
+      "Para bares, cafeterías, tiendas o proyectos que quieren mostrar menús, productos o información desde el móvil sin complicaciones.",
+    serviceIds: ["menus-qr", "catalogos-digitales"],
   },
   {
-    title: "Automatización y organización",
+    title: "Organización interna",
     description:
       "Para negocios que reciben mensajes, reservas, pedidos o solicitudes y quieren ordenar la información sin depender de conversaciones sueltas.",
-    serviceIds: ["automatizaciones"],
-  },
-  {
-    title: "Control y gestión",
-    description:
-      "Para negocios que necesitan ver pedidos, contactos o tareas pendientes sin revisar todo manualmente.",
-    serviceIds: ["dashboards-gestion"],
-  },
-  {
-    title: "Sistemas simples a medida",
-    description:
-      "Para procesos concretos que no necesitan una app grande, pero sí una herramienta clara y fácil de mantener.",
-    serviceIds: ["sistemas-simples"],
+    serviceIds: ["automatizaciones", "dashboards-gestion", "sistemas-simples"],
   },
 ];
 
@@ -557,6 +632,7 @@ export const contactRequestTypes = [
   "Consulta general",
   "Web para negocio",
   "Menú o catálogo QR",
+  "Catálogo digital",
   "Automatización simple",
   "Producto personalizado",
   "Pack para evento",
@@ -610,20 +686,24 @@ export const benefits = [
 
 export const processSteps = [
   {
-    title: "Nos cuentas la idea",
-    description: "Entendemos qué quieres crear, para quién es y qué objetivo tiene.",
+    title: "Nos cuentas qué necesitas",
+    description: "Entendemos el contexto, para quién es y qué resultado quieres conseguir.",
   },
   {
-    title: "Te proponemos una solución",
-    description: "Definimos alcance, estilo, materiales, contenido y próximos pasos.",
+    title: "Te proponemos una solución pequeña y clara",
+    description: "Definimos alcance, prioridades, formato y siguientes pasos sin sobredimensionar.",
   },
   {
-    title: "Creamos el diseño/producto",
-    description: "Diseñamos, desarrollamos o preparamos las piezas con revisiones concretas.",
+    title: "La diseñamos o montamos",
+    description: "Preparamos la web, formulario, producto, pack o sistema con una estructura concreta.",
   },
   {
-    title: "Lo entregamos y te ayudamos",
-    description: "Te damos el resultado final y una guía simple para usarlo o pedir cambios.",
+    title: "La ajustamos contigo",
+    description: "Revisamos detalles, textos, materiales o funcionamiento antes de cerrar la entrega.",
+  },
+  {
+    title: "La dejamos lista para usar o enseñar",
+    description: "Entregamos el resultado final preparado para compartir, publicar, imprimir o presentar.",
   },
 ];
 

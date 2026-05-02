@@ -1,8 +1,10 @@
 "use client";
 
-import { Mail, Send } from "lucide-react";
+import { Check, Mail, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, type FormEvent } from "react";
+import { AmbientJellyfish } from "@/components/ambient-jellyfish";
+import { InteractiveJellyfish } from "@/components/interactive-jellyfish";
 import {
   collaborationRequestTypes,
   collaborationSteps,
@@ -41,7 +43,16 @@ type MailtoFallback = {
   subject: string;
   intro: string;
   fields: string[];
+  formType: "contacto" | "colaboracion";
+  originPage: "/contacto" | "/colabora";
 };
+
+type NamedFormControl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+const internalStatusField = "Estado interno";
+const initialInternalStatus = "nuevo";
+const honeypotField = "Empresa";
+const systemFields = ["Tipo de formulario", "Fecha de envío", "Origen de página", internalStatusField];
 
 const formStatusMessages: Record<Exclude<FormStatus, "idle">, string> = {
   submitting: "Enviando mensaje...",
@@ -55,10 +66,22 @@ function getFormValue(formData: FormData, field: string) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function buildSubmissionData(form: HTMLFormElement, fallback: MailtoFallback) {
+  const formData = new FormData(form);
+
+  formData.set("Tipo de formulario", fallback.formType);
+  formData.set("Fecha de envío", new Date().toISOString());
+  formData.set("Origen de página", fallback.originPage);
+  formData.set(internalStatusField, initialInternalStatus);
+
+  return formData;
+}
+
 function buildMailtoUrl(formData: FormData, fallback: MailtoFallback) {
   const body = [
     fallback.intro,
     ...fallback.fields.flatMap((field) => [field + ":", getFormValue(formData, field)]),
+    ...systemFields.flatMap((field) => [field + ":", getFormValue(formData, field)]),
     "---",
     "Enviado desde la web de JellySolutions",
   ].join("\n\n");
@@ -73,8 +96,20 @@ function useFormSubmission(endpoint: string, fallback: MailtoFallback) {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (status === "submitting") {
+      return;
+    }
+
     const form = event.currentTarget;
-    const formData = new FormData(form);
+    const formData = buildSubmissionData(form, fallback);
+
+    if (getFormValue(formData, honeypotField)) {
+      form.reset();
+      setStatus("success");
+      return;
+    }
+
+    formData.delete(honeypotField);
 
     if (!endpoint) {
       window.location.href = buildMailtoUrl(formData, fallback);
@@ -84,6 +119,8 @@ function useFormSubmission(endpoint: string, fallback: MailtoFallback) {
     setStatus("submitting");
 
     try {
+      // Conecta aquí un endpoint real de Airtable, Google Sheets, Supabase o API propia.
+      // El body ya incluye campos del formulario y metadatos de gestión: tipo, fecha, origen y estado interno.
       const response = await fetch(endpoint, {
         method: "POST",
         body: formData,
@@ -91,9 +128,13 @@ function useFormSubmission(endpoint: string, fallback: MailtoFallback) {
           Accept: "application/json",
         },
       });
+      const result = (await response.json().catch(() => null)) as {
+        success?: boolean;
+        message?: string;
+      } | null;
 
-      if (!response.ok) {
-        throw new Error("Form submission failed");
+      if (!response.ok || result?.success !== true) {
+        throw new Error(result?.message ?? "Form submission failed");
       }
 
       form.reset();
@@ -139,10 +180,11 @@ function PageHero({
 }) {
   return (
     <section className="relative overflow-hidden bg-ink px-4 pb-16 pt-28 text-paper sm:px-6 lg:px-8">
+      <AmbientJellyfish />
       <div className="noise-overlay" />
       <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-aqua/18 blur-3xl" />
       <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-coral/14 blur-3xl" />
-      <div className="relative mx-auto grid max-w-7xl gap-10 py-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-10 py-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
         <motion.div
           initial={{ opacity: 1, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -222,6 +264,18 @@ function CtaBand({
   );
 }
 
+function getProductGridClass(count: number) {
+  if (count === 4) {
+    return "grid gap-5 sm:grid-cols-2 xl:grid-cols-4";
+  }
+
+  if (count === 2) {
+    return "grid max-w-4xl gap-5 md:grid-cols-2";
+  }
+
+  return "grid gap-5 sm:grid-cols-2 lg:grid-cols-3";
+}
+
 export function DigitalPage() {
   const servicesById = new Map(techServices.map((service) => [service.id, service]));
 
@@ -257,13 +311,13 @@ export function DigitalPage() {
                   </div>
                   <div
                     className={`grid gap-5 md:grid-cols-2 ${
-                      services.length === 1 ? "max-w-xl" : ""
+                      services.length >= 3 ? "xl:grid-cols-3" : ""
                     }`}
                   >
                     {services.map((service, index) => (
                       <motion.article
                         key={service.id}
-                        className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
+                        className="group flex h-full flex-col rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
                         variants={fadeUp}
                         initial="hidden"
                         whileInView="visible"
@@ -287,7 +341,24 @@ export function DigitalPage() {
                             {service.result}
                           </p>
                         </div>
-                        <FounderPriceBlock price={service.price} />
+                        <div className="mt-6 rounded-[22px] border border-line/16 bg-elevated/58 p-4">
+                          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-coral">
+                            Incluye
+                          </p>
+                          <ul className="mt-3 grid gap-2 text-sm leading-6 text-muted">
+                            {service.includes.map((item) => (
+                              <li key={item} className="flex gap-2">
+                                <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-aqua/16 text-aqua">
+                                  <Check className="h-3 w-3" />
+                                </span>
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="mt-auto">
+                          <FounderPriceBlock price={service.price} />
+                        </div>
                       </motion.article>
                     ))}
                   </div>
@@ -338,11 +409,11 @@ export function ProductsPage() {
                       </h2>
                     </div>
                   </div>
-                  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                  <div className={getProductGridClass(products.length)}>
                     {products.map((product, index) => (
                       <motion.article
                         key={product.title}
-                        className="group overflow-hidden rounded-[28px] border border-line/18 bg-panel text-text shadow-lift transition hover:-translate-y-1 hover:bg-elevated"
+                        className="group flex h-full flex-col overflow-hidden rounded-[28px] border border-line/18 bg-panel text-text shadow-lift transition hover:-translate-y-1 hover:bg-elevated"
                         variants={fadeUp}
                         initial="hidden"
                         whileInView="visible"
@@ -358,7 +429,7 @@ export function ProductsPage() {
                         >
                           <ProductIconVisual icon={product.icon} />
                         </div>
-                        <div className="p-5">
+                        <div className="flex flex-1 flex-col p-5">
                           <h3 className="text-xl font-semibold">{product.title}</h3>
                           <p className="mt-3 text-sm leading-6 text-muted">
                             <strong className="text-text">Uso principal: </strong>
@@ -368,7 +439,9 @@ export function ProductsPage() {
                             <strong className="text-text">Tipo de cliente: </strong>
                             {product.clientType}
                           </p>
-                          <ProductPriceBlock price={product.price} />
+                          <div className="mt-auto">
+                            <ProductPriceBlock price={product.price} />
+                          </div>
                         </div>
                       </motion.article>
                     ))}
@@ -396,6 +469,8 @@ const collaborationValues = [
 const collaborationMailtoFallback: MailtoFallback = {
   subject: "Nueva propuesta de colaboración desde JellySolutions",
   intro: "Nueva propuesta recibida desde el formulario de Colaborar - JellySolutions",
+  formType: "colaboracion",
+  originPage: "/colabora",
   fields: [
     "Nombre",
     "Email o forma de contacto",
@@ -511,6 +586,10 @@ export function CollaboratePage() {
               onSubmit={form.handleSubmit}
               className="min-w-0 rounded-[30px] border border-line/16 bg-panel p-6 shadow-lift sm:p-8"
             >
+              <label className="sr-only" aria-hidden="true">
+                Empresa
+                <input name={honeypotField} tabIndex={-1} autoComplete="off" />
+              </label>
               {formEndpoint ? (
                 <>
                   <input
@@ -518,6 +597,7 @@ export function CollaboratePage() {
                     name="Origen"
                     value="Formulario de Colaborar - JellySolutions"
                   />
+                  <input type="hidden" name="Origen de página" value="/colabora" />
                   <input
                     type="hidden"
                     name="_subject"
@@ -643,8 +723,8 @@ export function CollaboratePage() {
               <p className="mt-6 rounded-2xl border border-aqua/20 bg-aqua/[0.07] px-4 py-3 text-sm leading-6 text-muted">
                 {form.status === "idle"
                   ? formEndpoint
-                    ? "El formulario está preparado para enviar la propuesta por Formspree."
-                    : "El formulario usa un fallback temporal por email hasta que pegues el endpoint de Formspree."
+                    ? "Envíanos tu propuesta y revisaremos si encaja, qué alcance tendría y cuál sería el siguiente paso."
+                    : "Al enviar se abrirá tu aplicación de correo con la propuesta preparada para enviarla."
                   : formStatusMessages[form.status]}
               </p>
 
@@ -698,9 +778,13 @@ const contactResponseItems = [
   "Si conviene empezar con algo pequeño.",
 ];
 
+const contactRequiredFields = ["Nombre", "Email", "Tipo de consulta", "Asunto", "Mensaje"];
+
 const contactMailtoFallback: MailtoFallback = {
   subject: "Nuevo contacto desde JellySolutions",
   intro: "Nuevo mensaje recibido desde el formulario de Contacto - JellySolutions",
+  formType: "contacto",
+  originPage: "/contacto",
   fields: ["Nombre", "Email", "Tipo de consulta", "Asunto", "Mensaje"],
 };
 
@@ -709,6 +793,41 @@ export function ContactPage() {
   const formEndpoint = siteConfig.forms.contactFormEndpoint;
   const formAction = formEndpoint || siteConfig.contactUrl;
   const form = useFormSubmission(formEndpoint, contactMailtoFallback);
+  const [focusedField, setFocusedField] = useState("");
+  const [hasTyped, setHasTyped] = useState(false);
+  const [completedFields, setCompletedFields] = useState(0);
+  const [hasValidationError, setHasValidationError] = useState(false);
+  const [submittedOnce, setSubmittedOnce] = useState(false);
+
+  function syncContactProgress(formElement: HTMLFormElement) {
+    const formData = new FormData(formElement);
+    const completed = contactRequiredFields.filter((field) => getFormValue(formData, field)).length;
+
+    setCompletedFields(completed);
+    if (formElement.checkValidity()) {
+      setHasValidationError(false);
+    }
+  }
+
+  function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
+    syncContactProgress(event.currentTarget);
+    if (!event.currentTarget.checkValidity()) {
+      setSubmittedOnce(false);
+      setHasValidationError(true);
+      return;
+    }
+
+    setSubmittedOnce(true);
+    setHasValidationError(false);
+    form.handleSubmit(event);
+  }
+
+  function updateFocusedField(target: EventTarget) {
+    const control = target as unknown as NamedFormControl;
+    if (control.name) {
+      setFocusedField(control.name);
+    }
+  }
 
   return (
     <PageShell>
@@ -724,9 +843,24 @@ export function ContactPage() {
             action={formAction}
             method="post"
             encType={formEndpoint ? "multipart/form-data" : "text/plain"}
-            onSubmit={form.handleSubmit}
+            onSubmit={handleContactSubmit}
+            onChange={(event) => {
+              setHasTyped(true);
+              syncContactProgress(event.currentTarget);
+            }}
+            onFocus={(event) => {
+              updateFocusedField(event.target);
+            }}
+            onInvalidCapture={(event) => {
+              setHasValidationError(true);
+              updateFocusedField(event.target);
+            }}
             className="min-w-0 rounded-[30px] border border-line/16 bg-panel p-6 shadow-lift sm:p-8"
           >
+            <label className="sr-only" aria-hidden="true">
+              Empresa
+              <input name={honeypotField} tabIndex={-1} autoComplete="off" />
+            </label>
             {formEndpoint ? (
               <>
                 <input
@@ -734,6 +868,7 @@ export function ContactPage() {
                   name="Origen"
                   value="Formulario de Contacto - JellySolutions"
                 />
+                <input type="hidden" name="Origen de página" value="/contacto" />
                 <input type="hidden" name="_subject" value="Nuevo contacto desde JellySolutions" />
               </>
             ) : null}
@@ -822,13 +957,27 @@ export function ContactPage() {
             <p className="mt-4 text-xs leading-5 text-muted">
               {form.status === "idle"
                 ? formEndpoint
-                  ? "El formulario está preparado para enviar el mensaje por Formspree."
-                  : "El envío usa un fallback temporal por email hasta que pegues el endpoint de Formspree."
+                  ? "Envíanos tu solicitud y revisaremos si encaja, qué alcance tendría y cuál sería el siguiente paso."
+                  : "Al enviar se abrirá tu aplicación de correo con la solicitud preparada para enviarla."
                 : formStatusMessages[form.status]}
             </p>
           </form>
 
           <aside className="grid gap-5">
+            <div className="rounded-[28px] border border-line/16 bg-panel p-4 shadow-card sm:p-5">
+              <InteractiveJellyfish
+                focusedField={focusedField}
+                hasTyped={hasTyped}
+                completedFields={completedFields}
+                hasValidationError={hasValidationError}
+                isSubmitting={form.isSubmitting}
+                isSubmitted={form.status === "success" || submittedOnce}
+              />
+              <p className="mt-4 text-sm leading-6 text-muted">
+                Detalle interactivo: una muestra de cómo podemos añadir personalidad a una web sin
+                perder claridad.
+              </p>
+            </div>
             <div className="rounded-[28px] border border-line/16 bg-panel p-6 shadow-card">
               <IconBadge icon="BadgeCheck" />
               <h2 className="mt-6 text-xl font-semibold text-text">Qué recibirás</h2>

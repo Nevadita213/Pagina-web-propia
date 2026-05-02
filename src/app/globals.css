@@ -114,6 +114,411 @@ a {
   backdrop-filter: blur(18px);
 }
 
+.ambient-jellyfish {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-jellyfish--soft {
+  opacity: 0.82;
+}
+
+.ambient-jellyfish--nav {
+  inset: -1.25rem;
+  opacity: 0.45;
+}
+
+.ambient-jellyfish__item {
+  --jelly-color: 21 200 200;
+  position: absolute;
+  left: var(--jelly-x);
+  top: var(--jelly-y);
+  width: calc(2.1rem * var(--jelly-scale));
+  height: calc(2.1rem * var(--jelly-scale));
+  border: 1px solid rgb(var(--jelly-color) / 0.22);
+  border-radius: 55% 55% 48% 48%;
+  background:
+    radial-gradient(circle at 42% 26%, rgb(255 255 255 / 0.34), transparent 0.42rem),
+    radial-gradient(circle at 50% 78%, rgb(var(--jelly-color) / 0.16), transparent 60%),
+    rgb(var(--jelly-color) / 0.1);
+  box-shadow:
+    0 0 18px rgb(var(--jelly-color) / 0.22),
+    inset 0 -8px 14px rgb(var(--jelly-color) / 0.08);
+  filter: blur(0.15px);
+  opacity: 0.38;
+  transform: translate3d(0, 0, 0) scale(var(--jelly-scale));
+  animation: jelly-float var(--jelly-time) ease-in-out var(--jelly-delay) infinite;
+}
+
+.ambient-jellyfish__item::before,
+.ambient-jellyfish__item::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 78%;
+  width: 48%;
+  height: calc(1.75rem * var(--jelly-scale));
+  border-bottom: 1px solid rgb(var(--jelly-color) / 0.18);
+  border-left: 1px solid rgb(var(--jelly-color) / 0.16);
+  border-radius: 0 0 999px 999px;
+  transform: translateX(-50%) rotate(8deg);
+}
+
+.ambient-jellyfish__item::after {
+  width: 34%;
+  height: calc(1.25rem * var(--jelly-scale));
+  transform: translateX(-10%) rotate(-10deg);
+  opacity: 0.82;
+}
+
+.ambient-jellyfish__item--coral {
+  --jelly-color: 255 107 94;
+}
+
+.ambient-jellyfish__item--lime {
+  --jelly-color: 184 233 134;
+}
+
+.interactive-jellyfish {
+  position: relative;
+  display: grid;
+  min-height: 285px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgb(21 200 200 / 0.18);
+  background:
+    linear-gradient(135deg, rgb(21 200 200 / 0.08), transparent 28%, rgb(255 107 148 / 0.07)),
+    radial-gradient(circle at 50% 28%, rgb(21 200 200 / 0.14), transparent 40%),
+    radial-gradient(circle at 72% 72%, rgb(119 88 209 / 0.16), transparent 46%),
+    rgb(var(--color-panel) / 0.76);
+  box-shadow:
+    var(--shadow-card),
+    inset 0 0 0 1px rgb(255 255 255 / 0.03);
+  pointer-events: none;
+}
+
+.interactive-jellyfish::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(var(--color-line) / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--color-line) / 0.035) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(circle at 50% 42%, black, transparent 70%);
+  opacity: 0.5;
+}
+
+.interactive-jellyfish__halo {
+  position: absolute;
+  inset: 14%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgb(21 200 200 / 0.2), rgb(95 151 255 / 0.08) 42%, transparent 68%);
+  filter: blur(12px);
+  opacity: 0.76;
+  animation: jelly-pulse 5.4s ease-in-out infinite;
+}
+
+.interactive-jellyfish__svg {
+  position: relative;
+  z-index: 1;
+  width: min(82%, 260px);
+  max-width: 270px;
+  filter:
+    drop-shadow(0 0 26px rgb(21 200 200 / 0.18))
+    drop-shadow(0 0 12px rgb(255 107 148 / 0.08));
+}
+
+.interactive-jellyfish__float {
+  transform-origin: center;
+  animation: jelly-idle 6.4s ease-in-out infinite;
+}
+
+.interactive-jellyfish__outer {
+  stroke-dasharray: 1 10;
+  opacity: 0.62;
+  animation: jelly-rim 14s linear infinite;
+}
+
+.interactive-jellyfish__dome {
+  opacity: 0.92;
+}
+
+.interactive-jellyfish__rim {
+  filter:
+    drop-shadow(0 0 8px rgb(21 200 200 / 0.48))
+    drop-shadow(0 0 5px rgb(255 107 176 / 0.22));
+}
+
+.interactive-jellyfish__circuit {
+  opacity: 0.72;
+}
+
+.interactive-jellyfish__particles circle {
+  fill: rgb(21 200 200 / 0.42);
+  filter: drop-shadow(0 0 7px rgb(21 200 200 / 0.34));
+  animation: jelly-particle 5.8s ease-in-out infinite;
+}
+
+.interactive-jellyfish__particles circle:nth-child(2),
+.interactive-jellyfish__particles circle:nth-child(4) {
+  fill: rgb(255 107 148 / 0.36);
+  animation-delay: -1.8s;
+}
+
+.interactive-jellyfish__particles circle:nth-child(3) {
+  animation-delay: -3s;
+}
+
+.interactive-jellyfish__face {
+  transform-origin: 130px 110px;
+  transition: transform 240ms ease;
+}
+
+.interactive-jellyfish__eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: jelly-blink 5.4s ease-in-out infinite;
+}
+
+.interactive-jellyfish__eye:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.interactive-jellyfish__mouth {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: d 240ms ease;
+}
+
+.interactive-jellyfish__tentacles path {
+  stroke-width: 2.6;
+  stroke: rgb(21 200 200 / 0.5);
+  filter: drop-shadow(0 0 5px rgb(21 200 200 / 0.22));
+  transform-origin: top center;
+  animation: jelly-tentacle 4.4s ease-in-out infinite;
+}
+
+.interactive-jellyfish__tentacles path:nth-child(2) {
+  stroke: rgb(88 140 255 / 0.46);
+  animation-delay: -0.8s;
+}
+
+.interactive-jellyfish__tentacles path:nth-child(3) {
+  stroke: rgb(180 205 255 / 0.34);
+  animation-delay: -1.4s;
+}
+
+.interactive-jellyfish__tentacles path:nth-child(4) {
+  stroke: rgb(255 107 176 / 0.46);
+  animation-delay: -2.1s;
+}
+
+.interactive-jellyfish__tentacles path:nth-child(5) {
+  stroke: rgb(132 98 255 / 0.45);
+  animation-delay: -2.8s;
+}
+
+.interactive-jellyfish__tentacles path:nth-child(6) {
+  stroke: rgb(21 200 200 / 0.46);
+  animation-delay: -3.4s;
+}
+
+.interactive-jellyfish--focus .interactive-jellyfish__face {
+  transform: translateX(-5px) translateY(2px);
+}
+
+.interactive-jellyfish--focus .interactive-jellyfish__halo {
+  opacity: 0.92;
+  background:
+    radial-gradient(circle, rgb(21 200 200 / 0.22), rgb(119 88 209 / 0.1) 44%, transparent 68%);
+}
+
+.interactive-jellyfish--typing .interactive-jellyfish__tentacles path,
+.interactive-jellyfish--sending .interactive-jellyfish__tentacles path {
+  animation-duration: 2.2s;
+}
+
+.interactive-jellyfish--typing .interactive-jellyfish__face {
+  transform: translateY(3px) scale(1.018);
+}
+
+.interactive-jellyfish--typing .interactive-jellyfish__mouth,
+.interactive-jellyfish--ready .interactive-jellyfish__mouth,
+.interactive-jellyfish--sent .interactive-jellyfish__mouth {
+  transform: translateY(-1px) scaleX(1.12);
+}
+
+.interactive-jellyfish--ready .interactive-jellyfish__halo,
+.interactive-jellyfish--sent .interactive-jellyfish__halo {
+  background:
+    radial-gradient(circle, rgb(184 233 134 / 0.2), rgb(21 200 200 / 0.13), transparent 68%);
+  opacity: 0.95;
+}
+
+.interactive-jellyfish--ready .interactive-jellyfish__float,
+.interactive-jellyfish--sent .interactive-jellyfish__float {
+  animation-name: jelly-nod;
+  animation-duration: 3.2s;
+}
+
+.interactive-jellyfish--error .interactive-jellyfish__face {
+  transform: translateY(-3px) scale(1.035);
+}
+
+.interactive-jellyfish--error .interactive-jellyfish__halo {
+  background:
+    radial-gradient(circle, rgb(255 107 148 / 0.16), rgb(119 88 209 / 0.1), transparent 68%);
+}
+
+.interactive-jellyfish--error .interactive-jellyfish__rim {
+  stroke: rgb(255 107 176 / 0.58);
+}
+
+.interactive-jellyfish__status {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  z-index: 2;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--color-line) / 0.12);
+  background: rgb(var(--color-elevated) / 0.62);
+  padding: 0.55rem 0.8rem;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgb(var(--color-muted));
+  backdrop-filter: blur(12px);
+}
+
+@keyframes jelly-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(var(--jelly-scale)) rotate(-2deg);
+  }
+
+  50% {
+    transform: translate3d(var(--jelly-drift), -28px, 0) scale(var(--jelly-scale)) rotate(4deg);
+  }
+}
+
+@keyframes jelly-idle {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(1.5deg);
+  }
+}
+
+@keyframes jelly-rim {
+  to {
+    stroke-dashoffset: -80;
+  }
+}
+
+@keyframes jelly-particle {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 0.72;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes jelly-nod {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  42% {
+    transform: translateY(6px) rotate(1deg);
+  }
+
+  62% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+@keyframes jelly-tentacle {
+  0%,
+  100% {
+    transform: translateX(0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateX(4px) rotate(2deg);
+  }
+}
+
+@keyframes jelly-pulse {
+  0%,
+  100% {
+    opacity: 0.64;
+    transform: scale(0.96);
+  }
+
+  50% {
+    opacity: 0.92;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes jelly-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  95% {
+    transform: scaleY(0.16);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-jellyfish__item {
+    animation: none !important;
+    transform: translate3d(0, 0, 0) scale(var(--jelly-scale));
+  }
+
+  .interactive-jellyfish__halo,
+  .interactive-jellyfish__float,
+  .interactive-jellyfish__eye,
+  .interactive-jellyfish__outer,
+  .interactive-jellyfish__particles circle,
+  .interactive-jellyfish__tentacles path {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .interactive-jellyfish {
+    min-height: 170px;
+  }
+
+  .interactive-jellyfish__svg {
+    width: min(54%, 150px);
+  }
+
+  .interactive-jellyfish__status {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   :root {
     --shadow-card: 0 18px 48px rgba(0, 0, 0, 0.26);

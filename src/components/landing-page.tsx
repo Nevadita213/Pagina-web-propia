@@ -37,15 +37,16 @@ import {
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { AmbientJellyfish } from "@/components/ambient-jellyfish";
 import {
   heroContent,
+  homeAudienceExamples,
   homeLines,
-  homeOutcomes,
+  homeProblems,
   navLinks,
-  packages,
   processSteps,
-  projectExamples,
   siteConfig,
 } from "@/lib/site-data";
 
@@ -362,12 +363,18 @@ export function PrimaryButton({
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  function isActivePath(href: string) {
+    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  }
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-4 py-4">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 rounded-full border border-line/16 bg-panel/86 px-3 py-3 text-text shadow-lift backdrop-blur-xl sm:px-4">
-        <a href="/" className="group flex min-w-fit shrink-0 items-center gap-2 sm:gap-3">
-          <span className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[42%] border border-white/28 bg-ink shadow-glow ring-1 ring-aqua/20 sm:h-11 sm:w-11">
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-3 overflow-hidden rounded-full border border-white/14 bg-panel/82 px-3 py-3 text-text shadow-lift ring-1 ring-aqua/10 backdrop-blur-2xl before:absolute before:inset-0 before:rounded-full before:bg-[linear-gradient(120deg,rgba(21,200,200,0.13),transparent_32%,rgba(255,107,94,0.1)_68%,transparent)] before:opacity-80 sm:px-4">
+        <AmbientJellyfish density="nav" />
+        <a href="/" className="group relative z-10 flex min-w-fit shrink-0 items-center gap-2 sm:gap-3">
+          <span className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[42%] border border-white/28 bg-ink shadow-glow ring-1 ring-aqua/20 transition duration-300 group-hover:shadow-[0_0_34px_rgba(21,200,200,0.42)] group-hover:ring-aqua/45 sm:h-11 sm:w-11">
             <span className="absolute inset-0 bg-gradient-to-br from-aqua/20 via-violet/16 to-coral/20" />
             <Image
               src="/jelly-logo-icon.png"
@@ -384,19 +391,33 @@ export function Header() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="rounded-full px-4 py-2 text-sm text-muted transition hover:bg-elevated hover:text-text"
-            >
-              {link.label}
-            </a>
-          ))}
+        <nav className="relative z-10 hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
+          {navLinks.map((link) => {
+            const active = isActivePath(link.href);
+
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className={`group relative overflow-hidden rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${
+                  active
+                    ? "bg-aqua/10 text-text shadow-[inset_0_0_0_1px_rgba(21,200,200,0.16)]"
+                    : "text-muted hover:bg-elevated/72 hover:text-text"
+                }`}
+              >
+                <span className="relative z-10">{link.label}</span>
+                <span
+                  className={`absolute bottom-1.5 left-4 right-4 h-px origin-left rounded-full bg-gradient-to-r from-aqua via-lime to-coral transition-transform duration-300 ${
+                    active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                />
+              </a>
+            );
+          })}
         </nav>
 
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="relative z-10 hidden items-center gap-2 lg:flex">
           <ThemeToggle />
           <a
             href={siteConfig.primaryContactHref}
@@ -406,7 +427,7 @@ export function Header() {
           </a>
         </div>
 
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="relative z-10 flex items-center gap-2 lg:hidden">
           <ThemeToggle compact />
           <button
             type="button"
@@ -420,28 +441,43 @@ export function Header() {
       </div>
 
       {open ? (
-        <div className="mx-auto mt-3 max-w-7xl rounded-[28px] border border-line/18 bg-panel/94 p-3 text-text shadow-lift backdrop-blur-xl lg:hidden">
-          {navLinks.map((link) => (
+        <div className="relative mx-auto mt-3 max-w-7xl overflow-hidden rounded-[28px] border border-white/14 bg-panel/94 p-3 text-text shadow-lift ring-1 ring-aqua/10 backdrop-blur-xl lg:hidden">
+          <AmbientJellyfish density="nav" />
+          <div className="relative z-10">
+            {navLinks.map((link) => {
+              const active = isActivePath(link.href);
+
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={`group relative flex items-center justify-between overflow-hidden rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+                    active ? "bg-aqua/10 text-text" : "text-muted hover:bg-elevated hover:text-text"
+                  }`}
+                >
+                  <span className="relative z-10">{link.label}</span>
+                  <ChevronRight className="relative z-10 h-4 w-4" />
+                  <span
+                    className={`absolute bottom-2 left-4 right-12 h-px origin-left rounded-full bg-gradient-to-r from-aqua via-lime to-coral transition-transform duration-300 ${
+                      active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
+                </a>
+              );
+            })}
+            <div className="mt-2 flex justify-center">
+              <ThemeToggle />
+            </div>
             <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-muted transition hover:bg-elevated hover:text-text"
+              href={siteConfig.primaryContactHref}
+              className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-aqua px-4 py-3 text-sm font-semibold text-ink"
             >
-              {link.label}
-              <ChevronRight className="h-4 w-4" />
+              Pedir presupuesto
+              <Send className="h-4 w-4" />
             </a>
-          ))}
-          <div className="mt-2 flex justify-center">
-            <ThemeToggle />
           </div>
-          <a
-            href={siteConfig.primaryContactHref}
-            className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-aqua px-4 py-3 text-sm font-semibold text-ink"
-          >
-            Pedir presupuesto
-            <Send className="h-4 w-4" />
-          </a>
         </div>
       ) : null}
     </header>
@@ -507,12 +543,13 @@ function HeroVisual() {
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-ink px-4 pb-12 pt-24 text-paper sm:px-6 lg:px-8">
+      <AmbientJellyfish />
       <div className="noise-overlay" />
       <div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-aqua/18 to-transparent" />
       <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-coral/18 blur-3xl" />
       <div className="absolute right-0 top-24 h-80 w-80 rounded-full bg-lime/12 blur-3xl" />
 
-      <div className="relative mx-auto grid min-h-[80svh] max-w-7xl items-center gap-10 py-6 lg:grid-cols-[1.02fr_0.98fr] lg:py-8">
+      <div className="relative z-10 mx-auto grid min-h-[80svh] max-w-7xl items-center gap-10 py-6 lg:grid-cols-[1.02fr_0.98fr] lg:py-8">
         <motion.div
           initial={{ opacity: 1, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -528,8 +565,8 @@ function Hero() {
             {heroContent.subtitle}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <PrimaryButton href={siteConfig.primaryContactHref}>{heroContent.primaryCta}</PrimaryButton>
-            <PrimaryButton href="#ejemplos" variant="secondary">
+            <PrimaryButton href="/digital">{heroContent.primaryCta}</PrimaryButton>
+            <PrimaryButton href="/productos" variant="secondary">
               {heroContent.secondaryCta}
             </PrimaryButton>
           </div>
@@ -570,32 +607,56 @@ function Hero() {
   );
 }
 
-function WhatWeDo() {
+function Audience() {
   return (
     <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
+        <div className="grid gap-8 lg:grid-cols-[0.58fr_0.42fr] lg:items-start">
+          <SectionHeading
+            eyebrow="Para quién es"
+            title="Pensado para proyectos pequeños que necesitan verse claros."
+            description="Podemos ayudarte si tienes un negocio, un evento, una marca pequeña o una idea que necesita estructura antes de enseñarse."
+          />
+          <div className="rounded-[28px] border border-line/16 bg-panel p-6 shadow-card sm:p-7">
+            <IconBadge icon="UsersRound" />
+            <div className="mt-6 flex flex-wrap gap-2">
+              {homeAudienceExamples.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-line/16 bg-elevated px-3 py-2 text-sm font-semibold text-muted"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </MotionSection>
+  );
+}
+
+function Problems() {
+  return (
+    <MotionSection className="bg-surface px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="Qué conseguimos para ti"
-          title="Menos fricción entre tu idea y el cliente que quiere contactar."
-          description="Inicio resume el resultado, no el catálogo entero. Si necesitas el detalle, cada camino tiene su propia página."
+          eyebrow="Problemas que resolvemos"
+          title="Cuando lo que haces existe, pero cuesta explicarlo bien."
+          description="Ordenamos presencia, contacto, presentación y piezas personalizadas para que la gente entienda antes qué ofreces y cómo avanzar."
         />
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {homeOutcomes.map((item, index) => (
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          {homeProblems.map((problem, index) => (
             <motion.article
-              key={item.title}
-              className={`group relative overflow-hidden rounded-[28px] border bg-panel bg-gradient-to-br p-6 shadow-lift transition hover:-translate-y-1 hover:bg-elevated sm:p-8 ${
-                accentClasses[item.accent as keyof typeof accentClasses]
-              }`}
+              key={problem}
+              className="flex items-start gap-4 rounded-[24px] border border-line/16 bg-panel p-5 shadow-card transition hover:-translate-y-1 hover:bg-elevated"
               variants={fadeUp}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              whileHover={{ y: -6 }}
+              transition={{ duration: 0.5, delay: index * 0.04 }}
             >
-              <div className="absolute right-0 top-0 h-44 w-44 rounded-full bg-current opacity-10 blur-3xl" />
-              <div className="relative">
-                <IconBadge icon={item.icon} />
-                <h3 className="mt-7 text-xl font-semibold text-text">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-muted">{item.description}</p>
-              </div>
+              <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-aqua/16 text-aqua">
+                <Check className="h-4 w-4" />
+              </span>
+              <p className="text-base leading-7 text-muted">{problem}</p>
             </motion.article>
           ))}
         </div>
@@ -610,13 +671,14 @@ function HomeLines() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
           <SectionHeading
-            eyebrow="Tres formas de trabajar con nosotros"
-            title="Elige por dónde empezar."
-            description="La línea digital es el punto principal: webs, menús QR y sistemas de contacto. Los productos físicos completan la marca cuando necesitas algo para eventos, regalos o promociones."
+            eyebrow="Qué hacemos"
+            title="Tres caminos claros según lo que necesitas."
+            description="El Inicio sirve para orientarte. Si quieres detalle, cada apartado explica su parte sin mezclarlo todo en la misma página."
           />
           <p className="max-w-2xl text-sm leading-7 text-muted lg:justify-self-end">
-            Puedes entrar por una línea concreta o combinar varias cuando tenga sentido. La idea
-            es empezar por lo útil y dejar claro el siguiente paso.
+            Trabajamos con soluciones digitales, productos físicos personalizados y propuestas de
+            colaboración. Puedes entrar por una línea concreta o combinar varias cuando tenga
+            sentido.
           </p>
         </div>
 
@@ -658,60 +720,16 @@ function HomeLines() {
   );
 }
 
-function Packages() {
-  return (
-    <MotionSection className="bg-mist px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          eyebrow="Paquetes orientativos"
-          title="Tres formas sencillas de pedir algo concreto."
-          description="No son precios cerrados universales: sirven para entender alcance, preparar una propuesta clara y evitar presupuestos ambiguos."
-        />
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {packages.map((pack, index) => (
-            <motion.article
-              key={pack.title}
-              className="group rounded-[28px] border border-line/16 bg-panel p-6 shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift sm:p-7"
-              variants={fadeUp}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              whileHover={{ y: -6 }}
-            >
-              <div className="mb-6 flex items-center justify-between gap-4">
-                <IconBadge icon={pack.icon} />
-                <span className="rounded-full border border-line/16 bg-elevated/72 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-                  {pack.note}
-                </span>
-              </div>
-              <h3 className="text-2xl font-semibold text-text">{pack.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-muted">{pack.description}</p>
-              <div className="mt-6 grid gap-3">
-                {pack.includes.map((item) => (
-                  <div key={item} className="flex items-start gap-3 text-sm leading-6 text-muted">
-                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-aqua/18 text-aqua">
-                      <Check className="h-3.5 w-3.5" />
-                    </span>
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.article>
-          ))}
-        </div>
-      </div>
-    </MotionSection>
-  );
-}
-
 function Process() {
   return (
     <MotionSection id="proceso" className="bg-surface px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Proceso"
-          title="De una idea suelta a una entrega clara en cuatro pasos."
-          description="Un flujo sencillo para que sepas qué pasa en cada momento, tanto si necesitas una web como un producto personalizado."
+          title="Un proceso simple para pasar de idea a resultado usable."
+          description="Trabajamos con pasos concretos para que sepas qué se decide, qué se crea y cuándo puedes revisar."
         />
-        <div className="relative mt-12 grid gap-5 lg:grid-cols-4">
+        <div className="relative mt-12 grid gap-5 lg:grid-cols-5">
           <div className="absolute left-0 right-0 top-9 hidden h-px bg-gradient-to-r from-aqua via-lime to-coral lg:block" />
           {processSteps.map((step, index) => (
             <motion.article
@@ -733,69 +751,44 @@ function Process() {
   );
 }
 
-function Projects() {
-  return (
-    <MotionSection id="ejemplos" className="bg-mist px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          eyebrow="Ideas aplicadas"
-          title="Ejemplos rápidos de lo que podemos crear."
-          description="Algunas formas sencillas de empezar según lo que necesite tu negocio, evento o marca."
-        />
-        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {projectExamples.map((project, index) => (
-            <article
-              key={project.title}
-              className="group min-h-[260px] overflow-hidden rounded-[28px] border border-line/16 bg-panel shadow-card transition hover:-translate-y-1 hover:bg-elevated hover:shadow-lift"
-            >
-              <div
-                className={`h-28 ${
-                  index % 2 === 0
-                    ? "bg-[linear-gradient(135deg,#15C8C8,#B8E986)]"
-                    : "bg-[linear-gradient(135deg,#FF6B5E,#F4C95D)]"
-                }`}
-              />
-              <div className="p-5">
-                <span className="rounded-full bg-elevated px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted">
-                  {project.type}
-                </span>
-                <h3 className="mt-5 text-xl font-semibold text-text">{project.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-muted">{project.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </MotionSection>
-  );
-}
-
 function FinalCta() {
+  const startLinks = [
+    { label: "Digital", href: "/digital", icon: "MonitorSmartphone" },
+    { label: "Productos físicos", href: "/productos", icon: "Shirt" },
+    { label: "Colabora", href: "/colabora", icon: "Handshake" },
+    { label: "Contacto", href: "/contacto", icon: "Mail" },
+  ];
+
   return (
-    <section id="contacto" className="bg-surface px-4 py-20 sm:px-6 lg:px-8">
+    <section className="bg-surface px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-ink p-7 text-paper shadow-glow sm:p-10 lg:p-14">
-        <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-aqua">
-              Hablemos
+              Siguiente paso
             </p>
             <h2 className="text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
-              Cuéntanos qué necesitas y te proponemos una solución simple, con precio cerrado y próximos pasos claros.
+              ¿Por dónde quieres empezar?
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-8 text-paper/80">
-              Puede ser una web, un menú QR, una automatización, un producto personalizado o
-              un pack completo. Te orientamos sin complicarte el proceso.
+              Elige el apartado que encaja mejor con lo que tienes en mente. Si todavía no lo tienes
+              claro, Contacto es el camino más directo.
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-            <PrimaryButton href={siteConfig.primaryContactHref}>Enviar consulta</PrimaryButton>
-            <a
-              href={siteConfig.contactUrl}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/8 px-5 text-sm font-semibold text-paper transition hover:-translate-y-1 hover:bg-white/14"
-            >
-              <Mail className="h-4 w-4" />
-              Pedir presupuesto
-            </a>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {startLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="group flex min-h-20 items-center justify-between gap-4 rounded-[22px] border border-white/18 bg-white/8 px-5 py-4 text-paper transition hover:-translate-y-1 hover:bg-white/14"
+              >
+                <span className="flex items-center gap-3">
+                  <ProductIconVisual icon={link.icon} />
+                  <span className="text-sm font-semibold">{link.label}</span>
+                </span>
+                <ArrowRight className="h-4 w-4 shrink-0 transition group-hover:translate-x-1" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -804,7 +797,6 @@ function FinalCta() {
 }
 
 export function Footer() {
-  const visibleSocialLinks = siteConfig.socialLinks.filter((link) => link.href);
   const visibleLegalLinks = siteConfig.legalLinks.filter((link) => link.href);
 
   return (
@@ -815,12 +807,12 @@ export function Footer() {
           <p className="mt-3 max-w-sm text-sm leading-6 text-paper/62">{siteConfig.tagline}</p>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-paper">Servicios</h3>
+          <h3 className="text-sm font-semibold text-paper">Digital</h3>
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
-            <a href="/digital">Digital</a>
             <a href="/digital">Webs</a>
-            <a href="/digital">Automatizaciones</a>
             <a href="/digital">Menús QR</a>
+            <a href="/digital">Formularios</a>
+            <a href="/digital">Automatizaciones</a>
           </div>
         </div>
         <div>
@@ -828,8 +820,8 @@ export function Footer() {
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
             <a href="/productos">Camisetas</a>
             <a href="/productos">Llaveros</a>
+            <a href="/productos">Tazas</a>
             <a href="/productos">Packs</a>
-            <a href="/productos">Productos para eventos</a>
           </div>
         </div>
         <div>
@@ -842,15 +834,19 @@ export function Footer() {
         <div>
           <h3 className="text-sm font-semibold text-paper">Contacto</h3>
           <div className="mt-3 grid gap-2 text-sm text-paper/60">
-            <a href={siteConfig.contactUrl}>{siteConfig.contactEmail}</a>
+            <a href={siteConfig.contactUrl}>Email</a>
             <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer">
-              Escribir por WhatsApp
+              WhatsApp
             </a>
-            {visibleSocialLinks.map((link) => (
-              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
-                {link.label}
-              </a>
-            ))}
+            <a href={siteConfig.instagramUrl} target="_blank" rel="noopener noreferrer">
+              Instagram
+            </a>
+            <a href={siteConfig.tiktokUrl} target="_blank" rel="noopener noreferrer">
+              TikTok
+            </a>
+            <a href={siteConfig.facebookUrl} target="_blank" rel="noopener noreferrer">
+              Facebook
+            </a>
           </div>
         </div>
       </div>
@@ -877,10 +873,9 @@ export function LandingPage() {
       <main>
         <Hero />
         <HomeLines />
-        <WhatWeDo />
+        <Audience />
+        <Problems />
         <Process />
-        <Packages />
-        <Projects />
         <FinalCta />
       </main>
       <Footer />
