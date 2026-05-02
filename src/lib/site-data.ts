@@ -20,11 +20,11 @@ export const siteConfig = {
   tiktokUrl,
   facebookUrl,
   forms: {
-    // Los formularios envían a rutas API propias para no exponer WEB3FORMS_ACCESS_KEY en cliente.
-    // Define WEB3FORMS_ACCESS_KEY en .env.local y en Vercel Project Settings > Environment Variables.
-    contactFormEndpoint: "/api/contact",
-    collaborationFormEndpoint: "/api/collaboration",
-    recommendedProductionOption: "Web3Forms mediante rutas API de Next.js",
+    // Web3Forms Free funciona con integración client-side oficial.
+    // Define NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY en .env.local y en Vercel Project Settings > Environment Variables.
+    contactFormEndpoint: "https://api.web3forms.com/submit",
+    collaborationFormEndpoint: "https://api.web3forms.com/submit",
+    recommendedProductionOption: "Web3Forms client-side",
   },
   socialLinks: [
     { label: "Instagram", href: instagramUrl },

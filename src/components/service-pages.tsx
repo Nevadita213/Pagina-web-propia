@@ -52,6 +52,7 @@ type NamedFormControl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaEleme
 const internalStatusField = "Estado interno";
 const initialInternalStatus = "nuevo";
 const honeypotField = "Empresa";
+const web3FormsEndpoint = "https://api.web3forms.com/submit";
 const systemFields = ["Tipo de formulario", "Fecha de envío", "Origen de página", internalStatusField];
 
 const formStatusMessages: Record<Exclude<FormStatus, "idle">, string> = {
@@ -93,6 +94,7 @@ function buildMailtoUrl(formData: FormData, fallback: MailtoFallback) {
 
 function useFormSubmission(endpoint: string, fallback: MailtoFallback) {
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [statusMessage, setStatusMessage] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -110,6 +112,24 @@ function useFormSubmission(endpoint: string, fallback: MailtoFallback) {
     }
 
     formData.delete(honeypotField);
+    formData.set("subject", fallback.subject);
+    formData.set("from_name", "JellySolutions");
+
+    if (endpoint === web3FormsEndpoint) {
+      const web3FormsAccessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
+
+      if (!web3FormsAccessKey) {
+        setStatusMessage(
+          process.env.NODE_ENV === "development"
+            ? "Falta configurar NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY en .env.local y reiniciar el servidor."
+            : "El envío del formulario no está configurado todavía. Puedes escribir directamente a jellysolutions.es@gmail.com.",
+        );
+        setStatus("error");
+        return;
+      }
+
+      formData.set("access_key", web3FormsAccessKey);
+    }
 
     if (!endpoint) {
       window.location.href = buildMailtoUrl(formData, fallback);
@@ -117,10 +137,11 @@ function useFormSubmission(endpoint: string, fallback: MailtoFallback) {
     }
 
     setStatus("submitting");
+    setStatusMessage("");
 
     try {
-      // Conecta aquí un endpoint real de Airtable, Google Sheets, Supabase o API propia.
-      // El body ya incluye campos del formulario y metadatos de gestión: tipo, fecha, origen y estado interno.
+      // Web3Forms Free usa integración client-side oficial. El body conserva los campos
+      // visibles y los metadatos internos: tipo, fecha, origen y estado.
       const response = await fetch(endpoint, {
         method: "POST",
         body: formData,
@@ -138,8 +159,12 @@ function useFormSubmission(endpoint: string, fallback: MailtoFallback) {
       }
 
       form.reset();
+      setStatusMessage(result.message ?? "");
       setStatus("success");
-    } catch {
+    } catch (error) {
+      setStatusMessage(
+        error instanceof Error && error.message !== "Form submission failed" ? error.message : "",
+      );
       setStatus("error");
     }
   }
@@ -147,6 +172,7 @@ function useFormSubmission(endpoint: string, fallback: MailtoFallback) {
   return {
     handleSubmit,
     isSubmitting: status === "submitting",
+    statusMessage,
     status,
   };
 }
@@ -725,7 +751,7 @@ export function CollaboratePage() {
                   ? formEndpoint
                     ? "Envíanos tu propuesta y revisaremos si encaja, qué alcance tendría y cuál sería el siguiente paso."
                     : "Al enviar se abrirá tu aplicación de correo con la propuesta preparada para enviarla."
-                  : formStatusMessages[form.status]}
+                  : form.statusMessage || formStatusMessages[form.status]}
               </p>
 
               <button
@@ -959,7 +985,7 @@ export function ContactPage() {
                 ? formEndpoint
                   ? "Envíanos tu solicitud y revisaremos si encaja, qué alcance tendría y cuál sería el siguiente paso."
                   : "Al enviar se abrirá tu aplicación de correo con la solicitud preparada para enviarla."
-                : formStatusMessages[form.status]}
+                : form.statusMessage || formStatusMessages[form.status]}
             </p>
           </form>
 
